@@ -213,7 +213,7 @@
               <span class="text">Agregar nueva orden</span>
             </a>
 
-            <!-- Modal -->
+            <!-- Modal agregar nueva orden-->
             <div
               class="modal fade"
               id="modalAgregarOrden"
@@ -222,7 +222,7 @@
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
             >
-              <div class="modal-dialog" role="document">
+              <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
@@ -405,6 +405,95 @@
                 </div>
               </div>
             </div>
+
+            <!-- Modal editar orden-->
+
+            <div class="modal fade" id="modalEditarOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <!-- Encabezado del modal -->
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="labelEditarOrden">Editar orden de trabajo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- Contenido del modal -->
+                  <div class="modal-body">
+                    <!-- Formulario -->
+                    <form id="formEditarOrdenTrabajo">
+                      <!-- Input de la fecha -->
+                      <div class="form-group">
+                        <label for="fechaEditar">Fecha</label>
+                        <input type="date" class="form-control" id="fechaEditar" name="fechaEditar" required />
+                      </div>
+            
+                      <!-- Dropdown de título -->
+                      <div class="form-group">
+                        <label for="tituloEditar">Título</label>
+                        <select class="form-control" id="tituloEditar" name="tituloEditar" required>
+                          <option value="">Seleccione el título</option>
+                          <!-- Aquí se cargarán las opciones de título desde la base de datos con JavaScript -->
+                        </select>
+                      </div>
+            
+                      <!-- Dropdown de establecimiento -->
+                      <div class="form-group">
+                        <label for="establecimientoEditar">Seleccione el establecimiento</label>
+                        <select class="form-control" id="establecimientoEditar" name="establecimientoEditar" required>
+                          <option value="">Seleccione el establecimiento</option>
+                          <!-- Aquí se cargarán las opciones de establecimiento desde la base de datos con JavaScript -->
+                        </select>
+                      </div>
+            
+                      <!-- Radio buttons para intervención -->
+                      <div id="modalEditar" class="form-group">
+                        <label>Intervención</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="intervencionEditar" id="opcionCorrectivoEditar" value="1" required />
+                          <label class="form-check-label" for="opcionCorrectivoEditar">Correctivo</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="intervencionEditar" id="opcionPreventivoEditar" value="2" />
+                          <label class="form-check-label" for="opcionPreventivoEditar">Preventivo</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="intervencionEditar" id="opcionParcialEditar" value="3" />
+                          <label class="form-check-label" for="opcionParcialEditar">Parcial</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="intervencionEditar" id="opcionIntegralEditar" value="4" />
+                          <label class="form-check-label" for="opcionIntegralEditar">Integral</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="intervencionEditar" id="opcionCompletaEditar" value="5" />
+                          <label class="form-check-label" for="opcionCompletaEditar">Completa</label>
+                        </div>
+                      </div>
+            
+                      <!-- Input de la descripción -->
+                      <div class="form-group">
+                        <label for="descripcionEditar">Descripción del problema</label>
+                        <textarea class="form-control" id="descripcionEditar" name="descripcionEditar" rows="3" placeholder="Describa el problema" required style="resize: none"></textarea>
+                      </div>
+            
+                      <!-- Input de las observaciones -->
+                      <div class="form-group">
+                        <label for="observacionesEditar">Observaciones</label>
+                        <textarea class="form-control" id="observacionesEditar" name="observacionesEditar" rows="4" placeholder="Ingrese sus observaciones" required style="resize: none"></textarea>
+                      </div>
+                      <br />
+                    </form>
+                  </div>
+                  <!-- Pie del modal -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btnGuardarCambiosEditar" class="btn btn-success" form="formEditarOrdenTrabajo">Guardar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
 
             <!--Fin Modal agregar nueva orden Trabajo -->
 

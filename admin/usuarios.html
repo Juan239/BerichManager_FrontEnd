@@ -217,7 +217,7 @@
               <span class="text">Agregar nuevo usuario</span>
             </a>
 
-            <!-- Modal -->
+            <!-- Modal agregar usuario -->
             <div
               class="modal fade"
               id="modalAgregarUsuario"
@@ -314,6 +314,111 @@
                       form="formAgregarUsuario"
                     >
                       Guardar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal editar usuario -->
+            <div
+              class="modal fade"
+              id="modalEditarUsuario"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <!-- Encabezado del modal -->
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="labelEditarUsuario">
+                      Editar usuario
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- Contenido del modal -->
+                  <div class="modal-body">
+                    <!-- Formulario -->
+                    <form id="formEditarUsuario">
+                      <div class="form-group">
+                        <label for="nombreEditar">Nombre:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="nombreEditar"
+                          placeholder="Ingrese el nuevo nombre"
+                          required
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="apellidoEditar">Apellido:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="apellidoEditar"
+                          placeholder="Ingrese el nuevo apellido"
+                          required
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="nombreUsuarioEditar"
+                          >Nombre de usuario:</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="nombreUsuarioEditar"
+                          placeholder="Ingrese el nuevo nombre de usuario"
+                          required
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="contrasenaEditar">Nueva contraseña:</label>
+                        <div class="input-group">
+                          <input
+                            type="password"
+                            class="form-control"
+                            id="contrasenaEditar"
+                            placeholder="Ingrese una nueva contraseña"
+                            required
+                          />
+                          <div class="input-group-append">
+                            <span class="input-group-text toggle-password">
+                              <i class="fa fa-eye-slash"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Pie del modal -->
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      id="btnEditarUsuario"
+                      class="btn btn-success"
+                      form="formEditarUsuario"
+                    >
+                      Guardar cambios
                     </button>
                   </div>
                 </div>
