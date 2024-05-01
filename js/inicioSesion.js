@@ -1,3 +1,5 @@
+var urlBack = "http://localhost:3000/";
+
 document
   .getElementById("loginForm")
   .addEventListener("submit", function (event) {
@@ -8,7 +10,7 @@ document
       password: document.getElementById("inputContrasena").value,
     }; // Obtener los datos del formulario
 
-    fetch("http://localhost:3000/api/sesion", {
+    fetch(`${urlBack}api/sesion`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,10 +41,11 @@ document
           // window.location.href = "/DAEM/index.html";
         } else {
           // Mostrar un mensaje de error al usuario
-          alert("Usuario o contraseña incorrecta");
+          alert(data.message);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        alert("No hay conexión con el servidor");
       });
   });

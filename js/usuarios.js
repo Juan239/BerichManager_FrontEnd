@@ -37,6 +37,7 @@ if (token) {
       }
 
       if (userRol !== "admin") {
+        // Redirigir al usuario al dashboard si no es administrador
         window.location.href = "http://localhost/DAEM/index.html";
       }
 
@@ -44,11 +45,12 @@ if (token) {
       cargarUsuarios();
     })
     .catch((error) => {
+      window.location.href = "http://localhost/DAEM/login.html";
       console.error("Error:", error.message);
     });
 } else {
-  console.error("No se encontró ningún token almacenado.");
   window.location.href = "http://localhost/DAEM/login.html";
+  alert("Su sesión ha expirado");
 }
 
 //----------------------------------------------------------Configuracion Datatable-------------------------------------------
@@ -73,6 +75,7 @@ $(document).ready(function () {
     $("#modalAgregarUsuario").modal("show");
   });
 
+  // Codigo para ver la contraseña
   $(".toggle-password").click(function () {
     $(this).toggleClass("active");
     let input = $($(this).closest(".input-group").find("input"));
@@ -86,7 +89,7 @@ $(document).ready(function () {
   });
 });
 
-//------------------------------------------------Función cargar establecimientos--------------------------------------------------
+//------------------------------------------------Función cargar usuarios--------------------------------------------------
 //Con esta funcion los registros se agregan directamente al datatable, por lo que ya funcionaria el buscar y la paginacion. *NO AGREGAR COMO HTML, NO FUNCIONA*
 async function cargarUsuarios() {
   try {
@@ -135,7 +138,7 @@ async function cargarUsuarios() {
   } catch (error) {
     console.error("Error:", error.message);
     // Redirigir al usuario a la página de inicio de sesión u otra página apropiada, el error obtenido es por la invalidez del token o la ausencia de este
-    window.location.href = "http://localhost/DAEM/login.html";
+    //window.location.href = "http://localhost/DAEM/login.html";
   }
 }
 
@@ -184,10 +187,21 @@ async function editarUsuario(id) {
     // Obtener los datos del usuario en formato JSON
     const data = await response.json();
 
+    const admin = "admin";
+    const normal = "normal";
+    let rol = data.rol;
+
+    if (rol === admin) {
+      rol = true;
+    } else if (rol === normal) {
+      rol = false;
+    }
+
     // Mostrar los datos del usuario en el modal de edición
     document.getElementById("nombreEditar").value = data.nombre;
     document.getElementById("apellidoEditar").value = data.apellido;
     document.getElementById("nombreUsuarioEditar").value = data.username;
+    document.getElementById("rolCheckboxEditar").checked = rol;
 
     // Listener para el botón de guardar cambios del modal
     $("#btnEditarUsuario").click(async function () {
@@ -197,6 +211,7 @@ async function editarUsuario(id) {
         const nuevoApellido = $("#apellidoEditar").val();
         const nuevoNombreUsuario = $("#nombreUsuarioEditar").val();
         const nuevaPassword = $("#contrasenaEditar").val();
+        const nuevoRol = document.getElementById("rolCheckboxEditar").checked;
 
         // Realizar la petición PUT al servidor para actualizar los datos del usuario
         const editarResponse = await fetch(`${urlBack}api/usuarios/${id}`, {
@@ -211,6 +226,7 @@ async function editarUsuario(id) {
             apellido: nuevoApellido,
             username: nuevoNombreUsuario,
             password: nuevaPassword,
+            rol: nuevoRol,
           }),
         });
 

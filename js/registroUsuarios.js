@@ -7,9 +7,12 @@ async function registrarUsuarios() {
     username: document.getElementById("nombreUsuario").value,
     nombre: document.getElementById("nombre").value,
     apellido: document.getElementById("apellido").value,
-    password: document.getElementById("contrasena").value, //Aplicar el hash cuando implemente el JWT
+    password: document.getElementById("contrasena").value, 
+    rol: document.getElementById('rolCheckbox').checked
+
   };
 
+  console.log(usuario);
   try{
     const request = await fetch(`${urlBack}api/usuarios`, {
       method: "POST",
