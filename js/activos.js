@@ -41,7 +41,7 @@ if (token) {
       }
 
       //Llamar a la funcion cargarCategorias para completar el datatable cuando cargue la pagina
-      cargarCategorias();
+      cargarActivos();
     })
     .catch((error) => {
       console.error("Error:", error.message);
@@ -54,7 +54,7 @@ if (token) {
 //-----------------------------------------------------------Configuracion Datatable--------------------------------------------------
 //Aca puedo cambiar la informacion del datatable
 $(document).ready(function () {
-  $("#tableCategorias").DataTable({
+  $("#tableActivos").DataTable({
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json", // Cambiar idioma
     },
@@ -69,15 +69,16 @@ $(document).ready(function () {
 //Abrir el modal
 $(document).ready(function () {
   // Cuando se hace clic en el botón mostramos el modal
-  $("#btnAgregarCategoria").click(function () {
-    $("#modalAgregarCategoria").modal("show");
+  $("#btnAgregarActivo").click(function () {
+    $("#modalAgregarActivo").modal("show");
   });
 });
 
-//---------------------------------------------------------------------Funcion cargar establecimiento---------------------------------------------------------
-async function cargarCategorias() {
+//-------------------------------------------------------------Funcion cargar activos--------------------------------------------------------------
+async function cargarActivos() {
+  // Realizar una petición GET al servidor para obtener los activos
   try {
-    const response = await fetch(`${urlBack}api/categorias`, {
+    const response = await fetch(`${urlBack}api/tipoActivos`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -86,44 +87,39 @@ async function cargarCategorias() {
       },
     });
 
-    //Si recibe una respuesta incorrecta, manda un error
     if (!response.ok) {
-      throw new Error("Acceso no autorizado");
+      throw new Error("Error al cargar los activos");
     }
-    //Se guarda la respuesta en una variable
-    const categorias = await response.json();
 
-    $("#tableCategorias").DataTable().clear().draw(); // Se limpia la tabla antes de agregar nuevos datos
+    const activos = await response.json();
 
-    //Se recorre la respuesta obtenida para ver los datos que contiene y agregarlos a la tabla
-    for (let categoria of categorias) {
-      //A cada boton eliminar se le asigna la id correspondiente a cada fila
+    $("#tableActivos").DataTable().clear().draw(); //Se limpia la tabla antes de agregar nuevos datos
+
+    for (let activo of activos) {
       let botonEliminar =
-        '<a href="#" onClick="eliminarCategoria(' +
-        categoria.cat_id +
+        '<a href="#" onClick="eliminarActivo(' +
+        activo.ac_id +
         ')" class="btn btn-danger btn-circle mr-2"><i class="fas fa-trash"></i></a>';
       let botonEditar =
-        '<a href="#" onClick="editarCategoria(' +
-        categoria.cat_id +
+        '<a href="#" onClick="editarActivo(' +
+        activo.ac_id +
         ')" class="btn btn-warning btn-circle mr-2"><i class="fas fa-pen"></i></a>';
 
-      $("#tableCategorias")
+      $("#tableActivos")
         .DataTable()
-        .row.add([categoria.cat_id, categoria.cat_nombre, botonEditar + botonEliminar])
+        .row.add([activo.ac_id, activo.ac_nombre, botonEditar + botonEliminar])
         .draw();
     }
   } catch (error) {
     console.error("Error:", error.message);
-    // Redirigir al usuario a la página de inicio de sesión en caso de error, el error obtenido es por la invalidez del token o la ausencia de este
-    window.location.href = "http://localhost/DAEM/login.html";
   }
 }
 
-//----------------------------------------------------------Funcion eliminar categoria----------------------------------------------------
-async function eliminarCategoria(id) {
+async function eliminarActivo(id) {
+  // Realizar una petición DELETE al servidor para eliminar la categoria
   try {
-    if (confirm("¿Desea eliminar esta categoria?")) {
-      const request = await fetch(`${urlBack}api/categorias/` + id, {
+    if (confirm("¿Está seguro de que desea eliminar el activo?")) {
+      const response = await fetch(`${urlBack}api/tipoActivos/${id}`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -131,19 +127,23 @@ async function eliminarCategoria(id) {
           Authorization: `Bearer ${token}`,
         },
       });
-      location.reload();
+
+      if (!response.ok) {
+        throw new Error("Error al eliminar la categoria");
+      }
+
+      cargarActivos();
     }
   } catch (error) {
     console.error("Error:", error.message);
-    // Redirigir al usuario a la página de inicio de sesión en caso de error, el error obtenido es por la invalidez del token o la ausencia de este
-    window.location.href = "http://localhost/DAEM/login.html";
   }
 }
 
-//--------------------------------------------------------------------Funcion editar categoria--------------------------------------------------------
-async function editarCategoria(id) {
+async function editarActivo(id) {
+  // Realizar una petición GET al servidor para obtener los datos de la categoria
+  console.log(id);
   try {
-    const response = await fetch(`${urlBack}api/categorias/${id}`, {
+    const response = await fetch(`${urlBack}api/tipoActivos/${id}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -153,38 +153,47 @@ async function editarCategoria(id) {
     });
 
     if (!response.ok) {
-      throw new Error("Error al cargar la categoria");
+      throw new Error("Error al obtener los datos del activo");
     }
 
-    const categoria = await response.json();
+    const activo = await response.json();
 
-    $("#modalEditarCategoria").modal("show");
-    document.getElementById("nombreCategoriaEditar").value = categoria.cat_nombre;
+    // Mostrar el modal con los datos de la categoria
+    $("#modalEditarActivo").modal("show");
+    document.getElementById("nombreActivoEditar").value = activo[0].ac_nombre;
 
-    document.getElementById("btnEditarCategoria").onclick = async function () {
-      try {
-        const response = await fetch(`${urlBack}api/categorias/${id}`, {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            nombre: document.getElementById("nombreCategoriaEditar").value,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Error al editar la categoria");
+    // Agregar un evento al botón de editar
+    document
+      .getElementById("btnEditarActivo")
+      .addEventListener("click", function () {
+        // Aquí va el código que se ejecutará cuando se haga clic en el botón de editar
+        const nuevoNombre = document.getElementById("nombreActivoEditar").value;
+        try {
+          // Realizar una petición PUT al servidor para editar la categoria
+          fetch(`${urlBack}api/tipoActivos/${id}`, {
+            method: "PUT",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              nombre: nuevoNombre,
+            }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Error al editar la categoria");
+              }
+              location.reload();
+            })
+            .catch((error) => {
+              console.error("Error:", error.message);
+            });
+        } catch (error) {
+          console.error("Error:", error.message);
         }
-
-        $("#modalEditarCategoria").modal("hide");
-        location.reload();
-      } catch (error) {
-        console.error("Error:", error.message);
-      }
-    };
+      });
   } catch (error) {
     console.error("Error:", error.message);
   }

@@ -102,14 +102,16 @@ async function cargarEstablecimientos() {
       let botonEliminar =
         '<a href="#" onClick="eliminarEstablecimiento(' +
         establecimiento.est_id +
-        ')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>';
+        ')" class="btn btn-danger btn-circle mr-2"><i class="fas fa-trash"></i></a>';
+
+      let botonEditar = `<a href="#" onClick="editarEstablecimiento(${establecimiento.est_id})" class="btn btn-warning btn-circle mr-2"><i class="fas fa-pen"></i></a>`;
 
       $("#tableEstablecimientos")
         .DataTable()
         .row.add([
           establecimiento.est_id,
           establecimiento.est_nombre,
-          botonEliminar,
+          botonEditar+botonEliminar,
         ])
         .draw();
     }
@@ -134,6 +136,56 @@ async function eliminarEstablecimiento(id) {
       });
       location.reload();
     }
+  } catch (error) {
+    console.error("Error:", error.message);
+    // Redirigir al usuario a la página de inicio de sesión en caso de error, el error obtenido es por la invalidez del token o la ausencia de este
+    window.location.href = "http://localhost/DAEM/login.html";
+  }
+}
+
+//--------------------------------------------------------------------Funcion editar establecimiento-----------------------------------------------------
+async function editarEstablecimiento(id) {
+  try {
+    const response = await fetch(`${urlBack}api/establecimientos/` + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al cargar el establecimiento");
+    }
+
+    const establecimiento = await response.json();
+
+    document.getElementById("nombreEstablecimientoEditar").value = establecimiento.est_nombre;
+
+    $("#modalEditarEstablecimiento").modal("show");
+
+    document.getElementById("btnEditarEstablecimiento").onclick = function () {
+      const nuevoNombre = document.getElementById("nombreEstablecimientoEditar").value;
+
+      try{
+        const request = fetch(`${urlBack}api/establecimientos/` + id, {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ nombre: nuevoNombre }),
+        });
+        $("#modalEditarEstablecimiento").modal("hide");
+        location.reload();
+      }catch(error){
+        console.error("Error:", error.message);
+        // Redirigir al usuario a la página de inicio de sesión en caso de error, el error obtenido es por la invalidez del token o la ausencia de este
+        window.location.href = "http://localhost/DAEM/login.html";
+      }
+    };
   } catch (error) {
     console.error("Error:", error.message);
     // Redirigir al usuario a la página de inicio de sesión en caso de error, el error obtenido es por la invalidez del token o la ausencia de este

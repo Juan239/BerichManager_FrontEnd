@@ -121,6 +121,13 @@
           >
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link" href="activos.html">
+            <i class="fas fa-wrench"></i>
+            <span>Tipo de activos</span></a
+          >
+        </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block" />
 
@@ -201,7 +208,7 @@
             <!-- Page Heading -->
             <h1 class="h3 mb-2 text-gray-800">Gestión de categorias</h1>
 
-            <!--Modal agregar nueva categoria -->
+            
             <!-- Botón -->
             <a
               href="#"
@@ -214,7 +221,7 @@
               <span class="text">Agregar nueva categoria</span>
             </a>
 
-            <!-- Modal -->
+            <!--Modal agregar nueva categoria -->
             <div
               class="modal fade"
               id="modalAgregarCategoria"
@@ -279,7 +286,70 @@
               </div>
             </div>
 
-            <!--Fin Modal agregar nueva categoria -->
+            <!--Modal editar categoria -->
+            <div
+              class="modal fade"
+              id="modalEditarCategoria"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <!-- Encabezado del modal -->
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="labelAgregarUser">
+                      Editar nueva categoría
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- Contenido del modal -->
+                  <div class="modal-body">
+                    <!-- Formulario -->
+                    <form id="formEditarCategoria">
+                      <div class="form-group">
+                        <label for="nombreCategoriaEditar"
+                          >Nombre de la categoria:</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="nombreCategoriaEditar"
+                          placeholder="Ingrese el nombre de la categoria"
+                          required
+                        />
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Pie del modal -->
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      id="btnEditarCategoria"
+                      type="button"
+                      class="btn btn-success"
+                      form="formAgregarCategoria"
+                    >
+                      Guardar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
