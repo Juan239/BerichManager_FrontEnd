@@ -27,7 +27,6 @@ if (token) {
     })
     .then((data) => {
       // Guardar los datos de la respuesta en variables
-      const idUsuario = data.userId;
       const username = data.username;
       const userRol = data.userRol;
 
@@ -36,16 +35,18 @@ if (token) {
         document.getElementById("nombreDeUsuario").innerText = username;
       }
 
+      console.log("Rol del usuario:", userRol);
+      console.log("Pathname:", window.location.pathname);
       if (
-        userRol !== "admin" &&
-        window.location === "http://localhost/DAEM/admin/ordenesTrabajo.html"
+        userRol === "normal" &&
+        window.location.pathname === "/DAEM/admin/ordenesTrabajo.html"
       ) {
+        console.log("asdasdasd");
         window.location.href = "http://localhost/DAEM/ordenesTrabajo.html";
       } else if (
         userRol === "admin" &&
-        window.location == "http://localhost/DAEM/ordenesTrabajo.html"
+        window.location.pathname == "/DAEM/ordenesTrabajo.html"
       ) {
-        console.log("asd");
         window.location.href =
           "http://localhost/DAEM/admin/ordenesTrabajo.html";
       }
