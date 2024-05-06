@@ -27,7 +27,6 @@ if (token) {
     })
     .then((data) => {
       // Guardar los datos de la respuesta en variables
-      const idUsuario = data.userId;
       const username = data.username;
       const userRol = data.userRol;
 

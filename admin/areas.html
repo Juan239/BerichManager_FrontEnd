@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Usuarios</title>
+    <title>Áreas</title>
 
     <!-- Custom fonts for this template -->
     <link
@@ -22,8 +22,6 @@
       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="../css/loader.css" />
 
     <!-- Custom styles for this template -->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet" />
@@ -105,7 +103,7 @@
         <div class="sidebar-heading">Administrador</div>
 
         <!-- Nav Item - Tables -->
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="usuarios.html">
             <i class="fas fa-fw fa-user"></i>
             <span>Usuarios</span></a
@@ -133,7 +131,7 @@
           >
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="areas.html">
             <i class="fas fa-user-tag"></i>
             <span>Áreas</span></a
@@ -175,8 +173,6 @@
               </button>
             </form>
 
-            <!--<h2>Gestión de usuarios</h2>-->
-
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
               <div class="topbar-divider d-none d-sm-block"></div>
@@ -195,7 +191,8 @@
                   <span
                     id="nombreDeUsuario"
                     class="mr-2 d-none d-lg-inline text-gray-600 small"
-                  ></span>
+                    ></span
+                  >
                   <img
                     class="img-profile rounded-circle"
                     src="../img/undraw_profile.svg"
@@ -226,25 +223,24 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Gestión de usuarios</h1>
+            <h1 class="h3 mb-2 text-gray-800">Gestión de áreas</h1>
 
-            <!--Modal agregar nuevo usuario -->
             <!-- Botón -->
             <a
               href="#"
-              id="btnAgregarUsuario"
+              id="btnAgregarArea"
               class="btn btn-success btn-icon-split my-2"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
               </span>
-              <span class="text">Agregar nuevo usuario</span>
+              <span class="text">Agregar nueva área</span>
             </a>
 
-            <!-- Modal agregar usuario -->
+            <!--Modal agregar nueva area -->
             <div
               class="modal fade"
-              id="modalAgregarUsuario"
+              id="modalAgregarArea"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
@@ -255,7 +251,7 @@
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
                     <h5 class="modal-title" id="labelAgregarUser">
-                      Agregar nuevo usuario
+                      Agregar nueva área
                     </h5>
                     <button
                       type="button"
@@ -269,67 +265,18 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formAgregarUsuario">
+                    <form id="formAgregarArea">
                       <div class="form-group">
-                        <label for="nombre">Nombre:</label>
+                        <label for="nombreArea"
+                          >Nombre del área:</label
+                        >
                         <input
                           type="text"
                           class="form-control"
-                          id="nombre"
-                          placeholder="Ingrese el nombre"
+                          id="nombreArea"
+                          placeholder="Ingrese el nombre del área"
                           required
                         />
-                      </div>
-
-                      <div class="form-group">
-                        <label for="apellido">Apellido:</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="apellido"
-                          placeholder="Ingrese el apellido"
-                          required
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <label for="nombreUsuario">Nombre de usuario:</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="nombreUsuario"
-                          placeholder="Ingrese el nombre de usuario"
-                          required
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <label for="contrasena">Contraseña:</label>
-                        <div class="input-group">
-                          <input
-                            type="password"
-                            class="form-control"
-                            id="contrasena"
-                            placeholder="Ingrese una contraseña"
-                            required
-                          />
-                          <div class="input-group-append">
-                            <span class="input-group-text toggle-password">
-                              <i class="fa fa-eye-slash"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="rolCheckbox">Tipo de usuario</label>
-                        
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="rolCheckbox">
-                          <label class="form-check-label" for="rolCheckbox">
-                            Administrador
-                          </label>
-                        </div>
                       </div>
                     </form>
                   </div>
@@ -343,10 +290,10 @@
                       Cancelar
                     </button>
                     <button
-                      onclick="registrarUsuarios()"
+                      onclick="registrarArea()"
                       type="button"
                       class="btn btn-success"
-                      form="formAgregarUsuario"
+                      form="formAgregarArea"
                     >
                       Guardar
                     </button>
@@ -355,10 +302,10 @@
               </div>
             </div>
 
-            <!-- Modal editar usuario -->
+            <!--Modal editar area -->
             <div
               class="modal fade"
-              id="modalEditarUsuario"
+              id="modalEditarArea"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
@@ -368,8 +315,8 @@
                 <div class="modal-content">
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
-                    <h5 class="modal-title" id="labelEditarUsuario">
-                      Editar usuario
+                    <h5 class="modal-title" id="labelAgregarUser">
+                      Editar área
                     </h5>
                     <button
                       type="button"
@@ -383,71 +330,19 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formEditarUsuario">
+                    <form id="formEditarArea">
                       <div class="form-group">
-                        <label for="nombreEditar">Nombre:</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="nombreEditar"
-                          placeholder="Ingrese el nuevo nombre"
-                          required
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <label for="apellidoEditar">Apellido:</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="apellidoEditar"
-                          placeholder="Ingrese el nuevo apellido"
-                          required
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <label for="nombreUsuarioEditar"
-                          >Nombre de usuario:</label
+                        <label for="nombreAreaEditar"
+                          >Nombre del área:</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="nombreUsuarioEditar"
-                          placeholder="Ingrese el nuevo nombre de usuario"
+                          id="nombreAreaEditar"
+                          placeholder="Ingrese el nombre del área"
                           required
                         />
                       </div>
-
-                      <div class="form-group">
-                        <label for="contrasenaEditar">Nueva contraseña:</label>
-                        <div class="input-group">
-                          <input
-                            type="password"
-                            class="form-control"
-                            id="contrasenaEditar"
-                            placeholder="Ingrese una nueva contraseña"
-                            required
-                          />
-                          <div class="input-group-append">
-                            <span class="input-group-text toggle-password">
-                              <i class="fa fa-eye-slash"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="rolCheckboxEditar">Tipo de usuario</label>
-                        
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="rolCheckboxEditar">
-                          <label class="form-check-label" for="rolCheckboxEditar">
-                            Administrador
-                          </label>
-                        </div>
-                      </div>
-
                     </form>
                   </div>
                   <!-- Pie del modal -->
@@ -460,32 +355,30 @@
                       Cancelar
                     </button>
                     <button
+                      id="btnEditarArea"
                       type="button"
-                      id="btnEditarUsuario"
                       class="btn btn-success"
-                      form="formEditarUsuario"
+                      form="formEditarArea"
                     >
-                      Guardar cambios
+                      Guardar
                     </button>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!--Fin Modal agregar nuevo usuario -->
-
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Lista de usuarios
+                  Lista de áreas
                 </h6>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table
                     class="table table-bordered"
-                    id="tableUsuarios"
+                    id="tableAreas"
                     width="100%"
                     cellspacing="0"
                   >
@@ -493,8 +386,6 @@
                       <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Nombre de usuario</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -585,8 +476,8 @@
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="../js/usuarios/usuarios.js"></script>
+    <script src="../js/areas/areas.js"></script>
+    <script src="../js/areas/registroArea.js"></script>
     <script src="../js/sesiones/cerrarSesion.js"></script>
-    <script src="../js/usuarios/registroUsuarios.js"></script>
   </body>
 </html>

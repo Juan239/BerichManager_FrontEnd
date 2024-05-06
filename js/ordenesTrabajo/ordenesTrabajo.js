@@ -74,15 +74,6 @@ $(document).ready(function () {
     pageLength: 5, // Establecer el número de registros por página en 10
     lengthChange: false, // Deshabilitar la opción de cambiar la cantidad de registros por página
     dom: '<"top"f>rt<"bottom"i>p', //Se define la estructura de la tabla
-    /* columnDefs: [
-      { width: "5%", targets: 0 },
-      { width: "10%", targets: 1 },
-      { width: "25%", targets: 2 },
-      { width: "25%", targets: 3 }, //Definir el ancho de las columnas de la tabla
-      { width: "10%", targets: 4 },
-      { width: "15%", targets: 5 },
-      { width: "10%", targets: 6 },
-    ], */
   });
 });
 
