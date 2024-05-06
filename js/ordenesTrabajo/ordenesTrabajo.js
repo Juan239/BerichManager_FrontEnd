@@ -252,8 +252,11 @@ function obtenerFechaActual() {
 //---------------------------------------------------Función abrir pdf---------------------------------------------------
 async function obtenerPDF(id) {
   try {
-    const respuesta = await fetch(`${urlBack}api/pdf/${id}`, {
+    const respuesta = await fetch(`${urlBack}api/pdf/ordenTrabajo/${id}`, {
       method: "GET", // Método GET para obtener el PDF
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     if (!respuesta.ok) {
