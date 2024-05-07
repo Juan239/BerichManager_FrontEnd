@@ -8,7 +8,8 @@ async function registrarUsuarios() {
     nombre: document.getElementById("nombre").value,
     apellido: document.getElementById("apellido").value,
     password: document.getElementById("contrasena").value, 
-    rol: document.getElementById('rolCheckbox').checked
+    rolInformatica: document.getElementById('rolInformaticaCheckbox').checked,
+    rolBitacoras: document.getElementById('rolBitacorasCheckbox').checked,
 
   };
 

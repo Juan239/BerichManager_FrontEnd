@@ -35,10 +35,6 @@ if (token) {
         document.getElementById("nombreDeUsuario").innerText = username;
       }
 
-      if (userRol !== "admin") {
-        window.location.href = "http://localhost/DAEM/index.html";
-        return;
-      }
 
       //Llamar a la funcion cargarCategorias para completar el datatable cuando cargue la pagina
       cargarActivos();

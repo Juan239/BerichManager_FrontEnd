@@ -28,7 +28,7 @@ if (token) {
     .then((data) => {
       // Guardar los datos de la respuesta en variables
       const username = data.username;
-      const userRol = data.userRol;
+      const userRol = data.userRolInformatica;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
@@ -130,6 +130,8 @@ async function cargarUsuarios() {
           usuario.usr_nombre,
           usuario.usr_apellido,
           usuario.usr_username,
+          usuario.usr_rol_informatica,
+          usuario.usr_rol_bitacoras,
           botonEditar + botonEliminar,
         ])
         .draw();
@@ -187,20 +189,30 @@ async function editarUsuario(id) {
     const data = await response.json();
 
     const admin = "admin";
-    const normal = "normal";
-    let rol = data.rol;
+    const normal = "usuario";
+    let rolInformatica = data.rol_informatica;
+    let rolBitacoras = data.rol_bitacoras;
 
-    if (rol === admin) {
-      rol = true;
-    } else if (rol === normal) {
-      rol = false;
+    if (rolInformatica === admin) {
+      rolInformatica = true;
+    } else if (rolInformatica === normal) {
+      rolInformatica = false;
+    }
+
+    if (rolBitacoras === admin) {
+      rolBitacoras = true;
+    } else if (rolBitacoras === normal) {
+      rolBitacoras = false;
     }
 
     // Mostrar los datos del usuario en el modal de edición
     document.getElementById("nombreEditar").value = data.nombre;
     document.getElementById("apellidoEditar").value = data.apellido;
     document.getElementById("nombreUsuarioEditar").value = data.username;
-    document.getElementById("rolCheckboxEditar").checked = rol;
+    document.getElementById("rolInformaticaCheckboxEditar").checked =
+      rolInformatica;
+      document.getElementById("rolBitacorasCheckboxEditar").checked =
+      rolBitacoras;
 
     // Listener para el botón de guardar cambios del modal
     $("#btnEditarUsuario").click(async function () {
@@ -210,7 +222,12 @@ async function editarUsuario(id) {
         const nuevoApellido = $("#apellidoEditar").val();
         const nuevoNombreUsuario = $("#nombreUsuarioEditar").val();
         const nuevaPassword = $("#contrasenaEditar").val();
-        const nuevoRol = document.getElementById("rolCheckboxEditar").checked;
+        const nuevoRolInformatica = document.getElementById(
+          "rolInformaticaCheckboxEditar"
+        ).checked;
+        const nuevoRolBitacoras = document.getElementById(
+          "rolBitacorasCheckboxEditar"
+        ).checked;
 
         // Realizar la petición PUT al servidor para actualizar los datos del usuario
         const editarResponse = await fetch(`${urlBack}api/usuarios/${id}`, {
@@ -225,7 +242,8 @@ async function editarUsuario(id) {
             apellido: nuevoApellido,
             username: nuevoNombreUsuario,
             password: nuevaPassword,
-            rol: nuevoRol,
+            rolInformatica: nuevoRolInformatica,
+            rolBitacoras: nuevoRolBitacoras,
           }),
         });
 

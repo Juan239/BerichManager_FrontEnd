@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Baja de activos</title>
+    <title>Ordenes de trabajo</title>
 
     <!-- Custom fonts for this template -->
     <link
@@ -93,67 +93,13 @@
                 >Baja de activos</a
               >
             </div>
-
-    
           </div>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
+        <!--Agregar los item del menu administrador que corresponda-->
+        <script src="../js/menu.js"></script>
 
-        <!-- Heading -->
-        <div class="sidebar-heading">Administrador</div>
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="usuarios.html">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Usuarios</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="establecimientos.html">
-            <i class="fas fa-fw fa-university"></i>
-            <span>Establecimientos</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="categorias.html">
-            <i class="fas fa-wrench"></i>
-            <span>Categorias</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="activos.html">
-            <i class="fas fa-wrench"></i>
-            <span>Tipo de activos</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="areas.html">
-            <i class="fas fa-user-tag"></i>
-            <span>Áreas</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="marcas.html">
-            <i class="fas fa-tags"></i>
-            <span>Marcas</span></a
-          >
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block" />
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
       </ul>
       <!-- End of Sidebar -->
 
@@ -224,25 +170,25 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Gestión de baja de activos</h1>
+            <h1 class="h3 mb-2 text-gray-800">Gestión de ordenes de trabajo</h1>
 
-            <!--Modal agregar baja de activo -->
+            <!--Modal agregar nuevo usuario -->
             <!-- Botón -->
             <a
               href="#"
-              id="btnAgregarBajaActivo"
+              id="btnAgregarOrden"
               class="btn btn-success btn-icon-split my-2"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
               </span>
-              <span class="text">Agregar nuevo informe técnico</span>
+              <span class="text">Agregar nueva orden</span>
             </a>
 
-            <!--------------------------------------------------------------------- Modal agregar nuevo informe---------------------------------------------------->
+            <!-- Modal agregar nueva orden-->
             <div
               class="modal fade"
-              id="modalAgregarBajaActivo"
+              id="modalAgregarOrden"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
@@ -253,7 +199,7 @@
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
                     <h5 class="modal-title" id="labelAgregarUser">
-                      Crear informe técnico
+                      Crear orden de trabajo
                     </h5>
                     <button
                       type="button"
@@ -267,7 +213,7 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formOrdenBajaActivo">
+                    <form id="formOrdenTrabajo">
                       <!--Input de la fecha-->
                       <div class="form-group">
                         <label for="fecha">Fecha</label>
@@ -280,46 +226,18 @@
                         />
                       </div>
 
-                      <!--Dropdown tipo de activo-->
+                      <!--Dropdown titulo-->
                       <div class="form-group">
-                        <label for="tipoActivo">Tipo de activo</label>
+                        <label for="titulo">Titulo</label>
                         <select
                           class="form-control"
-                          id="tipoActivo"
-                          name="tipoActivo"
+                          id="titulo"
+                          name="titulo"
                           required
                         >
-                          <option value="">Seleccione el tipo de activo</option>
-                          <!-- Aquí se cargarán las opciones de tipo de activo desde la base de datos con JavaScript -->
+                          <option value="">Seleccione el titulo</option>
+                          <!-- Aquí se cargarán las opciones de establecimiento desde la base de datos con JavaScript -->
                         </select>
-                      </div>
-
-                      <!--Dropdown marca-->
-                      <div class="form-group">
-                        <label for="marca">Marca</label>
-                        <select
-                          class="form-control"
-                          id="marca"
-                          name="marca"
-                          required
-                        >
-                          <option value="">Seleccione la marca</option>
-                          <!-- Aquí se cargarán las opciones de marcas desde la base de datos con JavaScript -->
-                        </select>
-                      </div>
-
-                      <!--Modelo equipo-->
-                      <div class="form-group">
-                        <label for="modelo"
-                          >Modelo:</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="modelo"
-                          placeholder="Ingrese el modelo"
-                          required
-                        />
                       </div>
 
                       <!--Dropdown de establecimiento-->
@@ -340,45 +258,97 @@
                         </select>
                       </div>
 
-                      <!--Input de la relacion-solicitud -->
+                      <!--Radio buttons para intervención-->
                       <div class="form-group">
-                        <label for="relacionSolicitud"
-                          >Relación solicitud</label
+                        <label>Intervención</label>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencion"
+                            id="opcionCorrectivo"
+                            value="1"
+                            required
+                          />
+                          <label class="form-check-label" for="opcionCorrectivo"
+                            >Correctivo</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencion"
+                            id="opcionPreventivo"
+                            value="2"
+                          />
+                          <label class="form-check-label" for="opcionPreventivo"
+                            >Preventivo</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencion"
+                            id="opcionParcial"
+                            value="3"
+                          />
+                          <label class="form-check-label" for="opcionParcial"
+                            >Parcial</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencion"
+                            id="opcionIntegral"
+                            value="4"
+                          />
+                          <label class="form-check-label" for="opcionIntegral"
+                            >Integral</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencion"
+                            id="opcionCompleta"
+                            value="5"
+                          />
+                          <label class="form-check-label" for="opcionCompleta"
+                            >Completa</label
+                          >
+                        </div>
+                      </div>
+
+                      <!--Input de la descripción-->
+                      <div class="form-group">
+                        <label for="descripcion"
+                          >Descripción del problema</label
                         >
                         <textarea
                           class="form-control"
-                          id="relacionSolicitud"
-                          name="relacionSolicitud"
+                          id="descripcion"
+                          name="descripcion"
                           rows="3"
-                          placeholder="Describa la relacion solicitud"
+                          placeholder="Describa el problema"
                           required
                           style="resize: none"
                         ></textarea>
                       </div>
 
-                      <!--Input del detalle-->
+                      <!--Input de las observaciones-->
                       <div class="form-group">
-                        <label for="detalle">Detalle</label>
+                        <label for="observaciones">Observaciones</label>
                         <textarea
                           class="form-control"
-                          id="detalle"
-                          name="detalle"
+                          id="observaciones"
+                          name="observaciones"
                           rows="4"
-                          placeholder="Ingrese el detalle"
-                          required
-                          style="resize: none"
-                        ></textarea>
-                      </div>
-
-                       <!--Input del concepto tecnico-->
-                       <div class="form-group">
-                        <label for="conceptoTecnico">Concepto técnico</label>
-                        <textarea
-                          class="form-control"
-                          id="conceptoTecnico"
-                          name="conceptoTecnico"
-                          rows="4"
-                          placeholder="Ingrese el concepto técnico"
+                          placeholder="Ingrese sus observaciones"
                           required
                           style="resize: none"
                         ></textarea>
@@ -396,10 +366,10 @@
                       Cancelar
                     </button>
                     <button
-                      onclick="registrarBajaEquipo()"
+                      onclick="registrarOrdenTrabajo()"
                       type="button"
                       class="btn btn-success"
-                      form="formOrdenBajaActivo"
+                      form="formOrdenTrabajo"
                     >
                       Guardar
                     </button>
@@ -408,175 +378,209 @@
               </div>
             </div>
 
-            <!------------------------------------------------ Modal editar informe------------------------------------------------->
+            <!-- Modal editar orden-->
+
             <div
-            class="modal fade"
-            id="modalEditarBajaActivo"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <!-- Encabezado del modal -->
-                <div class="modal-header">
-                  <h5 class="modal-title" id="labelAgregarUser">
-                    Editar informe técnico
-                  </h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <!-- Contenido del modal -->
-                <div class="modal-body">
-                  <!-- Formulario -->
-                  <form id="formOrdenBajaActivoEditar">
-                    <!--Input de la fecha-->
-                    <div class="form-group">
-                      <label for="fechaEditar">Fecha</label>
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="fechaEditar"
-                        name="fechaEditar"
-                        required
-                      />
-                    </div>
+              class="modal fade"
+              id="modalEditarOrden"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <!-- Encabezado del modal -->
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="labelEditarOrden">
+                      Editar orden de trabajo
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- Contenido del modal -->
+                  <div class="modal-body">
+                    <!-- Formulario -->
+                    <form id="formEditarOrdenTrabajo">
+                      <!-- Input de la fecha -->
+                      <div class="form-group">
+                        <label for="fechaEditar">Fecha</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="fechaEditar"
+                          name="fechaEditar"
+                          required
+                        />
+                      </div>
 
-                    <!--Dropdown tipo de activo-->
-                    <div class="form-group">
-                      <label for="tipoActivoEditar">Tipo de activo</label>
-                      <select
-                        class="form-control"
-                        id="tipoActivoEditar"
-                        name="tipoActivoEditar"
-                        required
-                      >
-                        <option value="">Seleccione el tipo de activo</option>
-                        <!-- Aquí se cargarán las opciones de tipo de activo desde la base de datos con JavaScript -->
-                      </select>
-                    </div>
+                      <!-- Dropdown de título -->
+                      <div class="form-group">
+                        <label for="tituloEditar">Título</label>
+                        <select
+                          class="form-control"
+                          id="tituloEditar"
+                          name="tituloEditar"
+                          required
+                        >
+                          <option value="">Seleccione el título</option>
+                          <!-- Aquí se cargarán las opciones de título desde la base de datos con JavaScript -->
+                        </select>
+                      </div>
 
-                    <!--Dropdown marca-->
-                    <div class="form-group">
-                      <label for="marcaEditar">Marca</label>
-                      <select
-                        class="form-control"
-                        id="marcaEditar"
-                        name="marcaEditar"
-                        required
-                      >
-                        <option value="">Seleccione la marca</option>
-                        <!-- Aquí se cargarán las opciones de marcas desde la base de datos con JavaScript -->
-                      </select>
-                    </div>
+                      <!-- Dropdown de establecimiento -->
+                      <div class="form-group">
+                        <label for="establecimientoEditar"
+                          >Seleccione el establecimiento</label
+                        >
+                        <select
+                          class="form-control"
+                          id="establecimientoEditar"
+                          name="establecimientoEditar"
+                          required
+                        >
+                          <option value="">
+                            Seleccione el establecimiento
+                          </option>
+                          <!-- Aquí se cargarán las opciones de establecimiento desde la base de datos con JavaScript -->
+                        </select>
+                      </div>
 
-                    <!--Modelo equipo-->
-                    <div class="form-group">
-                      <label for="modeloEditar"
-                        >Modelo:</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="modeloEditar"
-                        placeholder="Ingrese el modelo"
-                        required
-                      />
-                    </div>
+                      <!-- Radio buttons para intervención -->
+                      <div id="modalEditar" class="form-group">
+                        <label>Intervención</label>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencionEditar"
+                            id="opcionCorrectivoEditar"
+                            value="1"
+                            required
+                          />
+                          <label
+                            class="form-check-label"
+                            for="opcionCorrectivoEditar"
+                            >Correctivo</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencionEditar"
+                            id="opcionPreventivoEditar"
+                            value="2"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="opcionPreventivoEditar"
+                            >Preventivo</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencionEditar"
+                            id="opcionParcialEditar"
+                            value="3"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="opcionParcialEditar"
+                            >Parcial</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencionEditar"
+                            id="opcionIntegralEditar"
+                            value="4"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="opcionIntegralEditar"
+                            >Integral</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="intervencionEditar"
+                            id="opcionCompletaEditar"
+                            value="5"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="opcionCompletaEditar"
+                            >Completa</label
+                          >
+                        </div>
+                      </div>
 
-                    <!--Dropdown de establecimiento-->
-                    <div class="form-group">
-                      <label for="establecimientoEditar"
-                        >Seleccione el establecimiento</label
-                      >
-                      <select
-                        class="form-control"
-                        id="establecimientoEditar"
-                        name="establecimientoEditar"
-                        required
-                      >
-                        <option value="">
-                          Seleccione el establecimiento
-                        </option>
-                        <!-- Aquí se cargarán las opciones de establecimiento desde la base de datos con JavaScript -->
-                      </select>
-                    </div>
+                      <!-- Input de la descripción -->
+                      <div class="form-group">
+                        <label for="descripcionEditar"
+                          >Descripción del problema</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="descripcionEditar"
+                          name="descripcionEditar"
+                          rows="3"
+                          placeholder="Describa el problema"
+                          required
+                          style="resize: none"
+                        ></textarea>
+                      </div>
 
-                    <!--Input de la relacion-solicitud -->
-                    <div class="form-group">
-                      <label for="relacionSolicitudEditar"
-                        >Relación solicitud</label
-                      >
-                      <textarea
-                        class="form-control"
-                        id="relacionSolicitudEditar"
-                        name="relacionSolicitud"
-                        rows="3"
-                        placeholder="Describa la relacion solicitud"
-                        required
-                        style="resize: none"
-                      ></textarea>
-                    </div>
-
-                    <!--Input del detalle-->
-                    <div class="form-group">
-                      <label for="detalleEditar">Detalle</label>
-                      <textarea
-                        class="form-control"
-                        id="detalleEditar"
-                        name="detalleEditar"
-                        rows="4"
-                        placeholder="Ingrese el detalle"
-                        required
-                        style="resize: none"
-                      ></textarea>
-                    </div>
-
-                     <!--Input del concepto tecnico-->
-                     <div class="form-group">
-                      <label for="conceptoTecnicoEditar">Concepto técnico</label>
-                      <textarea
-                        class="form-control"
-                        id="conceptoTecnicoEditar"
-                        name="conceptoTecnicoEditar"
-                        rows="4"
-                        placeholder="Ingrese el concepto técnico"
-                        required
-                        style="resize: none"
-                      ></textarea>
-                    </div>
-                    <br />
-                  </form>
-                </div>
-                <!-- Pie del modal -->
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    data-dismiss="modal"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    id="btnEditarBajaActivo"
-                    type="button"
-                    class="btn btn-success"
-                    form="formOrdenBajaActivoEditar"
-                  >
-                    Guardar
-                  </button>
+                      <!-- Input de las observaciones -->
+                      <div class="form-group">
+                        <label for="observacionesEditar">Observaciones</label>
+                        <textarea
+                          class="form-control"
+                          id="observacionesEditar"
+                          name="observacionesEditar"
+                          rows="4"
+                          placeholder="Ingrese sus observaciones"
+                          required
+                          style="resize: none"
+                        ></textarea>
+                      </div>
+                      <br />
+                    </form>
+                  </div>
+                  <!-- Pie del modal -->
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      id="btnGuardarCambiosEditar"
+                      class="btn btn-success"
+                      form="formEditarOrdenTrabajo"
+                    >
+                      Guardar
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-            
 
             <!--Fin Modal agregar nueva orden Trabajo -->
 
@@ -584,14 +588,14 @@
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Lista de informes técnicos
+                  Lista de ordenes
                 </h6>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table
                     class="table table-bordered"
-                    id="tableBajaEquipos"
+                    id="tableOrdenesTrabajo"
                     width="100%"
                     cellspacing="0"
                   >
@@ -599,9 +603,9 @@
                       <tr>
                         <th>ID</th>
                         <th>Fecha</th>
-                        <th>Tipo de activo</th>
-                        <th>Establecimiento</th>
+                        <th>Titulo</th>
                         <th>Responsable</th>
+                        <th>Establecimiento</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -692,10 +696,10 @@
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    
-    <!-- Cambiar por los scripts correspondientes -->
-    <script src="../js/bajaEquipos/bajaEquipos.js"></script>
-    <script src="../js/bajaEquipos/registrarBajaActivos.js"></script>
+
+    <script src="../js/ordenesTrabajo/ordenesTrabajo.js"></script>
+    <script src="../js/ordenesTrabajo/registroOrdenesTrabajo.js"></script>
+
     <script src="../js/sesiones/cerrarSesion.js"></script>
   </body>
 </html>

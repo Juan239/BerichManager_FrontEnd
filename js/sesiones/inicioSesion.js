@@ -26,19 +26,7 @@ document
           localStorage.setItem("idUsuario", data.idUsuario); // Accede a data.idUsuario en lugar de response.body.id
           // Redirigir al usuario a la página de perfil u otra página deseada
 
-          const rol = data.rol;
-
-          console.log(rol);
-
-          if (rol === "admin") {
-            window.location.href = "http://localhost/DAEM/admin/index.html";
-          } else if (rol === "normal") {
-            window.location.href = "http://localhost/DAEM/index.html";
-          } else {
-            alert("Error identificando al usuario");
-          }
-
-          // window.location.href = "/DAEM/index.html";
+          window.location.href = "/DAEM/berichmanager/index.html";
         } else {
           // Mostrar un mensaje de error al usuario
           alert(data.message);

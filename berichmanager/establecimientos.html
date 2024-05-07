@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Áreas</title>
+    <title>Establecimientos</title>
 
     <!-- Custom fonts for this template -->
     <link
@@ -96,62 +96,8 @@
           </div>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
-
-        <!-- Heading -->
-        <div class="sidebar-heading">Administrador</div>
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="usuarios.html">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Usuarios</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="establecimientos.html">
-            <i class="fas fa-fw fa-university"></i>
-            <span>Establecimientos</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="categorias.html">
-            <i class="fas fa-wrench"></i>
-            <span>Categorias</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="activos.html">
-            <i class="fas fa-wrench"></i>
-            <span>Tipo de activos</span></a
-          >
-        </li>
-
-        <li class="nav-item active">
-          <a class="nav-link" href="areas.html">
-            <i class="fas fa-user-tag"></i>
-            <span>Áreas</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="marcas.html">
-            <i class="fas fa-tags"></i>
-            <span>Marcas</span></a
-          >
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block" />
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+        <!--Agregar los item del menu administrador que corresponda-->
+        <script src="../js/menu.js"></script>
       </ul>
       <!-- End of Sidebar -->
 
@@ -191,8 +137,7 @@
                   <span
                     id="nombreDeUsuario"
                     class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    ></span
-                  >
+                  ></span>
                   <img
                     class="img-profile rounded-circle"
                     src="../img/undraw_profile.svg"
@@ -223,24 +168,25 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Gestión de áreas</h1>
+            <h1 class="h3 mb-2 text-gray-800">Gestión de establecimientos</h1>
 
+            <!--Modal agregar nuevo establecimiento -->
             <!-- Botón -->
             <a
               href="#"
-              id="btnAgregarArea"
+              id="btnAgregarEstablecimiento"
               class="btn btn-success btn-icon-split my-2"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
               </span>
-              <span class="text">Agregar nueva área</span>
+              <span class="text">Agregar nuevo establecimiento</span>
             </a>
 
-            <!--Modal agregar nueva area -->
+            <!-- Modal -->
             <div
               class="modal fade"
-              id="modalAgregarArea"
+              id="modalAgregarEstablecimiento"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
@@ -251,7 +197,7 @@
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
                     <h5 class="modal-title" id="labelAgregarUser">
-                      Agregar nueva área
+                      Agregar nuevo establecimiento
                     </h5>
                     <button
                       type="button"
@@ -265,16 +211,16 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formAgregarArea">
+                    <form id="formAgregarEstablecimiento">
                       <div class="form-group">
-                        <label for="nombreArea"
-                          >Nombre del área:</label
+                        <label for="nombreEstablecimiento"
+                          >Nombre del establecimiento:</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="nombreArea"
-                          placeholder="Ingrese el nombre del área"
+                          id="nombreEstablecimiento"
+                          placeholder="Ingrese el nombre del establecimiento"
                           required
                         />
                       </div>
@@ -290,10 +236,10 @@
                       Cancelar
                     </button>
                     <button
-                      onclick="registrarArea()"
+                      onclick="registrarEstablecimiento()"
                       type="button"
                       class="btn btn-success"
-                      form="formAgregarArea"
+                      form="formAgregarEstablecimiento"
                     >
                       Guardar
                     </button>
@@ -302,10 +248,11 @@
               </div>
             </div>
 
-            <!--Modal editar area -->
+            <!--Modal editar establecimiento -->
+
             <div
               class="modal fade"
-              id="modalEditarArea"
+              id="modalEditarEstablecimiento"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
@@ -316,7 +263,7 @@
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
                     <h5 class="modal-title" id="labelAgregarUser">
-                      Editar área
+                      Editar establecimiento
                     </h5>
                     <button
                       type="button"
@@ -330,16 +277,16 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formEditarArea">
+                    <form id="formEditarEstablecimiento">
                       <div class="form-group">
-                        <label for="nombreAreaEditar"
-                          >Nombre del área:</label
+                        <label for="nombreEstablecimientoEditar"
+                          >Nombre del establecimiento:</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="nombreAreaEditar"
-                          placeholder="Ingrese el nombre del área"
+                          id="nombreEstablecimientoEditar"
+                          placeholder="Ingrese el nombre del establecimiento"
                           required
                         />
                       </div>
@@ -355,10 +302,10 @@
                       Cancelar
                     </button>
                     <button
-                      id="btnEditarArea"
+                      id="btnEditarEstablecimiento"
                       type="button"
                       class="btn btn-success"
-                      form="formEditarArea"
+                      form="formEditarEstablecimiento"
                     >
                       Guardar
                     </button>
@@ -371,21 +318,21 @@
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Lista de áreas
+                  Lista de establecimientos
                 </h6>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table
                     class="table table-bordered"
-                    id="tableAreas"
+                    id="tableEstablecimientos"
                     width="100%"
                     cellspacing="0"
                   >
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Nombre</th>
+                        <th>Nombre del establecimiento</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -476,8 +423,8 @@
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="../js/areas/areas.js"></script>
-    <script src="../js/areas/registroArea.js"></script>
+    <script src="../js/establecimientos/registrarEstablecimiento.js"></script>
+    <script src="../js/establecimientos/establecimientos.js"></script>
     <script src="../js/sesiones/cerrarSesion.js"></script>
   </body>
 </html>

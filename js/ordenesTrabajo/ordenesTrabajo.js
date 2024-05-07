@@ -28,27 +28,11 @@ if (token) {
     .then((data) => {
       // Guardar los datos de la respuesta en variables
       const username = data.username;
-      const userRol = data.userRol;
+      const userRol = data.userRolInformatica;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
         document.getElementById("nombreDeUsuario").innerText = username;
-      }
-
-      console.log("Rol del usuario:", userRol);
-      console.log("Pathname:", window.location.pathname);
-      if (
-        userRol === "normal" &&
-        window.location.pathname === "/DAEM/admin/ordenesTrabajo.html"
-      ) {
-        console.log("asdasdasd");
-        window.location.href = "http://localhost/DAEM/ordenesTrabajo.html";
-      } else if (
-        userRol === "admin" &&
-        window.location.pathname == "/DAEM/ordenesTrabajo.html"
-      ) {
-        window.location.href =
-          "http://localhost/DAEM/admin/ordenesTrabajo.html";
       }
 
       //Llamar a la funcion cargarOrdenesTrabajo para completar el datatable cuando cargue la pagina

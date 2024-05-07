@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Marcas</title>
+    <title>Áreas</title>
 
     <!-- Custom fonts for this template -->
     <link
@@ -93,68 +93,11 @@
                 >Baja de activos</a
               >
             </div>
-
-    
           </div>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
-
-        <!-- Heading -->
-        <div class="sidebar-heading">Administrador</div>
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="usuarios.html">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Usuarios</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="establecimientos.html">
-            <i class="fas fa-fw fa-university"></i>
-            <span>Establecimientos</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="categorias.html">
-            <i class="fas fa-wrench"></i>
-            <span>Categorias</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="activos.html">
-            <i class="fas fa-wrench"></i>
-            <span>Tipo de activos</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="areas.html">
-            <i class="fas fa-user-tag"></i>
-            <span>Áreas</span></a
-          >
-        </li>
-
-        <li class="nav-item active">
-          <a class="nav-link" href="marcas.html">
-            <i class="fas fa-tags"></i>
-            <span>Marcas</span></a
-          >
-        </li>
-
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block" />
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+        <!--Agregar los item del menu administrador que corresponda-->
+        <script src="../js/menu.js"></script>
       </ul>
       <!-- End of Sidebar -->
 
@@ -225,36 +168,35 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Gestión de marcas</h1>
+            <h1 class="h3 mb-2 text-gray-800">Gestión de áreas</h1>
 
-            <!--Modal agregar nuevo usuario -->
             <!-- Botón -->
             <a
               href="#"
-              id="btnAgregarMarca"
+              id="btnAgregarArea"
               class="btn btn-success btn-icon-split my-2"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
               </span>
-              <span class="text">Agregar nueva marca</span>
+              <span class="text">Agregar nueva área</span>
             </a>
 
-            <!--------------------------------------------------------------------- Modal agregar nuevo activo---------------------------------------------------->
+            <!--Modal agregar nueva area -->
             <div
               class="modal fade"
-              id="modalAgregarMarca"
+              id="modalAgregarArea"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
             >
-              <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
                     <h5 class="modal-title" id="labelAgregarUser">
-                      Agregar nueva marca
+                      Agregar nueva área
                     </h5>
                     <button
                       type="button"
@@ -268,22 +210,17 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formMarcas">
-                      <!--Input de la descripción-->
+                    <form id="formAgregarArea">
                       <div class="form-group">
-                        <label for="nombreMarca"
-                          >Nombre de la marca:</label
-                        >
+                        <label for="nombreArea">Nombre del área:</label>
                         <input
                           type="text"
                           class="form-control"
-                          id="nombreMarca"
-                          placeholder="Ingrese el nombre de la marca"
+                          id="nombreArea"
+                          placeholder="Ingrese el nombre del área"
                           required
                         />
                       </div>
-
-                      <br />
                     </form>
                   </div>
                   <!-- Pie del modal -->
@@ -296,10 +233,10 @@
                       Cancelar
                     </button>
                     <button
-                      onclick="registrarMarcas()"
+                      onclick="registrarArea()"
                       type="button"
                       class="btn btn-success"
-                      form="formMarcas"
+                      form="formAgregarArea"
                     >
                       Guardar
                     </button>
@@ -308,89 +245,81 @@
               </div>
             </div>
 
-            <!--------------------------------------------------------------------- Modal editar activo---------------------------------------------------->
+            <!--Modal editar area -->
             <div
-            class="modal fade"
-            id="modalEditarMarca"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <!-- Encabezado del modal -->
-                <div class="modal-header">
-                  <h5 class="modal-title" id="labelAgregarUser">
-                    Editar marca
-                  </h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <!-- Contenido del modal -->
-                <div class="modal-body">
-                  <!-- Formulario -->
-                  <form id="formMarcasEditar">
-                    <!--Input de la descripción-->
-                    <div class="form-group">
-                      <label for="nombreMarcaEditar"
-                        >Nombre de la marca:</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="nombreMarcaEditar"
-                        placeholder="Ingrese el nombre de la marca"
-                        required
-                      />
-                    </div>
-
-                    <br />
-                  </form>
-                </div>
-                <!-- Pie del modal -->
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    data-dismiss="modal"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-success"
-                    form="formMarcasEditar"
-                    id="btnEditarMarca"
-                  >
-                    Guardar
-                  </button>
+              class="modal fade"
+              id="modalEditarArea"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <!-- Encabezado del modal -->
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="labelAgregarUser">
+                      Editar área
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- Contenido del modal -->
+                  <div class="modal-body">
+                    <!-- Formulario -->
+                    <form id="formEditarArea">
+                      <div class="form-group">
+                        <label for="nombreAreaEditar">Nombre del área:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="nombreAreaEditar"
+                          placeholder="Ingrese el nombre del área"
+                          required
+                        />
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Pie del modal -->
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      id="btnEditarArea"
+                      type="button"
+                      class="btn btn-success"
+                      form="formEditarArea"
+                    >
+                      Guardar
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-            
-
-            <!--Fin Modal agregar nueva orden Trabajo -->
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Lista de marcas
+                  Lista de áreas
                 </h6>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table
                     class="table table-bordered"
-                    id="tableMarcas"
+                    id="tableAreas"
                     width="100%"
                     cellspacing="0"
                   >
@@ -455,7 +384,7 @@
             </button>
           </div>
           <div class="modal-body">
-            Seleccionar cerrar sesión para salir de Berich Manager
+            Selecciona cerrar sesión para salir de Berich Manager
           </div>
           <div class="modal-footer">
             <button
@@ -488,12 +417,8 @@
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    
-    <!-- Cambiar por los scripts correspondientes -->
-    
-
+    <script src="../js/areas/areas.js"></script>
+    <script src="../js/areas/registroArea.js"></script>
     <script src="../js/sesiones/cerrarSesion.js"></script>
-    <script src="../js/marcas/registrarMarcas.js"></script>
-    <script src="../js/marcas/marcas.js"></script>
   </body>
 </html>

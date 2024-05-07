@@ -29,23 +29,11 @@ if (token) {
       // Guardar los datos de la respuesta en variables
       const userId = data.userId;
       const username = data.username;
-      const userRol = data.userRol;
+      const userRol = data.userRolInformatica;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
         document.getElementById("nombreDeUsuario").innerText = username;
-      }
-
-      if (
-        userRol === "normal" &&
-        window.location.pathname === "/DAEM/admin/bajaEquipos.html"
-      ) {
-        window.location.href = "http://localhost/DAEM/bajaEquipos.html";
-      } else if (
-        userRol === "admin" &&
-        window.location.pathname == "/DAEM/bajaEquipos.html"
-      ) {
-        window.location.href = "http://localhost/DAEM/admin/bajaEquipos.html";
       }
 
       cargarBajaEquipos(userRol, userId);
@@ -203,7 +191,10 @@ async function cargarBajaEquipos(userRol, userName) {
           ')" title="Eliminar" class="btn btn-danger btn-circle mr-2"><i class="fas fa-trash"></i></a>';
         let botonEditar =
           '<a href="#" onClick="editarBajaEquipo(' +
-          informe.be_id + ", '" + userName + "'" +
+          informe.be_id +
+          ", '" +
+          userName +
+          "'" +
           ')" title="Editar" class="btn btn-warning btn-circle mr-2"><i class="fas fa-pencil-alt"></i></a>';
 
         $("#tableBajaEquipos")
@@ -222,9 +213,10 @@ async function cargarBajaEquipos(userRol, userName) {
           .DataTable()
           .row.add([
             informe.be_id,
-            informe.be_fecha,
-            informe.be_tipoActivo,
-            informe.be_establecimiento,
+            fechaFormateada,
+            informe.tipoActivo,
+            informe.ubicacion,
+            informe.nombre,
             botonPdf,
           ])
           .draw();
@@ -304,7 +296,6 @@ async function editarBajaEquipo(id, userName) {
         const nuevoDetalle = $("#detalleEditar").val();
         const nuevoConceptoTecnico = $("#conceptoTecnicoEditar").val();
         const nuevoResponsable = userName;
-
 
         const editarResponse = await fetch(`${urlBack}api/bajaEquipos/${id}`, {
           method: "PUT",
@@ -451,7 +442,7 @@ async function obtenerPDF(id) {
     // Abre una nueva pestaña en el navegador con el PDF
     window.open(url, "_blank");
   } catch (error) {
-    console.error("Error:", error);
     // Manejo de errores
+    console.error("Error:", error);
   }
 }

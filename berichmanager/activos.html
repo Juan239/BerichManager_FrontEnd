@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Establecimientos</title>
+    <title>Activos</title>
 
     <!-- Custom fonts for this template -->
     <link
@@ -86,7 +86,6 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              
               <a class="collapse-item" href="ordenesTrabajo.html"
                 >Orden de trabajo</a
               >
@@ -97,62 +96,8 @@
           </div>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
-
-        <!-- Heading -->
-        <div class="sidebar-heading">Administrador</div>
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="usuarios.html">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Usuarios</span></a
-          >
-        </li>
-
-        <li class="nav-item active">
-          <a class="nav-link" href="establecimientos.html">
-            <i class="fas fa-fw fa-university"></i>
-            <span>Establecimientos</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="categorias.html">
-            <i class="fas fa-wrench"></i>
-            <span>Categorias</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="activos.html">
-            <i class="fas fa-wrench"></i>
-            <span>Tipo de activos</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="areas.html">
-            <i class="fas fa-user-tag"></i>
-            <span>Áreas</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="marcas.html">
-            <i class="fas fa-tags"></i>
-            <span>Marcas</span></a
-          >
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block" />
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+        <!--Agregar los item del menu administrador que corresponda-->
+        <script src="../js/menu.js"></script>
       </ul>
       <!-- End of Sidebar -->
 
@@ -192,8 +137,7 @@
                   <span
                     id="nombreDeUsuario"
                     class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    ></span
-                  >
+                  ></span>
                   <img
                     class="img-profile rounded-circle"
                     src="../img/undraw_profile.svg"
@@ -224,36 +168,36 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Gestión de establecimientos</h1>
+            <h1 class="h3 mb-2 text-gray-800">Gestión de activos</h1>
 
-            <!--Modal agregar nuevo establecimiento -->
+            <!--Modal agregar nuevo usuario -->
             <!-- Botón -->
             <a
               href="#"
-              id="btnAgregarEstablecimiento"
+              id="btnAgregarActivo"
               class="btn btn-success btn-icon-split my-2"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
               </span>
-              <span class="text">Agregar nuevo establecimiento</span>
+              <span class="text">Agregar nuevo tipo de activo</span>
             </a>
 
-            <!-- Modal -->
+            <!--------------------------------------------------------------------- Modal agregar nuevo activo---------------------------------------------------->
             <div
               class="modal fade"
-              id="modalAgregarEstablecimiento"
+              id="modalAgregarActivo"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
             >
-              <div class="modal-dialog" role="document">
+              <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
                     <h5 class="modal-title" id="labelAgregarUser">
-                      Agregar nuevo establecimiento
+                      Crear tipo de activo
                     </h5>
                     <button
                       type="button"
@@ -267,19 +211,20 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formAgregarEstablecimiento">
+                    <form id="formActivos">
+                      <!--Input de la descripción-->
                       <div class="form-group">
-                        <label for="nombreEstablecimiento"
-                          >Nombre del establecimiento:</label
-                        >
+                        <label for="nombreActivo">Nombre del activo:</label>
                         <input
                           type="text"
                           class="form-control"
-                          id="nombreEstablecimiento"
-                          placeholder="Ingrese el nombre del establecimiento"
+                          id="nombreActivo"
+                          placeholder="Ingrese el nombre del tipo de activo"
                           required
                         />
                       </div>
+
+                      <br />
                     </form>
                   </div>
                   <!-- Pie del modal -->
@@ -292,10 +237,10 @@
                       Cancelar
                     </button>
                     <button
-                      onclick="registrarEstablecimiento()"
+                      onclick="registrarActivos()"
                       type="button"
                       class="btn btn-success"
-                      form="formAgregarEstablecimiento"
+                      form="formActivos"
                     >
                       Guardar
                     </button>
@@ -304,22 +249,21 @@
               </div>
             </div>
 
-            <!--Modal editar establecimiento -->
-
+            <!--------------------------------------------------------------------- Modal editar activo---------------------------------------------------->
             <div
               class="modal fade"
-              id="modalEditarEstablecimiento"
+              id="modalEditarActivo"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
             >
-              <div class="modal-dialog" role="document">
+              <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
                     <h5 class="modal-title" id="labelAgregarUser">
-                      Editar establecimiento
+                      Editar tipo de activo
                     </h5>
                     <button
                       type="button"
@@ -333,19 +277,22 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formEditarEstablecimiento">
+                    <form id="formActivosEditar">
+                      <!--Input de la descripción-->
                       <div class="form-group">
-                        <label for="nombreEstablecimientoEditar"
-                          >Nombre del establecimiento:</label
+                        <label for="nombreActivoEditar"
+                          >Nombre del activo:</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="nombreEstablecimientoEditar"
-                          placeholder="Ingrese el nombre del establecimiento"
+                          id="nombreActivoEditar"
+                          placeholder="Ingrese el nombre del tipo de activo"
                           required
                         />
                       </div>
+
+                      <br />
                     </form>
                   </div>
                   <!-- Pie del modal -->
@@ -358,10 +305,10 @@
                       Cancelar
                     </button>
                     <button
-                      id="btnEditarEstablecimiento"
                       type="button"
                       class="btn btn-success"
-                      form="formEditarEstablecimiento"
+                      form="formActivosEditar"
+                      id="btnEditarActivo"
                     >
                       Guardar
                     </button>
@@ -369,26 +316,28 @@
                 </div>
               </div>
             </div>
+
+            <!--Fin Modal agregar nueva orden Trabajo -->
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Lista de establecimientos
+                  Lista de activos
                 </h6>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table
                     class="table table-bordered"
-                    id="tableEstablecimientos"
+                    id="tableActivos"
                     width="100%"
                     cellspacing="0"
                   >
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Nombre del establecimiento</th>
+                        <th>Nombre</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -446,7 +395,7 @@
             </button>
           </div>
           <div class="modal-body">
-            Selecciona cerrar sesión para salir de Berich Manager
+            Seleccionar cerrar sesión para salir de Berich Manager
           </div>
           <div class="modal-footer">
             <button
@@ -479,8 +428,11 @@
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="../js/establecimientos/registrarEstablecimiento.js"></script>
-    <script src="../js/establecimientos/establecimientos.js"></script>
+
+    <!-- Cambiar por los scripts correspondientes -->
+
     <script src="../js/sesiones/cerrarSesion.js"></script>
+    <script src="../js/activos/activos.js"></script>
+    <script src="../js/activos/registrarActivo.js"></script>
   </body>
 </html>
