@@ -162,7 +162,7 @@ async function editarCategoria(id) {
     document.getElementById("nombreCategoriaEditar").value = categoria.cat_nombre;
 
     // Agregar un evento al botón de editar
-    document.getElementById("btnEditarCategoria").addEventListener("click", async function () {
+    $("#btnEditarCategoria").off().click(async function () {
       // Obtener el nuevo nombre de la categoría y eliminar espacios en blanco al principio y al final
       const nuevoNombreCategoria = document.getElementById("nombreCategoriaEditar").value.trim();
 

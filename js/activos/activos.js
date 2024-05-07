@@ -163,7 +163,7 @@ async function editarActivo(id) {
     document.getElementById("nombreActivoEditar").value = activo[0].ac_nombre;
 
     // Agregar un evento al botón de editar
-    document.getElementById("btnEditarActivo").addEventListener("click", function () {
+    $("#btnEditarActivo").off().click(async function () {
       // Obtener el nuevo nombre del activo y eliminar espacios en blanco al principio y al final
       const nuevoNombre = document.getElementById("nombreActivoEditar").value.trim();
 

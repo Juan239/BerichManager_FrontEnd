@@ -167,7 +167,7 @@ async function editarMarca(id) {
     document.getElementById("nombreMarcaEditar").value = marca.ma_nombre;
 
     // Agregar un evento al botón de editar
-    document.getElementById("btnEditarMarca").addEventListener("click", async function () {
+    $("#btnEditarMarca").off().click(async function () {
       // Obtener el nuevo nombre de la marca y eliminar espacios en blanco al principio y al final
       const nuevoNombreMarca = document.getElementById("nombreMarcaEditar").value.trim();
 

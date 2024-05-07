@@ -157,7 +157,7 @@ async function editarArea(id) {
     document.getElementById("nombreAreaEditar").value = area.ar_nombre;
 
     // Agregar un evento al botón de editar
-    document.getElementById("btnEditarArea").addEventListener("click", async function () {
+    $("#btnEditarArea").off().click(async function () {
       // Obtener el nuevo nombre del área y eliminar espacios en blanco al principio y al final
       const nuevoNombreArea = document.getElementById("nombreAreaEditar").value.trim();
 

@@ -318,7 +318,7 @@ async function editarOrden(id) {
       `#modalEditar .form-check input[value="${data[0].ot_intervencion}"]`
     ).checked = true;
 
-    $("#btnGuardarCambiosEditar").click(async function () {
+    $("#btnGuardarCambiosEditar").off().click(async function () {
       try {
         // Se obtienen los datos ingresados en el modal
         const nuevaFecha = $("#fechaEditar").val();

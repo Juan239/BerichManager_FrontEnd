@@ -167,7 +167,7 @@ async function editarEstablecimiento(id) {
     document.getElementById("nombreEstablecimientoEditar").value = establecimiento.est_nombre;
 
     // Agregar un evento al botón de editar
-    document.getElementById("btnEditarEstablecimiento").addEventListener("click", async function () {
+    $("#btnEditarEstablecimiento").off().click(async function () {
       // Obtener el nuevo nombre del establecimiento y eliminar espacios en blanco al principio y al final
       const nuevoNombreEstablecimiento = document.getElementById("nombreEstablecimientoEditar").value.trim();
 

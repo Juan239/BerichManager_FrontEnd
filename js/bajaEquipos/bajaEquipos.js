@@ -285,7 +285,7 @@ async function editarBajaEquipo(id, userName) {
     document.getElementById("conceptoTecnicoEditar").value =
       data.be_conceptoTecnico;
 
-    $("#btnEditarBajaActivo").click(async function () {
+    $("#btnEditarBajaActivo").off().click(async function () {
       try {
         const nuevaFecha = $("#fechaEditar").val().trim();
         const nuevoTipoActivo = $("#tipoActivoEditar").val().trim();

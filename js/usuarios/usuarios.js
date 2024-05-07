@@ -213,7 +213,7 @@ async function editarUsuario(id) {
     document.getElementById("rolBitacorasCheckboxEditar").checked = rolBitacoras;
 
     // Listener para el botón de guardar cambios del modal
-    $("#btnEditarUsuario").click(async function () {
+    $("#btnEditarUsuario").off().click(async function () {
       // Se obtienen los datos ingresados en el modal
       const nuevoNombre = $("#nombreEditar").val().trim();
       const nuevoApellido = $("#apellidoEditar").val().trim();
