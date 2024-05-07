@@ -2,7 +2,8 @@
 var urlBack = "http://localhost:3000/";
 
 async function registrarBajaEquipo() {
-    if(token){
+    // Obtener el token
+    if (token) {
         fetch(`${urlBack}api/credenciales`, {
             method: "GET",
             headers: {
@@ -21,17 +22,34 @@ async function registrarBajaEquipo() {
         .then((data) => {
             const idUsuario = data.userId;
 
+            // Obtener los valores de los campos
+            let fecha = document.getElementById("fecha").value;
+            let tipoActivo = document.getElementById("tipoActivo").value;
+            let marca = document.getElementById("marca").value;
+            let modelo = document.getElementById("modelo").value.trim();
+            let ubicacion = parseInt(document.getElementById("establecimiento").value);
+            let relacionSolicitud = document.getElementById("relacionSolicitud").value.trim();
+            let detalle = document.getElementById("detalle").value.trim();
+            let conceptoTecnico = document.getElementById("conceptoTecnico").value.trim();
+
+            // Verificar que los campos obligatorios no estén vacíos
+            if (!fecha || !tipoActivo || !marca || !modelo || isNaN(ubicacion) || !relacionSolicitud || !detalle || !conceptoTecnico) {
+                alert("Por favor complete todos los campos obligatorios.");
+                return;
+            }
+
             let bajaActivo = {
-                fecha: document.getElementById("fecha").value,
-                tipoActivo: document.getElementById("tipoActivo").value,
-                marca: document.getElementById("marca").value,
-                modelo: document.getElementById("modelo").value,
-                ubicacion: parseInt(document.getElementById("establecimiento").value),
-                relacionSolicitud: document.getElementById("relacionSolicitud").value,
-                detalle: document.getElementById("detalle").value,
-                conceptoTecnico: document.getElementById("conceptoTecnico").value,
+                fecha: fecha,
+                tipoActivo: tipoActivo,
+                marca: marca,
+                modelo: modelo,
+                ubicacion: ubicacion,
+                relacionSolicitud: relacionSolicitud,
+                detalle: detalle,
+                conceptoTecnico: conceptoTecnico,
                 responsable: idUsuario,
             };
+
             try {
                 const request = fetch(`${urlBack}api/bajaEquipos`, {
                     method: "POST",
@@ -52,7 +70,7 @@ async function registrarBajaEquipo() {
         .catch((error) => {
             console.error("Error:", error.message);
         });
-    }else{
+    } else {
         console.log("No se encuentra el token de acceso");
     }
 }

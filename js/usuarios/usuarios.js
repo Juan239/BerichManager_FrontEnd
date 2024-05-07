@@ -37,7 +37,7 @@ if (token) {
 
       if (userRol !== "admin") {
         // Redirigir al usuario al dashboard si no es administrador
-        window.location.href = "http://localhost/DAEM/index.html";
+        window.location.href = "http://localhost/DAEM/berichmanager/index.html";
       }
 
       //Llamar a la funcion cargarUsuarios para completar el datatable cuando cargue la página
@@ -209,26 +209,30 @@ async function editarUsuario(id) {
     document.getElementById("nombreEditar").value = data.nombre;
     document.getElementById("apellidoEditar").value = data.apellido;
     document.getElementById("nombreUsuarioEditar").value = data.username;
-    document.getElementById("rolInformaticaCheckboxEditar").checked =
-      rolInformatica;
-      document.getElementById("rolBitacorasCheckboxEditar").checked =
-      rolBitacoras;
+    document.getElementById("rolInformaticaCheckboxEditar").checked = rolInformatica;
+    document.getElementById("rolBitacorasCheckboxEditar").checked = rolBitacoras;
 
     // Listener para el botón de guardar cambios del modal
     $("#btnEditarUsuario").click(async function () {
-      try {
-        // Se obtienen los datos ingresados en el modal
-        const nuevoNombre = $("#nombreEditar").val();
-        const nuevoApellido = $("#apellidoEditar").val();
-        const nuevoNombreUsuario = $("#nombreUsuarioEditar").val();
-        const nuevaPassword = $("#contrasenaEditar").val();
-        const nuevoRolInformatica = document.getElementById(
-          "rolInformaticaCheckboxEditar"
-        ).checked;
-        const nuevoRolBitacoras = document.getElementById(
-          "rolBitacorasCheckboxEditar"
-        ).checked;
+      // Se obtienen los datos ingresados en el modal
+      const nuevoNombre = $("#nombreEditar").val().trim();
+      const nuevoApellido = $("#apellidoEditar").val().trim();
+      const nuevoNombreUsuario = $("#nombreUsuarioEditar").val().trim();
+      const nuevaPassword = $("#contrasenaEditar").val().trim();
+      const nuevoRolInformatica = document.getElementById(
+        "rolInformaticaCheckboxEditar"
+      ).checked;
+      const nuevoRolBitacoras = document.getElementById(
+        "rolBitacorasCheckboxEditar"
+      ).checked;
 
+      // Verificar que los campos obligatorios no estén vacíos
+      if (!nuevoNombre || !nuevoApellido || !nuevoNombreUsuario) {
+        alert("Por favor complete todos los campos obligatorios.");
+        return;
+      }
+
+      try {
         // Realizar la petición PUT al servidor para actualizar los datos del usuario
         const editarResponse = await fetch(`${urlBack}api/usuarios/${id}`, {
           method: "PUT",
@@ -262,3 +266,4 @@ async function editarUsuario(id) {
     console.error("Error al realizar la solicitud:", error);
   }
 }
+

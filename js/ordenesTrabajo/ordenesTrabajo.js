@@ -327,8 +327,13 @@ async function editarOrden(id) {
           document.getElementById("establecimientoEditar").value
         );
         const nuevaIntervencion = obtenerValorSeleccionadoEditar();
-        const nuevaDescripcion = $("#descripcionEditar").val();
-        const nuevaObservacion = $("#observacionesEditar").val();
+        const nuevaDescripcion = $("#descripcionEditar").val().trim();
+        const nuevaObservacion = $("#observacionesEditar").val().trim();
+
+        if(!nuevaFecha || !nuevoTitulo || !nuevoEstablecimiento || !nuevaIntervencion || !nuevaDescripcion || !nuevaObservacion){
+          alert("Por favor complete todos los campos");
+          return;
+        }
 
         // Realizar la petición PUT al servidor para actualizar los datos del usuario
         const editarResponse = await fetch(`${urlBack}api/ordenTrabajo/${id}`, {

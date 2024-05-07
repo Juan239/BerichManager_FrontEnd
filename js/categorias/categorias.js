@@ -28,13 +28,17 @@ if (token) {
     .then((data) => {
       // Guardar los datos de la respuesta en variables
       const username = data.username;
-      const userRol = data.userRol;
+      const userRol = data.userRolInformatica;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
         document.getElementById("nombreDeUsuario").innerText = username;
       }
 
+      if (userRol !== "admin") {
+        // Redirigir al usuario al dashboard si no es administrador
+        window.location.href = "http://localhost/DAEM/berichmanager/index.html";
+      }
 
       //Llamar a la funcion cargarCategorias para completar el datatable cuando cargue la pagina
       cargarCategorias();
@@ -149,7 +153,7 @@ async function editarCategoria(id) {
     });
 
     if (!response.ok) {
-      throw new Error("Error al cargar la categoria");
+      throw new Error("Error al cargar la categoría");
     }
 
     const categoria = await response.json();
@@ -157,7 +161,17 @@ async function editarCategoria(id) {
     $("#modalEditarCategoria").modal("show");
     document.getElementById("nombreCategoriaEditar").value = categoria.cat_nombre;
 
-    document.getElementById("btnEditarCategoria").onclick = async function () {
+    // Agregar un evento al botón de editar
+    document.getElementById("btnEditarCategoria").addEventListener("click", async function () {
+      // Obtener el nuevo nombre de la categoría y eliminar espacios en blanco al principio y al final
+      const nuevoNombreCategoria = document.getElementById("nombreCategoriaEditar").value.trim();
+
+      // Verificar que el nuevo nombre de la categoría no esté vacío
+      if (!nuevoNombreCategoria) {
+        alert("Por favor ingrese un nuevo nombre para la categoría.");
+        return;
+      }
+
       try {
         const response = await fetch(`${urlBack}api/categorias/${id}`, {
           method: "PUT",
@@ -167,12 +181,12 @@ async function editarCategoria(id) {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            nombre: document.getElementById("nombreCategoriaEditar").value,
+            nombre: nuevoNombreCategoria,
           }),
         });
 
         if (!response.ok) {
-          throw new Error("Error al editar la categoria");
+          throw new Error("Error al editar la categoría");
         }
 
         $("#modalEditarCategoria").modal("hide");
@@ -180,7 +194,7 @@ async function editarCategoria(id) {
       } catch (error) {
         console.error("Error:", error.message);
       }
-    };
+    });
   } catch (error) {
     console.error("Error:", error.message);
   }

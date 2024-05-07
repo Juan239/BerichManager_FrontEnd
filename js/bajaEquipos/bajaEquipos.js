@@ -287,15 +287,21 @@ async function editarBajaEquipo(id, userName) {
 
     $("#btnEditarBajaActivo").click(async function () {
       try {
-        const nuevaFecha = $("#fechaEditar").val();
-        const nuevoTipoActivo = $("#tipoActivoEditar").val();
-        const nuevaMarca = $("#marcaEditar").val();
-        const nuevoModelo = $("#modeloEditar").val();
-        const nuevoEstablecimiento = $("#establecimientoEditar").val();
-        const nuevaRelacionSolicitud = $("#relacionSolicitudEditar").val();
-        const nuevoDetalle = $("#detalleEditar").val();
-        const nuevoConceptoTecnico = $("#conceptoTecnicoEditar").val();
+        const nuevaFecha = $("#fechaEditar").val().trim();
+        const nuevoTipoActivo = $("#tipoActivoEditar").val().trim();
+        const nuevaMarca = $("#marcaEditar").val().trim();
+        const nuevoModelo = $("#modeloEditar").val().trim();
+        const nuevoEstablecimiento = $("#establecimientoEditar").val().trim();
+        const nuevaRelacionSolicitud = $("#relacionSolicitudEditar").val().trim();
+        const nuevoDetalle = $("#detalleEditar").val().trim();
+        const nuevoConceptoTecnico = $("#conceptoTecnicoEditar").val().trim();
         const nuevoResponsable = userName;
+
+        // Verificar que los campos obligatorios no estén vacíos o sean solo espacios en blanco
+        if (!nuevaFecha || !nuevoTipoActivo || !nuevaMarca || !nuevoModelo || !nuevoEstablecimiento || !nuevaRelacionSolicitud || !nuevoDetalle || !nuevoConceptoTecnico) {
+          alert("Por favor complete todos los campos obligatorios.");
+          return;
+        }
 
         const editarResponse = await fetch(`${urlBack}api/bajaEquipos/${id}`, {
           method: "PUT",
@@ -316,6 +322,7 @@ async function editarBajaEquipo(id, userName) {
             conceptoTecnico: nuevoConceptoTecnico,
           }),
         });
+
         if (!editarResponse.ok) {
           throw new Error("Error al editar el informe");
         }
@@ -329,6 +336,7 @@ async function editarBajaEquipo(id, userName) {
     console.log("Error:", error);
   }
 }
+
 
 //-----------------------------------------Función para obtener el tipo de activo----------------------------------
 function obtenerTipoActivoEditar() {

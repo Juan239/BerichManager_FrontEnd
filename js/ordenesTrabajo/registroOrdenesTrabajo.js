@@ -3,70 +3,75 @@ var urlBack = "http://localhost:3000/";
 
 async function registrarOrdenTrabajo() {
   const token = localStorage.getItem("token");
-  //-------------------------------------------------------------------Obtener datos usuario de la sesion----------------------------------------------------------------------
-  // Verificar si el token existe
-  if (token) {
-    // Realizar una petición GET al servidor para obtener los datos del usuario
-    fetch(`${urlBack}api/credenciales`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        // Verificar si la respuesta es exitosa (código de estado 200)
-        if (response.ok) {
-          // Obtener los datos de la respuesta en formato JSON
-          return response.json();
-        } else {
+
+  // Obtener los valores de los campos de entrada
+  const fecha = document.getElementById("fecha").value;
+  const titulo = document.getElementById("titulo").value;
+  const descripcion = document.getElementById("descripcion").value.trim();
+  const observaciones = document.getElementById("observaciones").value.trim();
+  const establecimiento = parseInt(document.getElementById("establecimiento").value);
+  const intervencion = obtenerValorSeleccionado();
+
+  // Verificar que ningún campo esté vacío
+  if (fecha && titulo && descripcion && observaciones && establecimiento && intervencion) {
+    if (token) {
+      try {
+        // Obtener datos del usuario
+        const response = await fetch(`${urlBack}api/credenciales`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
           throw new Error("Acceso no autorizado");
         }
-      })
-      .then((data) => {
-        // Guardar los datos de la respuesta en variables
+
+        const data = await response.json();
         const idUsuario = data.userId;
 
-        let ordenTrabajo = {
-          fecha: document.getElementById("fecha").value,
-          titulo: document.getElementById("titulo").value,
-          descripcion: document.getElementById("descripcion").value,
-          observaciones: document.getElementById("observaciones").value,
-          responsable: idUsuario, //Asignar la id del usuario actual
-          establecimiento: parseInt(
-            document.getElementById("establecimiento").value
-          ), //hay que pasar a int para que el backend pueda tomar el dato bien
-          intervencion: obtenerValorSeleccionado(),
+        const ordenTrabajo = {
+          fecha,
+          titulo,
+          descripcion,
+          observaciones,
+          responsable: idUsuario,
+          establecimiento,
+          intervencion,
         };
 
-        try {
-          const request = fetch(`${urlBack}api/ordenTrabajo`, {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(ordenTrabajo),
-          });
-            console.log(ordenTrabajo);
-          // Cerrar el modal
-          $("#modalAgregarEstablecimientos").modal("hide");
+        // Enviar solicitud al backend
+        const request = await fetch(`${urlBack}api/ordenTrabajo`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(ordenTrabajo),
+        });
 
-          // Recargar el datatable
+        // Verificar si la solicitud fue exitosa
+        if (request.ok) {
+          console.log("Orden de trabajo registrada con éxito:", ordenTrabajo);
+          $("#modalAgregarEstablecimientos").modal("hide");
           location.reload();
-        } catch (error) {
-          console.error("Error:", error.message);
+        } else {
+          throw new Error("Error al registrar la orden de trabajo");
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error:", error.message);
-      });
+      }
+    } else {
+      console.error("No se encontró ningún token almacenado.");
+    }
   } else {
-    console.error("No se encontró ningún token almacenado.");
+    alert("Por favor, complete todos los campos antes de registrar la orden de trabajo.");
   }
 }
+
 //------------------------------------------------------------Obtener valor de intervencion-----------------------------------------------------
 function obtenerValorSeleccionado() {
   // Obtener todos los radiobutton con el name "intervencion"

@@ -2,9 +2,20 @@
 var urlBack = "http://localhost:3000/";
 
 async function registrarMarcas() {
+  // Obtener el valor del nombre de la marca y eliminar espacios en blanco al principio y al final
+  let nombreMarca = document.getElementById("nombreMarca").value.trim();
+
+  // Verificar que el campo no esté vacío después de eliminar los espacios en blanco
+  if (!nombreMarca) {
+    alert("Por favor ingrese el nombre de la marca.");
+    return;
+  }
+
+  // Crear el objeto marca
   let marca = {
-    nombre: document.getElementById("nombreMarca").value,
+    nombre: nombreMarca,
   };
+  
   try {
     const request = await fetch(`${urlBack}api/marcas`, {
       method: "POST",

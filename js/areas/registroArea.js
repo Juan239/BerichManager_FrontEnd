@@ -1,9 +1,20 @@
 var urlBack = "http://localhost:3000/";
 
 async function registrarArea() {
+  // Obtener el valor del nombre del área y eliminar espacios en blanco al principio y al final
+  let nombreArea = document.getElementById("nombreArea").value.trim();
+
+  // Verificar que el campo no esté vacío después de eliminar los espacios en blanco
+  if (!nombreArea) {
+    alert("Por favor ingrese el nombre del área.");
+    return;
+  }
+
+  // Crear el objeto área
   let area = {
-    nombre: document.getElementById("nombreArea").value,
+    nombre: nombreArea,
   };
+
   try {
     const request = await fetch(`${urlBack}api/areas`, {
       method: "POST",

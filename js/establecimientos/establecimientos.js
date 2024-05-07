@@ -29,11 +29,16 @@ if (token) {
       // Guardar los datos de la respuesta en variables
       const idUsuario = data.userId;
       const username = data.username;
-      const userRol = data.userRol;
+      const userRol = data.userRolInformatica;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
         document.getElementById("nombreDeUsuario").innerText = username;
+      }
+
+      if (userRol !== "admin") {
+        // Redirigir al usuario al dashboard si no es administrador
+        window.location.href = "http://localhost/DAEM/berichmanager/index.html";
       }
 
 
@@ -157,34 +162,44 @@ async function editarEstablecimiento(id) {
 
     const establecimiento = await response.json();
 
+    // Mostrar el modal y establecer el valor del campo nombre del establecimiento
+    $("#modalEditarEstablecimiento").modal("show");
     document.getElementById("nombreEstablecimientoEditar").value = establecimiento.est_nombre;
 
-    $("#modalEditarEstablecimiento").modal("show");
+    // Agregar un evento al botón de editar
+    document.getElementById("btnEditarEstablecimiento").addEventListener("click", async function () {
+      // Obtener el nuevo nombre del establecimiento y eliminar espacios en blanco al principio y al final
+      const nuevoNombreEstablecimiento = document.getElementById("nombreEstablecimientoEditar").value.trim();
 
-    document.getElementById("btnEditarEstablecimiento").onclick = function () {
-      const nuevoNombre = document.getElementById("nombreEstablecimientoEditar").value;
+      // Verificar que el nuevo nombre del establecimiento no esté vacío
+      if (!nuevoNombreEstablecimiento) {
+        alert("Por favor ingrese un nuevo nombre para el establecimiento.");
+        return;
+      }
 
-      try{
-        const request = fetch(`${urlBack}api/establecimientos/` + id, {
+      try {
+        // Realizar una petición PUT al servidor para editar el establecimiento
+        const request = await fetch(`${urlBack}api/establecimientos/` + id, {
           method: "PUT",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ nombre: nuevoNombre }),
+          body: JSON.stringify({ nombre: nuevoNombreEstablecimiento }),
         });
+
+        // Ocultar el modal después de la edición y recargar la página
         $("#modalEditarEstablecimiento").modal("hide");
         location.reload();
-      }catch(error){
+      } catch (error) {
         console.error("Error:", error.message);
-        // Redirigir al usuario a la página de inicio de sesión en caso de error, el error obtenido es por la invalidez del token o la ausencia de este
-        window.location.href = "http://localhost/DAEM/login.html";
       }
-    };
+    });
   } catch (error) {
     console.error("Error:", error.message);
     // Redirigir al usuario a la página de inicio de sesión en caso de error, el error obtenido es por la invalidez del token o la ausencia de este
     window.location.href = "http://localhost/DAEM/login.html";
   }
 }
+

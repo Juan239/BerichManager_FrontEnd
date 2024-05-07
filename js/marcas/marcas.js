@@ -28,11 +28,16 @@ if (token) {
     .then((data) => {
       // Guardar los datos de la respuesta en variables
       const username = data.username;
-      const userRol = data.userRol;
+      const userRol = data.userRolInformatica;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
         document.getElementById("nombreDeUsuario").innerText = username;
+      }
+
+      if (userRol !== "admin") {
+        // Redirigir al usuario al dashboard si no es administrador
+        window.location.href = "http://localhost/DAEM/berichmanager/index.html";
       }
 
       //Llamar a la funcion cargarMarcas para completar el datatable cuando cargue la pagina
@@ -161,7 +166,17 @@ async function editarMarca(id) {
     // Completar los campos del modal con los datos de la marca
     document.getElementById("nombreMarcaEditar").value = marca.ma_nombre;
 
-    document.getElementById("btnEditarMarca").onclick = async function () {
+    // Agregar un evento al botón de editar
+    document.getElementById("btnEditarMarca").addEventListener("click", async function () {
+      // Obtener el nuevo nombre de la marca y eliminar espacios en blanco al principio y al final
+      const nuevoNombreMarca = document.getElementById("nombreMarcaEditar").value.trim();
+
+      // Verificar que el nuevo nombre de la marca no esté vacío
+      if (!nuevoNombreMarca) {
+        alert("Por favor ingrese un nuevo nombre para la marca.");
+        return;
+      }
+
       try {
         // Realizar una petición PUT al servidor para editar una marca
         const response = await fetch(`${urlBack}api/marcas/${id}`, {
@@ -172,7 +187,7 @@ async function editarMarca(id) {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            nombre: document.getElementById("nombreMarcaEditar").value,
+            nombre: nuevoNombreMarca,
           }),
         });
 
@@ -185,9 +200,10 @@ async function editarMarca(id) {
         console.error("Error:", error.message);
         window.location.href = "http://localhost/DAEM/login.html";
       }
-    };
+    });
   } catch (error) {
     console.error("Error:", error.message);
     window.location.href = "http://localhost/DAEM/login.html";
   }
 }
+

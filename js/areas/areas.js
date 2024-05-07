@@ -28,13 +28,17 @@ if (token) {
     .then((data) => {
       // Guardar los datos de la respuesta en variables
       const username = data.username;
-      const userRol = data.userRol;
+      const userRol = data.userRolInformatica;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
         document.getElementById("nombreDeUsuario").innerText = username;
       }
 
+      if (userRol !== "admin") {
+        // Redirigir al usuario al dashboard si no es administrador
+        window.location.href = "http://localhost/DAEM/berichmanager/index.html";
+      }
 
       //Llamar a la funcion cargarAreas para completar el datatable cuando cargue la pagina
       cargarAreas();
@@ -152,7 +156,17 @@ async function editarArea(id) {
     $("#modalEditarArea").modal("show");
     document.getElementById("nombreAreaEditar").value = area.ar_nombre;
 
-    document.getElementById("btnEditarArea").onclick = async function () {
+    // Agregar un evento al botón de editar
+    document.getElementById("btnEditarArea").addEventListener("click", async function () {
+      // Obtener el nuevo nombre del área y eliminar espacios en blanco al principio y al final
+      const nuevoNombreArea = document.getElementById("nombreAreaEditar").value.trim();
+
+      // Verificar que el nuevo nombre del área no esté vacío
+      if (!nuevoNombreArea) {
+        alert("Por favor ingrese un nuevo nombre para el área.");
+        return;
+      }
+
       try {
         const request = await fetch(`${urlBack}api/areas/${id}`, {
           method: "PUT",
@@ -162,7 +176,7 @@ async function editarArea(id) {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            nombre: document.getElementById("nombreAreaEditar").value,
+            nombre: nuevoNombreArea,
           }),
         });
 
@@ -174,8 +188,9 @@ async function editarArea(id) {
       } catch (error) {
         console.error("Error:", error.message);
       }
-    };
+    });
   } catch (error) {
     console.error("Error:", error.message);
   }
 }
+

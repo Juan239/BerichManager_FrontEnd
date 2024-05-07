@@ -28,13 +28,17 @@ if (token) {
     .then((data) => {
       // Guardar los datos de la respuesta en variables
       const username = data.username;
-      const userRol = data.userRol;
+      const userRol = data.userRolInformatica;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
         document.getElementById("nombreDeUsuario").innerText = username;
       }
 
+      if (userRol !== "admin") {
+        // Redirigir al usuario al dashboard si no es administrador
+        window.location.href = "http://localhost/DAEM/berichmanager/index.html";
+      }
 
       //Llamar a la funcion cargarCategorias para completar el datatable cuando cargue la pagina
       cargarActivos();
@@ -136,7 +140,7 @@ async function eliminarActivo(id) {
 }
 
 async function editarActivo(id) {
-  // Realizar una petición GET al servidor para obtener los datos de la categoria
+  // Realizar una petición GET al servidor para obtener los datos del activo
   console.log(id);
   try {
     const response = await fetch(`${urlBack}api/tipoActivos/${id}`, {
@@ -154,42 +158,47 @@ async function editarActivo(id) {
 
     const activo = await response.json();
 
-    // Mostrar el modal con los datos de la categoria
+    // Mostrar el modal con los datos del activo
     $("#modalEditarActivo").modal("show");
     document.getElementById("nombreActivoEditar").value = activo[0].ac_nombre;
 
     // Agregar un evento al botón de editar
-    document
-      .getElementById("btnEditarActivo")
-      .addEventListener("click", function () {
-        // Aquí va el código que se ejecutará cuando se haga clic en el botón de editar
-        const nuevoNombre = document.getElementById("nombreActivoEditar").value;
-        try {
-          // Realizar una petición PUT al servidor para editar la categoria
-          fetch(`${urlBack}api/tipoActivos/${id}`, {
-            method: "PUT",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              nombre: nuevoNombre,
-            }),
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Error al editar la categoria");
-              }
-              location.reload();
-            })
-            .catch((error) => {
-              console.error("Error:", error.message);
-            });
-        } catch (error) {
+    document.getElementById("btnEditarActivo").addEventListener("click", function () {
+      // Obtener el nuevo nombre del activo y eliminar espacios en blanco al principio y al final
+      const nuevoNombre = document.getElementById("nombreActivoEditar").value.trim();
+
+      // Verificar que el nuevo nombre no esté vacío
+      if (!nuevoNombre) {
+        alert("Por favor ingrese un nuevo nombre para el activo.");
+        return;
+      }
+
+      try {
+        // Realizar una petición PUT al servidor para editar el activo
+        fetch(`${urlBack}api/tipoActivos/${id}`, {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            nombre: nuevoNombre,
+          }),
+        })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error al editar el activo");
+          }
+          location.reload();
+        })
+        .catch((error) => {
           console.error("Error:", error.message);
-        }
-      });
+        });
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    });
   } catch (error) {
     console.error("Error:", error.message);
   }
