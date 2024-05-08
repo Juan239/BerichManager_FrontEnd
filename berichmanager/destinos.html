@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Usuarios</title>
+    <title>Destinos</title>
 
     <!-- Custom fonts for this template -->
     <link
@@ -22,8 +22,6 @@
       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="../css/loader.css" />
 
     <!-- Custom styles for this template -->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet" />
@@ -100,6 +98,7 @@
 
         <!--Agregar los item del menu administrador que corresponda-->
         <script src="../js/menu.js"></script>
+
       </ul>
       <!-- End of Sidebar -->
 
@@ -120,8 +119,6 @@
                 <i class="fa fa-bars"></i>
               </button>
             </form>
-
-            <!--<h2>Gestión de usuarios</h2>-->
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -172,36 +169,36 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Gestión de usuarios</h1>
+            <h1 class="h3 mb-2 text-gray-800">Gestión de destinos</h1>
 
-            <!--Modal agregar nuevo usuario -->
+            <!--Modal agregar nuevo destino -->
             <!-- Botón -->
             <a
               href="#"
-              id="btnAgregarUsuario"
+              id="btnAgregarDestino"
               class="btn btn-success btn-icon-split my-2"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
               </span>
-              <span class="text">Agregar nuevo usuario</span>
+              <span class="text">Agregar nuevo destino</span>
             </a>
 
-            <!-- Modal agregar usuario -->
+            <!--------------------------------------------------------------------- Modal agregar nuevo destino---------------------------------------------------->
             <div
               class="modal fade"
-              id="modalAgregarUsuario"
+              id="modalAgregarDestino"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
             >
-              <div class="modal-dialog" role="document">
+              <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
                     <h5 class="modal-title" id="labelAgregarUser">
-                      Agregar nuevo usuario
+                      Agregar nuevo destino
                     </h5>
                     <button
                       type="button"
@@ -215,95 +212,20 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formAgregarUsuario">
+                    <form id="formDestinos">
+                      <!--Input de la descripción-->
                       <div class="form-group">
-                        <label for="nombre">Nombre:</label>
+                        <label for="nombreDestino">Nombre del destino:</label>
                         <input
                           type="text"
                           class="form-control"
-                          id="nombre"
-                          placeholder="Ingrese el nombre"
+                          id="nombreDestino"
+                          placeholder="Ingrese el nombre del destino"
                           required
                         />
                       </div>
 
-                      <div class="form-group">
-                        <label for="apellido">Apellido:</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="apellido"
-                          placeholder="Ingrese el apellido"
-                          required
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <label for="nombreUsuario">Nombre de usuario:</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="nombreUsuario"
-                          placeholder="Ingrese el nombre de usuario"
-                          required
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <label for="contrasena">Contraseña:</label>
-                        <div class="input-group">
-                          <input
-                            type="password"
-                            class="form-control"
-                            id="contrasena"
-                            placeholder="Ingrese una contraseña"
-                            required
-                          />
-                          <div class="input-group-append">
-                            <span class="input-group-text toggle-password">
-                              <i class="fa fa-eye-slash"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="rolInformaticaCheckbox"
-                          >Tipo de usuario</label
-                        >
-
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="rolInformaticaCheckbox"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="rolInformaticaCheckbox"
-                          >
-                            Administrador informática
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="rolBitacorasCheckbox"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="rolBitacorasCheckbox"
-                          >
-                            Administrador bitácoras
-                          </label>
-                        </div>
-                      </div>
+                      <br />
                     </form>
                   </div>
                   <!-- Pie del modal -->
@@ -316,10 +238,10 @@
                       Cancelar
                     </button>
                     <button
-                      onclick="registrarUsuarios()"
+                      onclick="registrarDestino()"
                       type="button"
                       class="btn btn-success"
-                      form="formAgregarUsuario"
+                      form="formDestinos"
                     >
                       Guardar
                     </button>
@@ -328,21 +250,21 @@
               </div>
             </div>
 
-            <!-- Modal editar usuario -->
+            <!--------------------------------------------------------------------- Modal editar destino---------------------------------------------------->
             <div
               class="modal fade"
-              id="modalEditarUsuario"
+              id="modalEditarDestino"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
             >
-              <div class="modal-dialog" role="document">
+              <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
-                    <h5 class="modal-title" id="labelEditarUsuario">
-                      Editar usuario
+                    <h5 class="modal-title" id="labelAgregarUser">
+                      Editar destino
                     </h5>
                     <button
                       type="button"
@@ -356,97 +278,22 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formEditarUsuario">
+                    <form id="formDestinosEditar">
+                      <!--Input de la descripción-->
                       <div class="form-group">
-                        <label for="nombreEditar">Nombre:</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="nombreEditar"
-                          placeholder="Ingrese el nuevo nombre"
-                          required
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <label for="apellidoEditar">Apellido:</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="apellidoEditar"
-                          placeholder="Ingrese el nuevo apellido"
-                          required
-                        />
-                      </div>
-
-                      <div class="form-group">
-                        <label for="nombreUsuarioEditar"
-                          >Nombre de usuario:</label
+                        <label for="nombreDestinoEditar"
+                          >Nombre del destino:</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="nombreUsuarioEditar"
-                          placeholder="Ingrese el nuevo nombre de usuario"
+                          id="nombreDestinoEditar"
+                          placeholder="Ingrese el nombre del destino"
                           required
                         />
                       </div>
 
-                      <div class="form-group">
-                        <label for="contrasenaEditar">Nueva contraseña:</label>
-                        <div class="input-group">
-                          <input
-                            type="password"
-                            class="form-control"
-                            id="contrasenaEditar"
-                            placeholder="Ingrese una nueva contraseña"
-                            required
-                          />
-                          <div class="input-group-append">
-                            <span class="input-group-text toggle-password">
-                              <i class="fa fa-eye-slash"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <!--Tipo de usuario area informatica-->
-                      <div class="form-group">
-                        <label for="rolInformaticaCheckboxEditar"
-                          >Tipo de usuario</label
-                        >
-
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="rolInformaticaCheckboxEditar"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="rolInformaticaCheckboxEditar"
-                          >
-                            Administrador informática
-                          </label>
-                        </div>
-                      </div>
-                      <!--Tipo de usuario bitacoras-->
-                      <div class="form-group">
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="rolBitacorasCheckboxEditar"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="rolBitacorasCheckboxEditar"
-                          >
-                            Administrador bitácoras
-                          </label>
-                        </div>
-                      </div>
+                      <br />
                     </form>
                   </div>
                   <!-- Pie del modal -->
@@ -460,31 +307,31 @@
                     </button>
                     <button
                       type="button"
-                      id="btnEditarUsuario"
                       class="btn btn-success"
-                      form="formEditarUsuario"
+                      form="formDestinosEditar"
+                      id="btnEditarDestino"
                     >
-                      Guardar cambios
+                      Guardar
                     </button>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!--Fin Modal agregar nuevo usuario -->
+            <!--Fin Modal agregar nueva orden Trabajo -->
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Lista de usuarios
+                  Lista de destinos
                 </h6>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table
                     class="table table-bordered"
-                    id="tableUsuarios"
+                    id="tableDestinos"
                     width="100%"
                     cellspacing="0"
                   >
@@ -492,10 +339,6 @@
                       <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Nombre de usuario</th>
-                        <th>Rol informática</th>
-                        <th>Rol bitácoras</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -543,7 +386,7 @@
             </button>
           </div>
           <div class="modal-body">
-            Selecciona cerrar sesión para salir de Berich Manager
+            Seleccionar cerrar sesión para salir de Berich Manager
           </div>
           <div class="modal-footer">
             <button
@@ -576,8 +419,11 @@
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="../js/usuarios/usuarios.js"></script>
+
+    <!-- Cambiar por los scripts correspondientes -->
+
     <script src="../js/sesiones/cerrarSesion.js"></script>
-    <script src="../js/usuarios/registroUsuarios.js"></script>
+    <script src="../js/destinos/registrarDestinos.js"></script>
+    <script src="../js/destinos/destinos.js"></script>
   </body>
 </html>
