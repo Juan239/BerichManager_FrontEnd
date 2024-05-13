@@ -32,7 +32,7 @@ function generarMenu() {
           "<!-- Divider -->" +
           '<hr class="sidebar-divider" />' +
           "<!-- Heading -->" +
-          '<div class="sidebar-heading">Administrador</div>' +
+          '<div id="opcionesAdministrador" class="sidebar-heading">Administrador</div>' +
           "<!-- Nav Item - Tables -->" +
           '<li class="nav-item" id="usuariosMenu">' +
           '<a class="nav-link" href="usuarios.html">' +
@@ -54,7 +54,7 @@ function generarMenu() {
           "</li>" +
           '<li class="nav-item" id="activosMenu">' +
           '<a class="nav-link" href="activos.html">' +
-          '<i class="fas fa-wrench"></i>' +
+          '<i class="fas fa-desktop"></i>' +
           "<span> Tipo de activos</span>" +
           "</a>" +
           "</li>" +
@@ -78,14 +78,20 @@ function generarMenu() {
           '<div class="sidebar-heading">Bitácoras</div>' +
           '<li class="nav-item" id="destinosMenu">' +
           '<a class="nav-link" href="destinos.html">' +
-          '<i class="fas fa-tags"></i>' +
-          "<span> Destinos</span>" +
+          '<i class="fas fa-map-pin"></i>' +
+          "<span>  Destinos</span>" +
           "</a>" +
           "</li>" +
           '<li class="nav-item" id="vehiculosMenu">' +
           '<a class="nav-link" href="vehiculos.html">' +
           '<i class="fas fa-car"></i>' +
           "<span> Vehículos</span>" +
+          "</a>" +
+          "</li>" +
+          '<li class="nav-item" id="conductoresMenu">' +
+          '<a class="nav-link" href="conductores.html">' +
+          '<i class="fas fa-id-card"></i>' +
+          "<span> Conductores</span>" +
           "</a>" +
           "</li>" +
           //Boton cerrar menu
@@ -189,6 +195,12 @@ function generarMenu() {
           "<span> Vehículos</span>" +
           "</a>" +
           "</li>" +
+          '<li class="nav-item" id="conductoresMenu">' +
+          '<a class="nav-link" href="conductores.html">' +
+          '<i class="fas fa-id-card"></i>' +
+          "<span> Conductores</span>" +
+          "</a>" +
+          "</li>" +
           //Boton cerrar menu
           "<!-- Divider -->" +
           '<hr class="sidebar-divider d-none d-md-block" />' +
@@ -208,6 +220,24 @@ function generarMenu() {
       }
       //Cuando solamente es usuario de ambas areas
       else if (rolInformatica === "usuario" && rolBitacoras === "usuario") {
+        let opciones = document.getElementById("accordionSidebar");
+        opciones.innerHTML +=
+          //Boton cerrar menu
+          "<!-- Divider -->" +
+          '<hr class="sidebar-divider d-none d-md-block" />' +
+          "<!-- Sidebar Toggler (Sidebar) -->" +
+          '<div class="text-center d-none d-md-inline">' +
+          '<button class="rounded-circle border-0" id="sidebarToggle"></button>' +
+          "</div>";
+        let sidebarToggle = document.getElementById("sidebarToggle");
+        if (sidebarToggle) {
+          sidebarToggle.addEventListener("click", function () {
+            document.body.classList.toggle("sidebar-toggled");
+            document
+              .getElementById("accordionSidebar")
+              .classList.toggle("toggled");
+          });
+        }
       }
       asignarItemActivo();
     })
@@ -233,6 +263,7 @@ function asignarItemActivo() {
     "marcas.html": "marcasMenu",
     "destinos.html": "destinosMenu",
     "vehiculos.html": "vehiculosMenu",
+    "conductores.html": "conductoresMenu",
   };
 
   // Obtiene el identificador único del elemento de menú correspondiente a la página actual

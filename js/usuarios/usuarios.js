@@ -71,6 +71,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   // Cuando se hace clic en el botón mostramos el modal agregar usuarios
   $("#btnAgregarUsuario").click(function () {
+    obtenerArea();
     $("#modalAgregarUsuario").modal("show");
   });
 
@@ -87,6 +88,38 @@ $(document).ready(function () {
     }
   });
 });
+
+//-------------------------------------------------Funcion obtener area-------------------------------------------------------
+function obtenerArea() {
+  fetch(`${urlBack}api/areas`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      $("#area").empty();
+      $("#areaEditar").empty();
+      data.forEach(function (area) {
+        $("#area").append(
+          `<option value="${area.ar_id}">${area.ar_nombre}</option>`
+        );
+      });
+      data.forEach(function (area) {
+        $("#areaEditar").append(
+          `<option value="${area.ar_id}">${area.ar_nombre}</option>`
+        );
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error.message);
+    });
+}
 
 //------------------------------------------------Función cargar usuarios--------------------------------------------------
 //Con esta funcion los registros se agregan directamente al datatable, por lo que ya funcionaria el buscar y la paginacion. *NO AGREGAR COMO HTML, NO FUNCIONA*
@@ -168,6 +201,7 @@ async function eliminarUsuario(id) {
 async function editarUsuario(id) {
   try {
     // Abrir el modal editar usuario
+    obtenerArea();
     $("#modalEditarUsuario").modal("show");
 
     // Realizar la solicitud GET al servidor para obtener los datos del usuario seleccionado
@@ -209,61 +243,67 @@ async function editarUsuario(id) {
     document.getElementById("nombreEditar").value = data.nombre;
     document.getElementById("apellidoEditar").value = data.apellido;
     document.getElementById("nombreUsuarioEditar").value = data.username;
-    document.getElementById("rolInformaticaCheckboxEditar").checked = rolInformatica;
-    document.getElementById("rolBitacorasCheckboxEditar").checked = rolBitacoras;
+    document.getElementById("rolInformaticaCheckboxEditar").checked =
+      rolInformatica;
+    document.getElementById("rolBitacorasCheckboxEditar").checked =
+      rolBitacoras;
+    document.getElementById("areaEditar").value = data.area;
 
     // Listener para el botón de guardar cambios del modal
-    $("#btnEditarUsuario").off().click(async function () {
-      // Se obtienen los datos ingresados en el modal
-      const nuevoNombre = $("#nombreEditar").val().trim();
-      const nuevoApellido = $("#apellidoEditar").val().trim();
-      const nuevoNombreUsuario = $("#nombreUsuarioEditar").val().trim();
-      const nuevaPassword = $("#contrasenaEditar").val().trim();
-      const nuevoRolInformatica = document.getElementById(
-        "rolInformaticaCheckboxEditar"
-      ).checked;
-      const nuevoRolBitacoras = document.getElementById(
-        "rolBitacorasCheckboxEditar"
-      ).checked;
+    $("#btnEditarUsuario")
+      .off()
+      .click(async function () {
+        // Se obtienen los datos ingresados en el modal
+        const nuevoNombre = $("#nombreEditar").val().trim();
+        const nuevoApellido = $("#apellidoEditar").val().trim();
+        const nuevoNombreUsuario = $("#nombreUsuarioEditar").val().trim();
+        const nuevaPassword = $("#contrasenaEditar").val().trim();
+        const nuevoRolInformatica = document.getElementById(
+          "rolInformaticaCheckboxEditar"
+        ).checked;
+        const nuevoRolBitacoras = document.getElementById(
+          "rolBitacorasCheckboxEditar"
+        ).checked;
+        const nuevoArea = $("#areaEditar").val();
 
-      // Verificar que los campos obligatorios no estén vacíos
-      if (!nuevoNombre || !nuevoApellido || !nuevoNombreUsuario) {
-        alert("Por favor complete todos los campos obligatorios.");
-        return;
-      }
-
-      try {
-        // Realizar la petición PUT al servidor para actualizar los datos del usuario
-        const editarResponse = await fetch(`${urlBack}api/usuarios/${id}`, {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            nombre: nuevoNombre,
-            apellido: nuevoApellido,
-            username: nuevoNombreUsuario,
-            password: nuevaPassword,
-            rolInformatica: nuevoRolInformatica,
-            rolBitacoras: nuevoRolBitacoras,
-          }),
-        });
-
-        // Verificar si la edición fue exitosa
-        if (!editarResponse.ok) {
-          throw new Error("Error al editar los datos del usuario");
+        // Verificar que los campos obligatorios no estén vacíos
+        if (!nuevoNombre || !nuevoApellido || !nuevoNombreUsuario) {
+          alert("Por favor complete todos los campos obligatorios.");
+          return;
         }
 
-        console.log("Datos del usuario editados exitosamente");
-        location.reload();
-      } catch (error) {
-        console.error("Error al editar los datos del usuario:", error);
-      }
-    });
+        try {
+          // Realizar la petición PUT al servidor para actualizar los datos del usuario
+          const editarResponse = await fetch(`${urlBack}api/usuarios/${id}`, {
+            method: "PUT",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              nombre: nuevoNombre,
+              apellido: nuevoApellido,
+              username: nuevoNombreUsuario,
+              password: nuevaPassword,
+              rolInformatica: nuevoRolInformatica,
+              rolBitacoras: nuevoRolBitacoras,
+              area : nuevoArea
+            }),
+          });
+
+          // Verificar si la edición fue exitosa
+          if (!editarResponse.ok) {
+            throw new Error("Error al editar los datos del usuario");
+          }
+
+          console.log("Datos del usuario editados exitosamente");
+          location.reload();
+        } catch (error) {
+          console.error("Error al editar los datos del usuario:", error);
+        }
+      });
   } catch (error) {
     console.error("Error al realizar la solicitud:", error);
   }
 }
-

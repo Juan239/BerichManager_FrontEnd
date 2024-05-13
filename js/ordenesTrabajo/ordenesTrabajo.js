@@ -179,10 +179,19 @@ async function cargarOrdenesTrabajo(userRol) {
             orden.titulo,
             orden.nombre,
             orden.establecimiento,
-            botonPdf + botonEditar + botonEliminar,
+            botonPdf +
+              botonEditar +
+              botonEliminar +
+              '<p style="display:none;">*' +
+              orden.ot_id +
+              "*</p>",
           ])
           .draw();
       } else {
+        let botonEditar =
+          '<a href="#" title="Editar" onClick="editarOrden(' +
+          orden.ot_id +
+          ')" class="btn btn-warning btn-circle mr-2"><i class="fas fa-pen"></i></a>';
         $("#tableOrdenesTrabajo")
           .DataTable()
           .row.add([
@@ -191,7 +200,12 @@ async function cargarOrdenesTrabajo(userRol) {
             orden.titulo,
             orden.nombre,
             orden.establecimiento,
-            botonPdf,
+            botonPdf +
+              botonEditar +
+              '<p style="display:none;">*' +
+              orden.ot_id +
+              "*</p>",
+            ,
           ])
           .draw();
       }
@@ -318,52 +332,64 @@ async function editarOrden(id) {
       `#modalEditar .form-check input[value="${data[0].ot_intervencion}"]`
     ).checked = true;
 
-    $("#btnGuardarCambiosEditar").off().click(async function () {
-      try {
-        // Se obtienen los datos ingresados en el modal
-        const nuevaFecha = $("#fechaEditar").val();
-        const nuevoTitulo = $("#tituloEditar").val();
-        const nuevoEstablecimiento = parseInt(
-          document.getElementById("establecimientoEditar").value
-        );
-        const nuevaIntervencion = obtenerValorSeleccionadoEditar();
-        const nuevaDescripcion = $("#descripcionEditar").val().trim();
-        const nuevaObservacion = $("#observacionesEditar").val().trim();
+    $("#btnGuardarCambiosEditar")
+      .off()
+      .click(async function () {
+        try {
+          // Se obtienen los datos ingresados en el modal
+          const nuevaFecha = $("#fechaEditar").val();
+          const nuevoTitulo = $("#tituloEditar").val();
+          const nuevoEstablecimiento = parseInt(
+            document.getElementById("establecimientoEditar").value
+          );
+          const nuevaIntervencion = obtenerValorSeleccionadoEditar();
+          const nuevaDescripcion = $("#descripcionEditar").val().trim();
+          const nuevaObservacion = $("#observacionesEditar").val().trim();
 
-        if(!nuevaFecha || !nuevoTitulo || !nuevoEstablecimiento || !nuevaIntervencion || !nuevaDescripcion || !nuevaObservacion){
-          alert("Por favor complete todos los campos");
-          return;
+          if (
+            !nuevaFecha ||
+            !nuevoTitulo ||
+            !nuevoEstablecimiento ||
+            !nuevaIntervencion ||
+            !nuevaDescripcion ||
+            !nuevaObservacion
+          ) {
+            alert("Por favor complete todos los campos");
+            return;
+          }
+
+          // Realizar la petición PUT al servidor para actualizar los datos del usuario
+          const editarResponse = await fetch(
+            `${urlBack}api/ordenTrabajo/${id}`,
+            {
+              method: "PUT",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                fecha: nuevaFecha,
+                titulo: nuevoTitulo,
+                descripcion: nuevaDescripcion,
+                observaciones: nuevaObservacion,
+                establecimiento: nuevoEstablecimiento,
+                intervencion: nuevaIntervencion,
+              }),
+            }
+          );
+
+          // Verificar si la edición fue exitosa
+          if (!editarResponse.ok) {
+            throw new Error("Error al editar los datos del usuario");
+          }
+
+          console.log("Datos de la orden editados exitosamente");
+          location.reload();
+        } catch (error) {
+          console.error("Error al editar los datos de la orden:", error);
         }
-
-        // Realizar la petición PUT al servidor para actualizar los datos del usuario
-        const editarResponse = await fetch(`${urlBack}api/ordenTrabajo/${id}`, {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            fecha: nuevaFecha,
-            titulo: nuevoTitulo,
-            descripcion: nuevaDescripcion,
-            observaciones: nuevaObservacion,
-            establecimiento: nuevoEstablecimiento,
-            intervencion: nuevaIntervencion,
-          }),
-        });
-
-        // Verificar si la edición fue exitosa
-        if (!editarResponse.ok) {
-          throw new Error("Error al editar los datos del usuario");
-        }
-
-        console.log("Datos de la orden editados exitosamente");
-        location.reload();
-      } catch (error) {
-        console.error("Error al editar los datos de la orden:", error);
-      }
-    });
+      });
   } catch (error) {
     console.log("Error al realizar la solicitud:", error);
   }

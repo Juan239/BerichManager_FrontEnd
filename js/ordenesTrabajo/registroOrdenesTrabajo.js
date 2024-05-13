@@ -32,15 +32,7 @@ async function registrarOrdenTrabajo() {
         const data = await response.json();
         const idUsuario = data.userId;
 
-        const ordenTrabajo = {
-          fecha,
-          titulo,
-          descripcion,
-          observaciones,
-          responsable: idUsuario,
-          establecimiento,
-          intervencion,
-        };
+        const ordenTrabajo = { fecha, titulo, descripcion, observaciones, responsable: idUsuario, establecimiento,intervencion};
 
         // Enviar solicitud al backend
         const request = await fetch(`${urlBack}api/ordenTrabajo`, {

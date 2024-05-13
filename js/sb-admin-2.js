@@ -7,6 +7,8 @@
     $(".sidebar").toggleClass("toggled");
     if ($(".sidebar").hasClass("toggled")) {
       $('.sidebar .collapse').collapse('hide');
+      document.getElementById("opcionesAdministrador").innerHTML = "Admin";
+      console.log("entro");
     };
   });
 
@@ -21,8 +23,11 @@
       $("body").addClass("sidebar-toggled");
       $(".sidebar").addClass("toggled");
       $('.sidebar .collapse').collapse('hide');
+      document.getElementById("opcionesAdministrador").innerHTML = "Admin"
+      console.log("entro");
     };
   });
+
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
   $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {

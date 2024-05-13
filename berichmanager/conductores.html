@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Usuarios</title>
+    <title>Conductores</title>
 
     <!-- Custom fonts for this template -->
     <link
@@ -178,19 +178,19 @@
             <!-- Botón -->
             <a
               href="#"
-              id="btnAgregarUsuario"
+              id="btnAgregarConductor"
               class="btn btn-success btn-icon-split my-2"
             >
               <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
               </span>
-              <span class="text">Agregar nuevo usuario</span>
+              <span class="text">Agregar nuevo conductor</span>
             </a>
 
-            <!-- Modal agregar usuario -->
+            <!-- Modal agregar conductor -->
             <div
               class="modal fade"
-              id="modalAgregarUsuario"
+              id="modalAgregarConductor"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
@@ -201,7 +201,7 @@
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
                     <h5 class="modal-title" id="labelAgregarUser">
-                      Agregar nuevo usuario
+                      Agregar nuevo conductor
                     </h5>
                     <button
                       type="button"
@@ -215,7 +215,7 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formAgregarUsuario">
+                    <form id="formAgregarConductor">
                       <div class="form-group">
                         <label for="nombre">Nombre:</label>
                         <input
@@ -267,56 +267,6 @@
                         </div>
                       </div>
 
-                      <div class="form-group">
-                        <label for="area">Área</label>
-                        <select
-                          class="form-control"
-                          id="area"
-                          name="area"
-                          required
-                        >
-                          <option value="">Seleccione el área</option>
-                          <!-- Aquí se cargarán las areas desde la base de datos con JavaScript -->
-                        </select>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="rolInformaticaCheckbox"
-                          >Tipo de usuario</label
-                        >
-
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="rolInformaticaCheckbox"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="rolInformaticaCheckbox"
-                          >
-                            Administrador informática
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="rolBitacorasCheckbox"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="rolBitacorasCheckbox"
-                          >
-                            Administrador bitácoras
-                          </label>
-                        </div>
-                      </div>
                     </form>
                   </div>
                   <!-- Pie del modal -->
@@ -329,10 +279,10 @@
                       Cancelar
                     </button>
                     <button
-                      onclick="registrarUsuarios()"
+                      onclick="registrarConductores()"
                       type="button"
                       class="btn btn-success"
-                      form="formAgregarUsuario"
+                      form="formAgregarConductor"
                     >
                       Guardar
                     </button>
@@ -341,10 +291,10 @@
               </div>
             </div>
 
-            <!-- Modal editar usuario -->
+            <!-- Modal editar conductor -->
             <div
               class="modal fade"
-              id="modalEditarUsuario"
+              id="modalEditarConductor"
               tabindex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
@@ -354,8 +304,8 @@
                 <div class="modal-content">
                   <!-- Encabezado del modal -->
                   <div class="modal-header">
-                    <h5 class="modal-title" id="labelEditarUsuario">
-                      Editar usuario
+                    <h5 class="modal-title" id="labelAgregarUser">
+                      Editar conductor
                     </h5>
                     <button
                       type="button"
@@ -369,14 +319,14 @@
                   <!-- Contenido del modal -->
                   <div class="modal-body">
                     <!-- Formulario -->
-                    <form id="formEditarUsuario">
+                    <form id="formEditarConductor">
                       <div class="form-group">
                         <label for="nombreEditar">Nombre:</label>
                         <input
                           type="text"
                           class="form-control"
                           id="nombreEditar"
-                          placeholder="Ingrese el nuevo nombre"
+                          placeholder="Ingrese el nombre"
                           required
                         />
                       </div>
@@ -387,32 +337,30 @@
                           type="text"
                           class="form-control"
                           id="apellidoEditar"
-                          placeholder="Ingrese el nuevo apellido"
+                          placeholder="Ingrese el apellido"
                           required
                         />
                       </div>
 
                       <div class="form-group">
-                        <label for="nombreUsuarioEditar"
-                          >Nombre de usuario:</label
-                        >
+                        <label for="nombreUsuarioEditar">Nombre de usuario:</label>
                         <input
                           type="text"
                           class="form-control"
                           id="nombreUsuarioEditar"
-                          placeholder="Ingrese el nuevo nombre de usuario"
+                          placeholder="Ingrese el nombre de usuario"
                           required
                         />
                       </div>
 
                       <div class="form-group">
-                        <label for="contrasenaEditar">Nueva contraseña:</label>
+                        <label for="contrasenaEditar">Contraseña:</label>
                         <div class="input-group">
                           <input
                             type="password"
                             class="form-control"
                             id="contrasenaEditar"
-                            placeholder="Ingrese una nueva contraseña"
+                            placeholder="Ingrese una contraseña"
                             required
                           />
                           <div class="input-group-append">
@@ -423,57 +371,6 @@
                         </div>
                       </div>
 
-                      <div class="form-group">
-                        <label for="areaEditar">Área</label>
-                        <select
-                          class="form-control"
-                          id="areaEditar"
-                          name="areaEditar"
-                          required
-                        >
-                          <option value="">Seleccione el área</option>
-                          <!-- Aquí se cargarán las areas desde la base de datos con JavaScript -->
-                        </select>
-                      </div>
-
-                      <!--Tipo de usuario area informatica-->
-                      <div class="form-group">
-                        <label for="rolInformaticaCheckboxEditar"
-                          >Tipo de usuario</label
-                        >
-
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="rolInformaticaCheckboxEditar"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="rolInformaticaCheckboxEditar"
-                          >
-                            Administrador informática
-                          </label>
-                        </div>
-                      </div>
-                      <!--Tipo de usuario bitacoras-->
-                      <div class="form-group">
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="rolBitacorasCheckboxEditar"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="rolBitacorasCheckboxEditar"
-                          >
-                            Administrador bitácoras
-                          </label>
-                        </div>
-                      </div>
                     </form>
                   </div>
                   <!-- Pie del modal -->
@@ -486,17 +383,19 @@
                       Cancelar
                     </button>
                     <button
+                      id="btnEditarConductor"
                       type="button"
-                      id="btnEditarUsuario"
                       class="btn btn-success"
-                      form="formEditarUsuario"
+                      form="formEditarConductor"
                     >
-                      Guardar cambios
+                      Guardar
                     </button>
                   </div>
                 </div>
               </div>
             </div>
+
+          
 
             <!--Fin Modal agregar nuevo usuario -->
 
@@ -504,14 +403,14 @@
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Lista de usuarios
+                  Lista de conductores
                 </h6>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table
                     class="table table-bordered"
-                    id="tableUsuarios"
+                    id="tableConductores"
                     width="100%"
                     cellspacing="0"
                   >
@@ -521,8 +420,6 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Nombre de usuario</th>
-                        <th>Rol informática</th>
-                        <th>Rol bitácoras</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -603,8 +500,8 @@
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="../js/usuarios/usuarios.js"></script>
+    <script src="../js/conductores/conductores.js"></script>
     <script src="../js/sesiones/cerrarSesion.js"></script>
-    <script src="../js/usuarios/registroUsuarios.js"></script>
+    <script src="../js/conductores/registrarConductores.js"></script>
   </body>
 </html>
