@@ -96,6 +96,13 @@
           </div>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link" href="bitacoras.html">
+            <i class="fas fa-clipboard-list"></i>
+            <span> Bitácoras</span>
+          </a>
+        </li>
+
         <!--Agregar los item del menu administrador que corresponda-->
         <script src="../js/menu.js"></script>
       </ul>
@@ -407,7 +414,7 @@
                           required
                         />
                       </div>
-                     
+
                       <!--Input observaciones-->
                       <div class="form-group">
                         <label for="observaciones">Observaciones</label>
@@ -475,158 +482,170 @@
                   <div class="modal-body">
                     <!-- Formulario -->
                     <form id="formBitacorasEditar">
-                      <!--Input del conductor-->
-                      <div class="form-group">
-                        <label for="conductorEditar">Conductor</label>
-                        <select
-                          class="form-control"
-                          id="conductorEditar"
-                          name="conductorEditar"
-                          required
-                        >
-                          <option value="">Seleccione al conductor</option>
-                          <!-- Aquí se cargarán los conductores desde la base de datos con JavaScript -->
-                        </select>
-                      </div>
-                      <!--Input fecha salida-->
-                      <div class="form-group">
-                        <label for="fechaSalidaEditar">Fecha de salida</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="fechaSalidaEditar"
-                          name="fechaSalidaEditar"
-                          required
-                        />
-                      </div>
-                      <!--Input hora salida-->
-                      <div class="form-group">
-                        <label for="horaSalidaEditar">Hora de salida</label>
-                        <input
-                          type="time"
-                          class="form-control"
-                          id="horaSalidaEditar"
-                          name="horaSalidaEditar"
-                          required
-                        />
-                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <!--Input del conductor-->
+                          <div class="form-group">
+                            <label for="conductorEditar">Conductor</label>
+                            <select
+                              class="form-control"
+                              id="conductorEditar"
+                              name="conductorEditar"
+                              required
+                            >
+                              <option value="">Seleccione al conductor</option>
+                              <!-- Aquí se cargarán los conductores desde la base de datos con JavaScript -->
+                            </select>
+                          </div>
+                          <!--Input fecha salida-->
+                          <div class="form-group">
+                            <label for="fechaSalidaEditar"
+                              >Fecha de salida</label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="fechaSalidaEditar"
+                              name="fechaSalidaEditar"
+                              required
+                            />
+                          </div>
+                          <!--Input hora salida-->
+                          <div class="form-group">
+                            <label for="horaSalidaEditar">Hora de salida</label>
+                            <input
+                              type="time"
+                              class="form-control"
+                              id="horaSalidaEditar"
+                              name="horaSalidaEditar"
+                              required
+                            />
+                          </div>
 
-                      <!--Input kilometraje salida-->
-                      <div class="form-group">
-                        <label for="kilometrajeSalidaEditar"
-                          >Kilometraje salida</label
-                        >
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="kilometrajeSalidaEditar"
-                          name="kilometrajeSalidaEditar"
-                          placeholder="Ingrese el kilometraje del vehículo al salir"
-                          required
-                        />
-                      </div>
+                          <!--Input kilometraje salida-->
+                          <div class="form-group">
+                            <label for="kilometrajeSalidaEditar"
+                              >Kilometraje salida</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="kilometrajeSalidaEditar"
+                              name="kilometrajeSalidaEditar"
+                              placeholder="Ingrese el kilometraje del vehículo al salir"
+                              required
+                            />
+                          </div>
 
-                      <!--Input destino-->
-                      <div class="form-group">
-                        <label for="destinoEditar">Destino</label>
-                        <select
-                          class="form-control"
-                          id="destinoEditar"
-                          name="destinoEditar"
-                          required
-                        >
-                          <option value="">Seleccione el destino</option>
-                          <!-- Aquí se cargarán los conductores desde la base de datos con JavaScript -->
-                        </select>
+                          <!--Input destino-->
+                          <div class="form-group">
+                            <label for="destinoEditar">Destino</label>
+                            <select
+                              class="form-control"
+                              id="destinoEditar"
+                              name="destinoEditar"
+                              required
+                            >
+                              <option value="">Seleccione el destino</option>
+                              <!-- Aquí se cargarán los conductores desde la base de datos con JavaScript -->
+                            </select>
+                          </div>
+                          <!--Input funcionario trasladado-->
+                          <div class="form-group">
+                            <label for="funcionarioTrasladadoEditar"
+                              >Funcionario trasladado</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="funcionarioTrasladadoEditar"
+                              placeholder="Ingrese el nombre del funcionario trasladado"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                          <!--Input fecha llegada-->
+                          <div class="form-group">
+                            <label for="fechaLlegadaEditar"
+                              >Fecha de llegada</label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="fechaLlegadaEditar"
+                              name="fechaLlegadaEditar"
+                              required
+                            />
+                          </div>
+                          <!--Input hora llegada-->
+                          <div class="form-group">
+                            <label for="horaLlegadaEditar"
+                              >Hora de llegada</label
+                            >
+                            <input
+                              type="time"
+                              class="form-control"
+                              id="horaLlegadaEditar"
+                              name="horaLlegadaEditar"
+                              required
+                            />
+                          </div>
+                          <!--Input kilometraje llegada-->
+                          <div class="form-group">
+                            <label for="kilometrajeLlegadaEditar"
+                              >Kilometraje llegada</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="kilometrajeLlegadaEditar"
+                              name="kilometrajeLlegadaEditar"
+                              placeholder="Ingrese el kilometraje del vehículo al llegar"
+                              required
+                            />
+                          </div>
+                          <!--Input combustible-->
+                          <div class="form-group">
+                            <label for="combustibleEditar">Combustible</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="combustibleEditar"
+                              name="combustibleEditar"
+                              placeholder="Ingrese el combustible"
+                            />
+                          </div>
+                          <!--Input observaciones-->
+                          <div class="form-group">
+                            <label for="observacionesEditar"
+                              >Observaciones</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="observacionesEditar"
+                              name="observacionesEditar"
+                              placeholder="Observaciones del viaje"
+                            />
+                          </div>
+                          <!--Input vehículo-->
+                          <div class="form-group">
+                            <label for="vehiculoEditar">Vehículo</label>
+                            <select
+                              class="form-control"
+                              id="vehiculoEditar"
+                              name="vehiculoEditar"
+                              required
+                            >
+                              <option value="">
+                                Seleccione el vehículo utilizado
+                              </option>
+                              <!-- Aquí se cargarán los vehiculos desde la base de datos con JavaScript -->
+                            </select>
+                          </div>
+                        </div>
                       </div>
-                      <!--Input funcionario trasladado-->
-                      <div class="form-group">
-                        <label for="funcionarioTrasladadoEditar"
-                          >Funcionario trasladado</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="funcionarioTrasladadoEditar"
-                          placeholder="Ingrese el nombre del funcionario trasladado"
-                        />
-                      </div>
-                      <br /><br />
-                      <!--Input fecha llegada-->
-                      <div class="form-group">
-                        <label for="fechaLlegadaEditar">Fecha de llegada</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="fechaLlegadaEditar"
-                          name="fechaLlegadaEditar"
-                          required
-                        />
-                      </div>
-                      <!--Input hora llegada-->
-                      <div class="form-group">
-                        <label for="horaLlegadaEditar">Hora de llegada</label>
-                        <input
-                          type="time"
-                          class="form-control"
-                          id="horaLlegadaEditar"
-                          name="horaLlegadaEditar"
-                          required
-                        />
-                      </div>
-                      <!--Input kilometraje llegada-->
-                      <div class="form-group">
-                        <label for="kilometrajeLlegadaEditar"
-                          >Kilometraje llegada</label
-                        >
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="kilometrajeLlegadaEditar"
-                          name="kilometrajeLlegadaEditar"
-                          placeholder="Ingrese el kilometraje del vehículo al llegar"
-                          required
-                        />
-                      </div>
-                      <!--Input combustible-->
-                      <div class="form-group">
-                        <label for="combustibleEditar">Combustible</label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="combustibleEditar"
-                          name="combustibleEditar"
-                          placeholder="Ingrese el combustible"
-                        />
-                      </div>
-                      <!--Input observaciones-->
-                      <div class="form-group">
-                        <label for="observacionesEditar">Observaciones</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="observacionesEditar"
-                          name="observacionesEditar"
-                          placeholder="Observaciones del viaje"
-                        />
-                      </div>
-                      <!--Input vehículo-->
-                      <div class="form-group">
-                        <label for="vehiculoEditar">Vehículo</label>
-                        <select
-                          class="form-control"
-                          id="vehiculoEditar"
-                          name="vehiculoEditar"
-                          required
-                        >
-                          <option value="">
-                            Seleccione el vehículo utilizado
-                          </option>
-                          <!-- Aquí se cargarán los vehiculos desde la base de datos con JavaScript -->
-                        </select>
-                      </div>
-
-                      <br />
                     </form>
                   </div>
                   <!-- Pie del modal -->
@@ -651,11 +670,293 @@
               </div>
             </div>
 
+            <!---------------------------------------------------------- Modal paradas ------------------------------------------------>
+            <div
+              class="modal fade"
+              id="modalParadas"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div
+                class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+                role="document"
+              >
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      Paradas del Viaje
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table table-bordered" id="tablaParadas">
+                      <thead>
+                        <tr>
+                          <th>Conductor</th>
+                          <th>Fecha salida</th>
+                          <th>Kilometraje salida</th>
+                          <th>Destino</th>
+                          <th>Fecha llegada</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="bodyTablaParadas">
+                        <!-- Aquí se cargarán las paradas desde la base de datos con JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Cerrar
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="btnAgregarParada"
+                    >
+                      Agregar Parada
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!----------------------------------------------------------------------Modal agregar parada-------------------------------------------------------->
+            <div
+              class="modal fade"
+              id="modalAgregarParada"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <!-- Encabezado del modal -->
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="labelAgregarUser">
+                      Agregar parada
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- Contenido del modal -->
+                  <div class="modal-body">
+                    <!-- Formulario -->
+                    <form id="formParadas">
+                      <div class="row">
+                        <!--Input del conductor-->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="conductorParadas">Conductor</label>
+                            <select
+                              class="form-control"
+                              id="conductorParadas"
+                              name="conductorParadas"
+                              required
+                            >
+                              <option value="">Seleccione al conductor</option>
+                              <!-- Aquí se cargarán los conductores desde la base de datos con JavaScript -->
+                            </select>
+                          </div>
+                          <!--Input fecha salida-->
+                          <div class="form-group">
+                            <label for="fechaSalidaParadas"
+                              >Fecha de salida</label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="fechaSalidaParadas"
+                              name="fechaSalidaParadas"
+                              required
+                            />
+                          </div>
+                          <!--Input hora salida-->
+                          <div class="form-group">
+                            <label for="horaSalidaParadas"
+                              >Hora de salida</label
+                            >
+                            <input
+                              type="time"
+                              class="form-control"
+                              id="horaSalidaParadas"
+                              name="horaSalidaParadas"
+                              required
+                            />
+                          </div>
+                          <!--Input kilometraje salida-->
+                          <div class="form-group">
+                            <label for="kilometrajeSalidaParadas"
+                              >Kilometraje salida</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="kilometrajeSalidaParadas"
+                              name="kilometrajeSalidaParadas"
+                              placeholder="Ingrese el kilometraje del vehículo al salir"
+                              required
+                            />
+                          </div>
+                          <!--Input destino-->
+                          <div class="form-group">
+                            <label for="destinoParadas">Destino</label>
+                            <select
+                              class="form-control"
+                              id="destinoParadas"
+                              name="destinoParadas"
+                              required
+                            >
+                              <option value="">Seleccione el destino</option>
+                              <!-- Aquí se cargarán los conductores desde la base de datos con JavaScript -->
+                            </select>
+                          </div>
+                          <!--Input funcionario trasladado-->
+                          <div class="form-group">
+                            <label for="funcionarioTrasladadoParadas"
+                              >Funcionario trasladado</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="funcionarioTrasladadoParadas"
+                              placeholder="Ingrese el nombre del funcionario trasladado"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <!--Input fecha llegada-->
+                          <div class="form-group">
+                            <label for="fechaLlegadaParadas"
+                              >Fecha de llegada</label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="fechaLlegadaParadas"
+                              name="fechaLlegadaParadas"
+                              required
+                            />
+                          </div>
+                          <!--Input hora llegada-->
+                          <div class="form-group">
+                            <label for="horaLlegadaParadas"
+                              >Hora de llegada</label
+                            >
+                            <input
+                              type="time"
+                              class="form-control"
+                              id="horaLlegadaParadas"
+                              name="horaLlegadaParadas"
+                              required
+                            />
+                          </div>
+                          <!--Input kilometraje llegada-->
+                          <div class="form-group">
+                            <label for="kilometrajeLlegadaParadas"
+                              >Kilometraje llegada</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="kilometrajeLlegadaParadas"
+                              name="kilometrajeLlegadaParadas"
+                              placeholder="Ingrese el kilometraje del vehículo al llegar"
+                              required
+                            />
+                          </div>
+                          <!--Input combustible-->
+                          <div class="form-group">
+                            <label for="combustibleParadas">Combustible</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="combustibleParadas"
+                              name="combustibleParadas"
+                              placeholder="Ingrese el combustible"
+                            />
+                          </div>
+                          <!--Input observaciones-->
+                          <div class="form-group">
+                            <label for="observacionesParadas"
+                              >Observaciones</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="observacionesParadas"
+                              name="observacionesParadas"
+                              placeholder="Observaciones del viaje"
+                            />
+                          </div>
+                          <!--Input vehículo-->
+                          <div class="form-group">
+                            <label for="vehiculoParadas">Vehículo</label>
+                            <select
+                              class="form-control"
+                              id="vehiculoParadas"
+                              name="vehiculoParadas"
+                              required
+                            >
+                              <option value="">
+                                Seleccione el vehículo utilizado
+                              </option>
+                              <!-- Aquí se cargarán los vehiculos desde la base de datos con JavaScript -->
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                    </form>
+                  </div>
+                  <!-- Pie del modal -->
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      id="btnGuardarParada"
+                      type="button"
+                      class="btn btn-success"
+                      form="formParadas"
+                    >
+                      Guardar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--------------------------------------------------------------------- Tabla de bitácoras---------------------------------------------------->
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Lista de activos
+                  Lista de viajes
                 </h6>
               </div>
               <div class="card-body">
@@ -759,5 +1060,7 @@
     <script src="../js/sesiones/cerrarSesion.js"></script>
     <script src="../js/bitacoras/bitacoras.js"></script>
     <script src="../js/bitacoras/registrarBitacoras.js"></script>
+    <script src="../js/bitacoras/paradas.js"></script>
+    <script src="../js/bitacoras/registrarParadas.js"></script>
   </body>
 </html>

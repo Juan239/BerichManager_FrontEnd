@@ -56,8 +56,8 @@ $(document).ready(function () {
     order: [[0, "desc"]],
     paging: true, // Habilitar paginación
     pageLength: 5, // Establecer el número de registros por página en 10
-    lengthChange: false, // Deshabilitar la opción de cambiar la cantidad de registros por página
-    dom: '<"top"f>rt<"bottom"i>p', //Se define la estructura de la tabla
+    lengthChange: true, // Deshabilitar la opción de cambiar la cantidad de registros por página
+    //dom: '<"top"f>rt<"bottom"i>p', //Se define la estructura de la tabla
   });
 });
 

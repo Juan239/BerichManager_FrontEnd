@@ -137,4 +137,16 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => {
             console.error("Error al realizar la solicitud:", error);
         });
+
+    fetch (`${urlBack}api/viajesTotales`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error al obtener los datos");
+        }
+        return response.json();
+    }).then(data => {
+        document.getElementById("viajesTotales").innerHTML = data[0].total;
+    }).catch(error => {
+        console.error("Error al realizar la solicitud:", error);
+    });
 });

@@ -53,7 +53,7 @@ $(document).ready(function () {
     order: [[0, "desc"]],
     paging: true, // Habilitar paginación
     pageLength: 5, // Establecer el número de registros por página en 10
-    lengthChange: false, // Deshabilitar la opción de cambiar la cantidad de registros por página
+    lengthChange: true, // Deshabilitar la opción de cambiar la cantidad de registros por página
     dom: '<"top"f>rt<"bottom"i>p', //Se define la estructura de la tabla
   });
 });
@@ -109,7 +109,7 @@ async function cargarBitacoras() {
 
       let botonEditar = `<a href="#" onClick="editarBitacora(${bitacora.bi_id})" title="Editar viaje" class="btn btn-warning btn-circle mr-2"><i class="fas fa-pen"></i></a>`;
 
-      let botonParadas = `<a href="#" onClick="agregarParada(${bitacora.bi_id})" title="Agregar parada" class="btn btn-primary btn-circle mr-2"><i class="fas fa-plus"></i></a>`;
+      let botonParadas = `<a href="#" onClick="agregarParadas(${bitacora.bi_id})" title="Agregar parada" class="btn btn-primary btn-circle mr-2"><i class="fas fa-plus"></i></a>`;
 
       $("#tablaBitacoras")
         .DataTable()
@@ -150,6 +150,12 @@ function obtenerConductores() {
       $("#conductorEditar").empty();
       data.forEach(function (conductor) {
         $("#conductorEditar").append(
+          `<option value="${conductor.usr_id}">${conductor.usr_nombre}</option>`
+        );
+      });
+      $("#conductorParadas").empty();
+      data.forEach(function (conductor) {
+        $("#conductorParadas").append(
           `<option value="${conductor.usr_id}">${conductor.usr_nombre}</option>`
         );
       });
@@ -196,6 +202,18 @@ function obtenerVehiculo() {
           }</option>`
         );
       });
+      $("#vehiculoParadas").empty();
+      data.forEach(function (vehiculo) {
+        $("#vehiculoParadas").append(
+          `<option value="${vehiculo.ve_patente}">${
+            vehiculo.ve_patente +
+            "  -  " +
+            vehiculo.ve_marca +
+            " " +
+            vehiculo.ve_modelo
+          }</option>`
+        );
+      });
     })
     .catch((error) => {
       console.error("Error:", error.message);
@@ -224,6 +242,12 @@ function obtenerDestino() {
       $("#destinoEditar").empty();
       data.forEach(function (destino) {
         $("#destinoEditar").append(
+          `<option value="${destino.de_id}">${destino.de_nombre}</option>`
+        );
+      });
+      $("#destinoParadas").empty();
+      data.forEach(function (destino) {
+        $("#destinoParadas").append(
           `<option value="${destino.de_id}">${destino.de_nombre}</option>`
         );
       });
@@ -320,15 +344,23 @@ async function editarBitacora(id) {
 
     document.getElementById("conductorEditar").value = bitacora[0].bi_conductor;
     document.getElementById("fechaSalidaEditar").value = fechaSalidaFormateada;
-    document.getElementById("horaSalidaEditar").value = bitacora[0].bi_horasalida;
-    document.getElementById("kilometrajeSalidaEditar").value = bitacora[0].bi_kilometrajesalida;
+    document.getElementById("horaSalidaEditar").value =
+      bitacora[0].bi_horasalida;
+    document.getElementById("kilometrajeSalidaEditar").value =
+      bitacora[0].bi_kilometrajesalida;
     document.getElementById("destinoEditar").value = bitacora[0].bi_destino;
-    document.getElementById("funcionarioTrasladadoEditar").value = bitacora[0].bi_funcionariotrasladado;
-    document.getElementById("fechaLlegadaEditar").value = fechaLlegadaFormateada
-    document.getElementById("horaLlegadaEditar").value = bitacora[0].bi_horallegada;
-    document.getElementById("kilometrajeLlegadaEditar").value = bitacora[0].bi_kilometrajellegada;
-    document.getElementById("combustibleEditar").value = bitacora[0].bi_combustible;
-    document.getElementById("observacionesEditar").value = bitacora[0].bi_observaciones;
+    document.getElementById("funcionarioTrasladadoEditar").value =
+      bitacora[0].bi_funcionariotrasladado;
+    document.getElementById("fechaLlegadaEditar").value =
+      fechaLlegadaFormateada;
+    document.getElementById("horaLlegadaEditar").value =
+      bitacora[0].bi_horallegada;
+    document.getElementById("kilometrajeLlegadaEditar").value =
+      bitacora[0].bi_kilometrajellegada;
+    document.getElementById("combustibleEditar").value =
+      bitacora[0].bi_combustible;
+    document.getElementById("observacionesEditar").value =
+      bitacora[0].bi_observaciones;
     document.getElementById("vehiculo").value = bitacora[0].bi_vehiculo;
 
     $("#modalEditarBitacora").modal("show");
@@ -338,20 +370,32 @@ async function editarBitacora(id) {
       .click(async function () {
         try {
           const conductor = document.getElementById("conductorEditar").value;
-          const fechaSalida = document.getElementById("fechaSalidaEditar").value;
+          const fechaSalida =
+            document.getElementById("fechaSalidaEditar").value;
           const horaSalida = document.getElementById("horaSalidaEditar").value;
-          const kilometrajeSalida = parseInt(document.getElementById("kilometrajeSalidaEditar").value);
+          const kilometrajeSalida = parseInt(
+            document.getElementById("kilometrajeSalidaEditar").value
+          );
           const destino = document.getElementById("destinoEditar").value;
-          const funcionarioTrasladado = document.getElementById("funcionarioTrasladadoEditar").value;
-          const fechaLlegada = document.getElementById("fechaLlegadaEditar").value;
-          const horaLlegada = document.getElementById("horaLlegadaEditar").value;
-          const kilometrajeLlegada = parseInt(document.getElementById("kilometrajeLlegadaEditar").value);
-          const combustible = parseInt(document.getElementById("combustibleEditar").value);
-          const observaciones = document.getElementById("observacionesEditar").value;
+          const funcionarioTrasladado = document.getElementById(
+            "funcionarioTrasladadoEditar"
+          ).value;
+          const fechaLlegada =
+            document.getElementById("fechaLlegadaEditar").value;
+          const horaLlegada =
+            document.getElementById("horaLlegadaEditar").value;
+          const kilometrajeLlegada = parseInt(
+            document.getElementById("kilometrajeLlegadaEditar").value
+          );
+          const combustible = parseInt(
+            document.getElementById("combustibleEditar").value
+          );
+          const observaciones = document.getElementById(
+            "observacionesEditar"
+          ).value;
           const vehiculo = document.getElementById("vehiculo").value;
-          
 
-          if(
+          if (
             !conductor ||
             !fechaSalida ||
             !horaSalida ||
@@ -361,12 +405,25 @@ async function editarBitacora(id) {
             !horaLlegada ||
             !kilometrajeLlegada ||
             !vehiculo
-          ){
+          ) {
             alert("Por favor, complete todos los campos.");
             return;
           }
 
-          const bitacora = { conductor, fechaSalida, horaSalida, kilometrajeSalida, destino, funcionarioTrasladado, fechaLlegada, horaLlegada, kilometrajeLlegada, combustible, observaciones, vehiculo };
+          const bitacora = {
+            conductor,
+            fechaSalida,
+            horaSalida,
+            kilometrajeSalida,
+            destino,
+            funcionarioTrasladado,
+            fechaLlegada,
+            horaLlegada,
+            kilometrajeLlegada,
+            combustible,
+            observaciones,
+            vehiculo,
+          };
 
           const request = await fetch(`${urlBack}api/bitacoras/${id}`, {
             method: "PUT",
@@ -389,6 +446,31 @@ async function editarBitacora(id) {
           console.error("Error:", error.message);
         }
       });
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
+}
+
+//----------------------------------------------------Funcion eliminar bitacora--------------------------------------
+async function eliminarBitacora(id) {
+  try {
+    if (confirm("¿Está seguro que desea eliminar la bitácora?")) {
+      const request = await fetch(`${urlBack}api/bitacoras/${id}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (request.ok) {
+        console.log("Bitacora eliminada con éxito:");
+        location.reload();
+      } else {
+        throw new Error("Error al eliminar la bitacora");
+      }
+    }
   } catch (error) {
     console.error("Error:", error.message);
   }
