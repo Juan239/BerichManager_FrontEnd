@@ -47,6 +47,7 @@ if (token) {
     })
     .catch((error) => {
       console.error("Error:", error.message);
+      window.location.href = "http://localhost/DAEM/login.html";
     });
 } else {
   console.error("No se encontró ningún token almacenado.");

@@ -11,6 +11,7 @@ async function registrarOrdenTrabajo() {
   const observaciones = document.getElementById("observaciones").value.trim();
   const establecimiento = parseInt(document.getElementById("establecimiento").value);
   const intervencion = obtenerValorSeleccionado();
+  const colaborador = document.getElementById("colaborador").value.trim();
 
   // Verificar que ningún campo esté vacío
   if (fecha && titulo && descripcion && observaciones && establecimiento && intervencion) {
@@ -32,7 +33,7 @@ async function registrarOrdenTrabajo() {
         const data = await response.json();
         const idUsuario = data.userId;
 
-        const ordenTrabajo = { fecha, titulo, descripcion, observaciones, responsable: idUsuario, establecimiento,intervencion};
+        const ordenTrabajo = { fecha, titulo, descripcion, observaciones, responsable: idUsuario, establecimiento,intervencion, colaborador};
 
         // Enviar solicitud al backend
         const request = await fetch(`${urlBack}api/ordenTrabajo`, {

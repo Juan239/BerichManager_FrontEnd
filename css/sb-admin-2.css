@@ -11279,3 +11279,119 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+.bordeGraficos{
+  border: 2px solid rgba(129, 129, 131, 0.3);
+  border-radius: 0.35rem;
+}
+
+@media (min-width: 768px) {
+  /* Your CSS code for large screens goes here */
+  .bordeGraficos{
+    margin-left: 50px;
+  }
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #6b6d7d;
+}
+.color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+
+#graficoTorta{
+  margin-top: 20px;
+  width: 100%;
+}
+
+#graficoBarra{
+  margin-top: 30px;
+}
+
+#titulo{
+ margin-top: 10px;
+}
+
+
+
+
+
+@media print {
+  @page {
+    size: landscape;
+  }
+
+  #titulo {
+    margin-top: 60px;
+  }
+
+  .bordeGraficosR {
+    border: none;
+  }
+
+  #graficoTorta1, #graficoTorta2, #graficoTorta3 {
+    margin-top: 200px;
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+  }
+
+  .elemento-a-separar {
+    page-break-after: always;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 270px;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .card-body {
+    padding: 0 !important;
+  }
+
+  .chart-pie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  canvas {
+    margin: 0 auto;
+  }
+}
+
+#myBarChart {
+  height: 400px;
+}
+
+
+@media (max-width: 768px) {
+  #myBarChart {
+    height: 250px;
+  }
+
+  .legend-item {
+    font-size: 14px;
+  }
+
+  #btnGenerarReporte{
+    flex-basis: 38%;
+    font-size: 12px;
+  }
+}
+
+
+
+
+

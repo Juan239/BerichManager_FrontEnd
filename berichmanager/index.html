@@ -9,6 +9,8 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="shortcut icon" href="../img/logoBM.png" />
+    <link rel="icon" type="image/x-icon" href="../img/logoBM.png" />
 
     <title>Inicio</title>
 
@@ -24,7 +26,7 @@
     />
 
     <!-- Custom styles for this template-->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="../css/sb-admin-2.css" rel="stylesheet" />
   </head>
 
   <body id="page-top">
@@ -46,60 +48,10 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0" />
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a
-          >
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
-
-        <!-- Heading -->
-        <div class="sidebar-heading">Usuarios</div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseTwo"
-            aria-expanded="true"
-            aria-controls="collapseTwo"
-          >
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Informes</span>
-          </a>
-          <div
-            id="collapseTwo"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="ordenesTrabajo.html"
-                >Orden de trabajo</a
-              >
-              <a class="collapse-item" href="bajaEquipos.html"
-                >Baja de activos</a
-              >
-            </div>
-          </div>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="bitacoras.html">
-            <i class="fas fa-clipboard-list"></i>
-            <span> Bitácoras</span>
-          </a>
-        </li>
+        
 
         <!--Agregar los item del menu administrador que corresponda-->
         <script src="../js/menu.js"></script>
-
       </ul>
       <!-- End of Sidebar -->
 
@@ -164,6 +116,16 @@
                     class="dropdown-item"
                     href="#"
                     data-toggle="modal"
+                    data-target="#modalCambiarContrasena"
+                  >
+                    <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Cambiar contraseña
+                  </a>
+
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
                     data-target="#logoutModal"
                   >
                     <i
@@ -175,259 +137,192 @@
               </li>
             </ul>
           </nav>
-          <!-- End of Topbar -->
+        
+        <!-- End of Topbar -->
 
-          <!-- Begin Page Content -->
-          <div class="container-fluid">
-            <!-- Page Heading -->
-            <div
-              class="d-sm-flex align-items-center justify-content-between mb-4"
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <!-- Page Heading -->
+          <div
+            class="d-sm-flex align-items-center justify-content-between mb-4"
+            style="display: flex;"
+          >
+            <h1 class="h3 mb-0 text-gray-800" style="flex-basis: 50%;">Dashboard</h1>
+            <a
+              class="btn btn-primary"
+              style="flex-basis: 10%;"
+              href="reporte.html"
+              target="_blank"
+              id="btnGenerarReporte"
+              >Generar reporte</a
             >
-              <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            </div>
+          </div>
 
-            <!-- Content Row -->
-            <div class="row">
-              <!-- Ordenes de trabajo totales -->
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div
-                          class="text-xs font-weight-bold text-primary text-uppercase mb-1"
-                        >
-                          Ordenes de trabajo totales
-                        </div>
-                        <div
-                          id="ordenesTrabajoTotales"
-                          class="h5 mb-0 font-weight-bold text-gray-800"
-                        ></div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Bitacoras totales -->
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div
-                          class="text-xs font-weight-bold text-primary text-uppercase mb-1"
-                        >
-                          Número de viajes totales
-                        </div>
-                        <div
-                          id="viajesTotales"
-                          class="h5 mb-0 font-weight-bold text-gray-800"
-                        ></div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Earnings (Monthly) Card Example -->
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div
-                          class="text-xs font-weight-bold text-info text-uppercase mb-1"
-                        >
-                          Tasks
-                        </div>
-                        <div class="row no-gutters align-items-center">
-                          <div class="col-auto">
-                            <div
-                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
-                            >
-                              50%
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="progress progress-sm mr-2">
-                              <div
-                                class="progress-bar bg-info"
-                                role="progressbar"
-                                style="width: 50%"
-                                aria-valuenow="50"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              ></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-auto">
-                        <i
-                          class="fas fa-clipboard-list fa-2x text-gray-300"
-                        ></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Pending Requests Card Example -->
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div
-                          class="text-xs font-weight-bold text-warning text-uppercase mb-1"
-                        >
-                          Pending Requests
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          18
-                        </div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-comments fa-2x text-gray-300"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Content Row -->
-
-            <div class="row">
-              <!-- Area Chart -->
-              <div class="col-12">
-                <div class="card shadow mb-4">
-                  <!-- Card Header - Dropdown -->
-                  <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
-                  >
-                    <h6 class="m-0 font-weight-bold text-primary">
-                      Ordenes de trabajo mensuales
-                    </h6>
-                  </div>
-                  <!-- Card Body -->
-                  <div class="card-body">
-                    <div class="chart-area">
-                      <canvas id="myBarChart"></canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4">
-                  <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
-                  >
-                    <h6
-                      id="tituloGraficoMes"
-                      class="m-0 font-weight-bold text-primary"
-                    >
-                      Ordenes de trabajo por establecimiento
-                    </h6>
-                    <!-- Dropdown para seleccionar el mes -->
-                    <div id="mesSeleccionado" class="ml-2"></div>
-                    <div class="dropdown no-arrow">
-                      <a
-                        class="dropdown-toggle"
-                        href="#"
-                        role="button"
-                        id="dropdownMenuLink"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i
-                          class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"
-                        ></i>
-                      </a>
+          <!-- Content Row -->
+          <div class="row">
+            <!-- Ordenes de trabajo totales -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
                       <div
-                        class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink"
+                        class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                       >
-                        <div class="dropdown-header">Mes:</div>
-                        <a class="dropdown-item" href="#" data-value="1"
-                          >Enero</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="2"
-                          >Febrero</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="3"
-                          >Marzo</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="4"
-                          >Abril</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="5"
-                          >Mayo</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="6"
-                          >Junio</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="7"
-                          >Julio</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="8"
-                          >Agosto</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="9"
-                          >Septiembre</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="10"
-                          >Octubre</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="11"
-                          >Noviembre</a
-                        >
-                        <a class="dropdown-item" href="#" data-value="12"
-                          >Diciembre</a
-                        >
-                        <div class="dropdown-divider"></div>
-                        <div class="dropdown-header">Total:</div>
-                        <a class="dropdown-item" href="#" data-value="0"
-                          >Total</a
-                        >
+                        Ordenes de trabajo totales
                       </div>
+                      <div
+                        id="ordenesTrabajoTotales"
+                        class="h5 mb-0 font-weight-bold text-gray-800"
+                      ></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                      <canvas id="myPieChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ordenes hechas el mes actual -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div
+                        class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                      >
+                        Ordenes de trabajo hechas este mes
+                      </div>
+                      <div
+                        id="ordenesMes"
+                        class="h5 mb-0 font-weight-bold text-gray-800"
+                      ></div>
                     </div>
-                    <div class="mt-4 text-center small">
-                      <span class="mr-2">
-                        <i class="fas fa-circle text-primary"></i> Bélgica
-                      </span>
-                      <span class="mr-2">
-                        <i class="fas fa-circle text-success"></i> Teresita
-                      </span>
-                      <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i> Liceo
-                      </span>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bitacoras totales -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div
+                        class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                      >
+                        Número de viajes totales
+                      </div>
+                      <div
+                        id="viajesTotales"
+                        class="h5 mb-0 font-weight-bold text-gray-800"
+                      ></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Viajes realizados en el mes actual -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div
+                        class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                      >
+                        Viajes realizados este mes
+                      </div>
+                      <div
+                        id="viajesMes"
+                        class="h5 mb-0 font-weight-bold text-gray-800"
+                      ></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br />
+          </div>
+
+          <div class="row">
+            <!-- Pie Chart -->
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card shadow bordeGraficos">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 id="tituloGraficoMes" class="m-0 font-weight-bold text-primary">Ordenes por establecimiento</h6>
+                  <div id="mesSeleccionado" class="ml-2"></div>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Meses:</div>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="1">Enero</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="2">Febrero</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="3">Marzo</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="4">Abril</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="5">Mayo</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="6">Junio</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="7">Julio</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="8">Agosto</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="9">Septiembre</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="10">Octubre</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="11">Noviembre</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="12">Diciembre</button>
+                      <div class="dropdown-divider"></div>
+                      <div class="dropdown-header">Totales:</div>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="13">1° Trimestre</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="14">2° Trimestre</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="15">3° Trimestre</button>
+                      <button class="dropdown-item" id="listaGrafico" type="button" data-value="0">Año completo</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-container">
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <div id="legendContainer"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Area Chart -->
+            <div class="col-lg-8 col-md-6 mb-4">
+              <div class="card shadow bordeGraficos">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Ordenes de trabajo mensuales</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-container">
+                    <canvas id="myBarChart"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- /.container-fluid -->
-        </div>
-        <!-- End of Main Content -->
 
+          <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
       </div>
-      <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
 
@@ -479,6 +374,77 @@
       </div>
     </div>
 
+    <!-- Modal cambiar contraseña -->
+    <div
+      class="modal fade"
+      id="modalCambiarContrasena"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- Encabezado del modal -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="labelCambiarContrasena">
+              Cambiar contraseña
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Contenido del modal -->
+          <div class="modal-body">
+            <!-- Formulario -->
+            <form id="formCambiarContrasena">
+              <!-- Input de la contraseña actual -->
+              <div class="form-group">
+                <label for="contrasenaActual">Contraseña actual:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="contrasenaActual"
+                  placeholder="Ingrese su contraseña actual"
+                  required
+                />
+              </div>
+              <!-- Input de la nueva contraseña -->
+              <div class="form-group">
+                <label for="nuevaContrasena">Nueva contraseña:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="nuevaContrasena"
+                  placeholder="Ingrese su nueva contraseña"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <!-- Pie del modal -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              form="formCambiarContrasena"
+              onclick="cambiarContrasena()"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -498,5 +464,6 @@
 
     <script src="../js/sesiones/cerrarSesion.js"></script>
     <script src="../js/dashboard.js"></script>
+    <script src="../js/usuarios/cambiarContrasena.js"></script>
   </body>
 </html>

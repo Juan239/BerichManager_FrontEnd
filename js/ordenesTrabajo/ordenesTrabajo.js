@@ -4,6 +4,8 @@ var urlBack = "http://localhost:3000/";
 //Obtener el token almacenado en el local storage
 const token = localStorage.getItem("token");
 
+let userArea = "";
+
 //-------------------------------------------------------------------Obtener datos usuario de la sesion----------------------------------------------------------------------
 // Verificar si el token existe
 if (token) {
@@ -29,6 +31,7 @@ if (token) {
       // Guardar los datos de la respuesta en variables
       const username = data.username;
       const userRol = data.userRolInformatica;
+      userArea = data.userArea;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
@@ -36,10 +39,11 @@ if (token) {
       }
 
       //Llamar a la funcion cargarOrdenesTrabajo para completar el datatable cuando cargue la pagina
-      cargarOrdenesTrabajo(userRol);
+      cargarOrdenesTrabajo(userRol, userArea);
     })
     .catch((error) => {
       console.error("Error:", error.message);
+      window.location.href = "http://localhost/DAEM/login.html";
     });
 } else {
   console.error("No se encontró ningún token almacenado.");
@@ -55,7 +59,7 @@ $(document).ready(function () {
     },
     order: [[0, "desc"]],
     paging: true, // Habilitar paginación
-    pageLength: 5, // Establecer el número de registros por página en 10
+    pageLength: 8, // Establecer el número de registros por página en 10
     lengthChange: true, // Deshabilitar la opción de cambiar la cantidad de registros por página
     //dom: '<"top"f>rt<"bottom"i>p', //Se define la estructura de la tabla
   });
@@ -115,18 +119,24 @@ function obtenerTitulos() {
 
 //----------------------------------------------------Modal agregar orden de trabajo--------------------------------------
 //Abrir el modal
-$(document).ready(function () {
-  // Cuando se hace clic en el botón muestra el modal
-  $("#btnAgregarOrden").click(function () {
+function agregarOrden() {
+  // Muestra el modal al cargar la página
+  if (userArea != 3) {
     $("#modalAgregarOrden").modal("show");
     obtenerEstablecimientos();
     obtenerTitulos();
     obtenerFechaActual();
-  });
-});
+  } else {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "No tienes permisos para agregar una orden de trabajo",
+    });
+  }
+}
 
 //----------------------------------------------------Funcion cargar ordenes de trabajo--------------------------------------
-async function cargarOrdenesTrabajo(userRol) {
+async function cargarOrdenesTrabajo(userRol, userArea) {
   try {
     const response = await fetch(`${urlBack}api/ordenTrabajo`, {
       method: "GET",
@@ -187,7 +197,7 @@ async function cargarOrdenesTrabajo(userRol) {
               "*</p>",
           ])
           .draw();
-      } else {
+      } else if (userRol === "usuario" && userArea != 3) {
         let botonEditar =
           '<a href="#" title="Editar" onClick="editarOrden(' +
           orden.ot_id +
@@ -205,6 +215,19 @@ async function cargarOrdenesTrabajo(userRol) {
               '<p style="display:none;">*' +
               orden.ot_id +
               "*</p>",
+            ,
+          ])
+          .draw();
+      } else if (userRol === "usuario" && userArea == 3) {
+        $("#tableOrdenesTrabajo")
+          .DataTable()
+          .row.add([
+            orden.ot_id,
+            fechaFormateada,
+            orden.titulo,
+            orden.nombre,
+            orden.establecimiento,
+            botonPdf + '<p style="display:none;">*' + orden.ot_id + "*</p>",
             ,
           ])
           .draw();
@@ -299,38 +322,52 @@ async function editarOrden(id) {
     obtenerTitulosEditar();
     $("#modalEditarOrden").modal("show");
 
-    const response = await fetch(`${urlBack}api/ordenTrabajo/${id}`, {
+    fetch(`${urlBack}api/ordenTrabajo/${id}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    });
+    })
+      .then((response) => {
+        // Verificar si la respuesta es exitosa
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos de la orden");
+        }
 
-    // Verificar si la respuesta es exitosa
-    if (!response.ok) {
-      throw new Error("Error al obtener los datos de la orden");
-    }
+        // Obtener los datos de la orden en formato JSON
+        return response.json();
+      })
+      .then((data) => {
+        //Formatear la fecha
+        var fecha = new Date(data[0].ot_fecha);
+        var fechaFormateada = fecha.toISOString().split("T")[0];
 
-    // Obtener los datos de la orden en formato JSON
-    const data = await response.json();
+        if (data[0].ot_colaborador === null) {
+          $("#nuevoColaboradorEditar").hide();
+          $("#btnAgregarColaboradorEditar").show();
+          document.getElementById("colaboradorEditar").value = null;
+        } else {
+          editarColaborador(data[0].ot_colaborador);
+        }
 
-    //Formatear la fecha
-    var fecha = new Date(data[0].ot_fecha);
-    var fechaFormateada = fecha.toISOString().split("T")[0];
-
-    //Asignar los datos al modal
-    document.getElementById("fechaEditar").value = fechaFormateada;
-    document.getElementById("tituloEditar").value = data[0].ot_titulo;
-    document.getElementById("establecimientoEditar").value =
-      data[0].ot_establecimiento;
-    document.getElementById("descripcionEditar").value = data[0].ot_descripcion;
-    document.getElementById("observacionesEditar").value =
-      data[0].ot_observaciones;
-    document.querySelector(
-      `#modalEditar .form-check input[value="${data[0].ot_intervencion}"]`
-    ).checked = true;
+        //Asignar los datos al modal
+        document.getElementById("fechaEditar").value = fechaFormateada;
+        document.getElementById("tituloEditar").value = data[0].ot_titulo;
+        document.getElementById("establecimientoEditar").value =
+          data[0].ot_establecimiento;
+        document.getElementById("descripcionEditar").value =
+          data[0].ot_descripcion;
+        document.getElementById("observacionesEditar").value =
+          data[0].ot_observaciones;
+        document.querySelector(
+          `#modalEditar .form-check input[value="${data[0].ot_intervencion}"]`
+        ).checked = true;
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos de la orden:", error);
+      });
 
     $("#btnGuardarCambiosEditar")
       .off()
@@ -345,6 +382,7 @@ async function editarOrden(id) {
           const nuevaIntervencion = obtenerValorSeleccionadoEditar();
           const nuevaDescripcion = $("#descripcionEditar").val().trim();
           const nuevaObservacion = $("#observacionesEditar").val().trim();
+          const nuevoColaborador = $("#colaboradorEditar").val();
 
           if (
             !nuevaFecha ||
@@ -375,6 +413,7 @@ async function editarOrden(id) {
                 observaciones: nuevaObservacion,
                 establecimiento: nuevoEstablecimiento,
                 intervencion: nuevaIntervencion,
+                colaborador: nuevoColaborador,
               }),
             }
           );
@@ -466,4 +505,78 @@ function obtenerValorSeleccionadoEditar() {
 
   // Retornar el valor seleccionado
   return valorSeleccionado;
+}
+
+function agregarColaborador() {
+  $("#nuevoColaborador").show();
+  $("#btnAgregarColaborador").hide();
+
+  fetch(`${urlBack}api/colaboradores`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      $("#colaborador").empty();
+      data.forEach(function (colaborador) {
+        $("#colaborador").append(
+          '<option value="' +
+            colaborador.usr_id +
+            '">' +
+            colaborador.nombre +
+            "</option>"
+        );
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function quitarColaborador() {
+  $("#nuevoColaborador").hide();
+  $("#btnAgregarColaborador").show();
+
+  document.getElementById("colaborador").value = null;
+}
+
+function editarColaborador(colaboradorID) {
+  $("#nuevoColaboradorEditar").show();
+  $("#btnAgregarColaboradorEditar").hide();
+
+  fetch(`${urlBack}api/colaboradores`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      $("#colaboradorEditar").empty();
+      data.forEach(function (colaborador) {
+        $("#colaboradorEditar").append(
+          '<option value="' +
+            colaborador.usr_id +
+            '">' +
+            colaborador.nombre +
+            "</option>"
+        );
+      });
+      // Asignar el valor al select después de que las opciones han sido agregadas
+      if (colaboradorID) {
+        document.getElementById("colaboradorEditar").value = colaboradorID;
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function quitarColaboradorEditar() {
+  $("#nuevoColaboradorEditar").hide();
+  $("#btnAgregarColaboradorEditar").show();
+
+  document.getElementById("colaboradorEditar").value = null;
 }

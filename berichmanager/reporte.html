@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Custom fonts for this template-->
+    <link
+      href="../vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+    <title>Reporte ordenes de trabajo</title>
+    <link rel="stylesheet" href="../css/sb-admin-2.css">
+    <link rel="shortcut icon" href="../img/logoBM.png" type="image/x-icon">
+</head>
+<body id="body">
+<h1 id="titulo" style="text-align: center; color: black;">Reporte de ordenes de trabajo</h1>
+        <!-- Area Chart -->
+        <div id="graficoBarras" class="col-xl-12 elemento-a-separar">
+            <div class="card shadow mb-4 bordeGraficosR">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Ordenes de trabajo mensuales</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+    
+        <div class="row">
+            <!-- Grafico Torta 1 -->
+            <div id="graficoTorta1" class="col-xl-4 col-lg-4">
+              <div class="card shadow mb-4 bordeGraficos">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 id="tituloGraficoMes1" class="m-0 font-weight-bold text-primary">Ordenes por establecimiento en el primer trimestre</h6>
+                  <div id="mesSeleccionado1" class="ml-2"></div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart1" style="align-items: center;"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <div id="legendContainer1"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Grafico Torta 2 -->
+            <div id="graficoTorta2" class="col-xl-4 col-lg-4">
+              <div class="card shadow mb-4 bordeGraficos">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 id="tituloGraficoMes2" class="m-0 font-weight-bold text-primary">Ordenes por establecimiento en el segundo trimestre</h6>
+                  <div id="mesSeleccionado2" class="ml-2"></div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart2"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <div id="legendContainer2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Grafico Torta 3 -->
+            <div id="graficoTorta3" class="col-xl-4 col-lg-4">
+              <div class="card shadow mb-4 bordeGraficos">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 id="tituloGraficoMes3" class="m-0 font-weight-bold text-primary">Ordenes por establecimiento en el tercer trimestre</h6>
+                  <div id="mesSeleccionado3" class="ml-2"></div>
+                  
+                </div>
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart3"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <div id="legendContainer3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+        
+
+
+
+
+
+    
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+
+    <script src="../js/graficos/reportes.js"></script>
+
+
+
+</body>
+</html>

@@ -4,6 +4,20 @@ var urlBack = "http://localhost:3000/";
 //Obtener el token almacenado en el local storage
 const token = localStorage.getItem("token");
 
+
+document.getElementById("areaEditar").addEventListener("change", function() {
+  if (this.value == 3) {
+    document.getElementById("rolInformaticaCheckboxEditar").checked = false;
+    document.getElementById("rolBitacorasCheckboxEditar").checked = false;
+
+    document.getElementById("rolInformaticaCheckboxEditar").disabled = true;
+    document.getElementById("rolBitacorasCheckboxEditar").disabled = true;
+  } else {
+    document.getElementById("rolInformaticaCheckboxEditar").disabled = false;
+    document.getElementById("rolBitacorasCheckboxEditar").disabled = false;
+  }
+});
+
 //-------------------------------------------------------------------Obtener datos usuario de la sesion----------------------------------------------------------------------
 // Verificar si el token existe
 if (token) {
@@ -160,8 +174,8 @@ async function cargarUsuarios() {
         .DataTable()
         .row.add([
           usuario.usr_id,
-          usuario.usr_nombre,
-          usuario.usr_apellido,
+          usuario.usr_rut,
+          usuario.usr_nombre + " " +usuario.usr_apellido,
           usuario.usr_username,
           usuario.usr_rol_informatica,
           usuario.usr_rol_bitacoras,
@@ -226,6 +240,7 @@ async function editarUsuario(id) {
     const normal = "usuario";
     let rolInformatica = data.rol_informatica;
     let rolBitacoras = data.rol_bitacoras;
+    let area = data.area;
 
     if (rolInformatica === admin) {
       rolInformatica = true;
@@ -239,9 +254,15 @@ async function editarUsuario(id) {
       rolBitacoras = false;
     }
 
+    if(area == 3){
+      document.getElementById("rolInformaticaCheckboxEditar").disabled = true;
+    document.getElementById("rolBitacorasCheckboxEditar").disabled = true;
+    }
+
     // Mostrar los datos del usuario en el modal de edición
     document.getElementById("nombreEditar").value = data.nombre;
     document.getElementById("apellidoEditar").value = data.apellido;
+    document.getElementById("rutEditar").value = data.rut;
     document.getElementById("nombreUsuarioEditar").value = data.username;
     document.getElementById("rolInformaticaCheckboxEditar").checked =
       rolInformatica;
@@ -256,6 +277,7 @@ async function editarUsuario(id) {
         // Se obtienen los datos ingresados en el modal
         const nuevoNombre = $("#nombreEditar").val().trim();
         const nuevoApellido = $("#apellidoEditar").val().trim();
+        const nuevoRut = $("#rutEditar").val().trim();
         const nuevoNombreUsuario = $("#nombreUsuarioEditar").val().trim();
         const nuevaPassword = $("#contrasenaEditar").val().trim();
         const nuevoRolInformatica = document.getElementById(
@@ -284,6 +306,7 @@ async function editarUsuario(id) {
             body: JSON.stringify({
               nombre: nuevoNombre,
               apellido: nuevoApellido,
+              rut: nuevoRut,
               username: nuevoNombreUsuario,
               password: nuevaPassword,
               rolInformatica: nuevoRolInformatica,

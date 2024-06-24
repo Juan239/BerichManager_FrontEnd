@@ -9,6 +9,8 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="shortcut icon" href="../img/logoBM.png" />
+    <link rel="icon" type="image/x-icon" href="../img/logoBM.png">
 
     <title>Bitácoras</title>
 
@@ -52,56 +54,7 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0" />
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a
-          >
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
-
-        <!-- Heading -->
-        <div class="sidebar-heading">Usuarios</div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseTwo"
-            aria-expanded="true"
-            aria-controls="collapseTwo"
-          >
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Informes</span>
-          </a>
-          <div
-            id="collapseTwo"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="ordenesTrabajo.html"
-                >Orden de trabajo</a
-              >
-              <a class="collapse-item" href="bajaEquipos.html"
-                >Baja de activos</a
-              >
-            </div>
-          </div>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="bitacoras.html">
-            <i class="fas fa-clipboard-list"></i>
-            <span> Bitácoras</span>
-          </a>
-        </li>
+        
 
         <!--Agregar los item del menu administrador que corresponda-->
         <script src="../js/menu.js"></script>
@@ -159,6 +112,15 @@
                     class="dropdown-item"
                     href="#"
                     data-toggle="modal"
+                    data-target="#modalCambiarContrasena"
+                  >
+                    <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Cambiar contraseña
+                  </a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
                     data-target="#logoutModal"
                   >
                     <i
@@ -189,6 +151,53 @@
               </span>
               <span class="text">Empezar nuevo viaje</span>
             </a>
+
+            <a
+                href="#"
+                onclick="descargarBitacoras()"
+                data-toggle="modal"
+                data-target="#modal-descargar-bitacoras"
+                id="btnDescargarPlantilla"
+                class="btn btn-success btn-icon-split mr-2"
+              >
+                <span class="icon text-white-50">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span class="text">Descargar bitacoras</span>
+              </a>
+
+            <a
+                href="#"
+                onclick="descargarPlantilla()"
+                id="btnDescargarPlantilla"
+                class="btn btn-primary btn-icon-split mr-2"
+              >
+                <span class="icon text-white-50">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span class="text">Descargar plantilla</span>
+              </a>
+
+              <a
+                href="#"
+                onclick="imprimirPlantilla()"
+                id="btnimprimirPlantilla"
+                class="btn btn-primary btn-icon-split mr-2"
+              >
+                <span class="icon text-white-50">
+                  <i class="fas fa-print"></i>
+                </span>
+                <span class="text">Imprimir plantilla</span>
+              </a>
+
+              <button
+                type="button"
+                class="btn btn-warning"
+                data-toggle="modal"
+                data-target="#uploadModal"
+              >
+                Subir Archivo
+              </button>
 
             <!--------------------------------------------------------------------- Modal agregar nuevo viaje---------------------------------------------------->
             <div
@@ -563,7 +572,7 @@
                             />
                           </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                           <!--Input fecha llegada-->
                           <div class="form-group">
@@ -933,6 +942,7 @@
                   <div class="modal-footer">
                     <button
                       type="button"
+                      id="btnCancelarParada"
                       class="btn btn-danger"
                       data-dismiss="modal"
                     >
@@ -940,6 +950,228 @@
                     </button>
                     <button
                       id="btnGuardarParada"
+                      type="button"
+                      class="btn btn-success"
+                      form="formParadas"
+                    >
+                      Guardar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!----------------------------------------------------------------------Modal editar paradas-------------------------------------------------------->
+            <div
+              class="modal fade"
+              id="modalEditarParada"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <!-- Encabezado del modal -->
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="labelAgregarUser">
+                      Editar parada
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- Contenido del modal -->
+                  <div class="modal-body">
+                    <!-- Formulario -->
+                    <form id="formParadasEditar">
+                      <div class="row">
+                        <!--Input del conductor-->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="conductorParadasEditar"
+                              >Conductor</label
+                            >
+                            <select
+                              class="form-control"
+                              id="conductorParadasEditar"
+                              name="conductorParadasEditar"
+                              required
+                            >
+                              <option value="">Seleccione al conductor</option>
+                              <!-- Aquí se cargarán los conductores desde la base de datos con JavaScript -->
+                            </select>
+                          </div>
+                          <!--Input fecha salida-->
+                          <div class="form-group">
+                            <label for="fechaSalidaParadasEditar"
+                              >Fecha de salida</label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="fechaSalidaParadasEditar"
+                              name="fechaSalidaParadasEditar"
+                              required
+                            />
+                          </div>
+                          <!--Input hora salida-->
+                          <div class="form-group">
+                            <label for="horaSalidaParadasEditar"
+                              >Hora de salida</label
+                            >
+                            <input
+                              type="time"
+                              class="form-control"
+                              id="horaSalidaParadasEditar"
+                              name="horaSalidaParadasEditar"
+                              required
+                            />
+                          </div>
+                          <!--Input kilometraje salida-->
+                          <div class="form-group">
+                            <label for="kilometrajeSalidaParadasEditar"
+                              >Kilometraje salida</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="kilometrajeSalidaParadasEditar"
+                              name="kilometrajeSalidaParadasEditar"
+                              placeholder="Ingrese el kilometraje del vehículo al salir"
+                              required
+                            />
+                          </div>
+                          <!--Input destino-->
+                          <div class="form-group">
+                            <label for="destinoParadasEditar">Destino</label>
+                            <select
+                              class="form-control"
+                              id="destinoParadasEditar"
+                              name="destinoParadasEditar"
+                              required
+                            >
+                              <option value="">Seleccione el destino</option>
+                              <!-- Aquí se cargarán los conductores desde la base de datos con JavaScript -->
+                            </select>
+                          </div>
+                          <!--Input funcionario trasladado-->
+                          <div class="form-group">
+                            <label for="funcionarioTrasladadoParadasEditar"
+                              >Funcionario trasladado</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="funcionarioTrasladadoParadasEditar"
+                              placeholder="Ingrese el nombre del funcionario trasladado"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <!--Input fecha llegada-->
+                          <div class="form-group">
+                            <label for="fechaLlegadaParadasEditar"
+                              >Fecha de llegada</label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="fechaLlegadaParadasEditar"
+                              name="fechaLlegadaParadasEditar"
+                              required
+                            />
+                          </div>
+                          <!--Input hora llegada-->
+                          <div class="form-group">
+                            <label for="horaLlegadaParadasEditar"
+                              >Hora de llegada</label
+                            >
+                            <input
+                              type="time"
+                              class="form-control"
+                              id="horaLlegadaParadasEditar"
+                              name="horaLlegadaParadasEditar"
+                              required
+                            />
+                          </div>
+                          <!--Input kilometraje llegada-->
+                          <div class="form-group">
+                            <label for="kilometrajeLlegadaParadasEditar"
+                              >Kilometraje llegada</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="kilometrajeLlegadaParadasEditar"
+                              name="kilometrajeLlegadaParadasEditar"
+                              placeholder="Ingrese el kilometraje del vehículo al llegar"
+                              required
+                            />
+                          </div>
+                          <!--Input combustible-->
+                          <div class="form-group">
+                            <label for="combustibleParadasEditar"
+                              >Combustible</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="combustibleParadasEditar"
+                              name="combustibleParadasEditar"
+                              placeholder="Ingrese el combustible"
+                            />
+                          </div>
+                          <!--Input observaciones-->
+                          <div class="form-group">
+                            <label for="observacionesParadasEditar"
+                              >Observaciones</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="observacionesParadasEditar"
+                              name="observacionesParadasEditar"
+                              placeholder="Observaciones del viaje"
+                            />
+                          </div>
+                          <!--Input vehículo-->
+                          <div class="form-group">
+                            <label for="vehiculoParadasEditar">Vehículo</label>
+                            <select
+                              class="form-control"
+                              id="vehiculoParadasEditar"
+                              name="vehiculoParadasEditar"
+                              required
+                            >
+                              <option value="">
+                                Seleccione el vehículo utilizado
+                              </option>
+                              <!-- Aquí se cargarán los vehiculos desde la base de datos con JavaScript -->
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                    </form>
+                  </div>
+                  <!-- Pie del modal -->
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      id="btnCancelarParadaEditar"
+                      class="btn btn-danger"
+                      data-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      id="btnGuardarParadaEditar"
                       type="button"
                       class="btn btn-success"
                       form="formParadas"
@@ -1039,6 +1271,161 @@
       </div>
     </div>
 
+    <!-- Modal cambiar contraseña -->
+    <div
+      class="modal fade"
+      id="modalCambiarContrasena"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- Encabezado del modal -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="labelCambiarContrasena">
+              Cambiar contraseña
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Contenido del modal -->
+          <div class="modal-body">
+            <!-- Formulario -->
+            <form id="formCambiarContrasena">
+              <!-- Input de la contraseña actual -->
+              <div class="form-group">
+                <label for="contrasenaActual">Contraseña actual:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="contrasenaActual"
+                  placeholder="Ingrese su contraseña actual"
+                  required
+                />
+              </div>
+              <!-- Input de la nueva contraseña -->
+              <div class="form-group">
+                <label for="nuevaContrasena">Nueva contraseña:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="nuevaContrasena"
+                  placeholder="Ingrese su nueva contraseña"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <!-- Pie del modal -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              form="formCambiarContrasena"
+              onclick="cambiarContrasena()"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal subir excel de bitacoras-->
+    <div
+    class="modal fade"
+    id="uploadModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="uploadModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="uploadModalLabel">
+            Subir Archivo Excel
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="uploadForm">
+            <div class="form-group">
+              <label for="fileInput"
+                >Selecciona un archivo Excel</label
+              >
+              <input
+                type="file"
+                class="form-control-file"
+                id="fileInput"
+                name="file"
+                accept=".xlsx"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Subir
+            </button>
+          </form>
+          <pre id="result" class="bg-light p-3 mt-3"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para seleccionar fecha inicial, fecha final y dropdown -->
+  <div class="modal fade" id="modal-descargar-bitacoras" tabindex="-1" role="dialog" aria-labelledby="dateRangeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dateRangeModalLabel">Seleccionar rango de fechas</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="fechaInicial">Desde:</label>
+              <input type="date" class="form-control" id="fechaInicialDescargarBitacora" required>
+            </div>
+            <div class="form-group">
+              <label for="fechaFinal">Hasta:</label>
+              <input type="date" class="form-control" id="fechaFinalDescargarBitacora" required>
+            </div>
+            <div class="form-group">
+              <label for="dropdown">Conductor:</label>
+              <select class="form-control" id="dropdownConductorDescargarBitacora" required>
+                <option value="">Seleccione una opción</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnDescargarBitacora">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -1062,5 +1449,8 @@
     <script src="../js/bitacoras/registrarBitacoras.js"></script>
     <script src="../js/bitacoras/paradas.js"></script>
     <script src="../js/bitacoras/registrarParadas.js"></script>
+    <script src="../js/usuarios/cambiarContrasena.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </body>
 </html>

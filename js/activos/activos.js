@@ -44,6 +44,7 @@ if (token) {
       cargarActivos();
     })
     .catch((error) => {
+      window.location.href = "http://localhost/DAEM/login.html";
       console.error("Error:", error.message);
     });
 } else {

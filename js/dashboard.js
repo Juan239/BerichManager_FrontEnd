@@ -50,8 +50,78 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => {
         console.error("Error:", error.message);
+        window.location.href = "http://localhost/DAEM/login.html";
       });
   } else {
     console.error("No se encontró ningún token almacenado.");
+    window.location.href = "http://localhost/DAEM/login.html";
   }
+
+  //-------------------------------------------------------------------Obtener datos del dashboard---------------------------------------------------------------------
+  // Obtener y mostrar el total de órdenes de trabajo
+  fetch(`${urlBack}api/ordenesTotales`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      document.getElementById("ordenesTrabajoTotales").innerHTML =
+        data[0].total;
+    })
+    .catch((error) => {
+      console.error("Error al realizar la solicitud:", error);
+    });
+
+  // Obtener y mostrar el total de viajes
+  fetch(`${urlBack}api/viajesTotales`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      document.getElementById("viajesTotales").innerHTML = data[0].total;
+    })
+    .catch((error) => {
+      console.error("Error al realizar la solicitud:", error);
+    });
+
+    // Obtener y mostrar el total de ordenes de trabajo del mes actual
+    fetch(`${urlBack}api/ordenesMes`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      document.getElementById("ordenesMes").innerHTML = data[0].total;
+    })
+    .catch((error) => {
+      console.error("Error al realizar la solicitud:", error);
+    });
+
+    // Obtener y mostrar el total de viajes del mes actual
+    fetch(`${urlBack}api/viajesMes`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      document.getElementById("viajesMes").innerHTML = data[0].total;
+    })
+    .catch((error) => {
+      console.error("Error al realizar la solicitud:", error);
+    });
+
+
 });
+
+function generarReporte(){
+  window.open("reporte.html", "_blank");
+}

@@ -9,6 +9,8 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="shortcut icon" href="../img/logoBM.png" />
+    <link rel="icon" type="image/x-icon" href="../img/logoBM.png">
 
     <title>Baja de activos</title>
 
@@ -54,60 +56,10 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0" />
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a
-          >
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
-
-        <!-- Heading -->
-        <div class="sidebar-heading">Usuarios</div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseTwo"
-            aria-expanded="true"
-            aria-controls="collapseTwo"
-          >
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Informes</span>
-          </a>
-          <div
-            id="collapseTwo"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="ordenesTrabajo.html"
-                >Orden de trabajo</a
-              >
-              <a class="collapse-item" href="bajaEquipos.html"
-                >Baja de activos</a
-              >
-            </div>
-          </div>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="bitacoras.html">
-            <i class="fas fa-clipboard-list"></i>
-            <span> Bitácoras</span>
-          </a>
-        </li>
+        
 
         <!--Agregar los item del menu administrador que corresponda-->
         <script src="../js/menu.js"></script>
-
       </ul>
 
       <!-- End of Sidebar -->
@@ -163,6 +115,15 @@
                     class="dropdown-item"
                     href="#"
                     data-toggle="modal"
+                    data-target="#modalCambiarContrasena"
+                  >
+                    <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Cambiar contraseña
+                  </a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
                     data-target="#logoutModal"
                   >
                     <i
@@ -186,6 +147,7 @@
             <a
               href="#"
               id="btnAgregarBajaActivo"
+              onclick="agregarInforme()"
               class="btn btn-success btn-icon-split my-2"
             >
               <span class="icon text-white-50">
@@ -566,7 +528,6 @@
           <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
-
       </div>
       <!-- End of Content Wrapper -->
     </div>
@@ -620,6 +581,77 @@
       </div>
     </div>
 
+    <!-- Modal cambiar contraseña -->
+    <div
+      class="modal fade"
+      id="modalCambiarContrasena"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- Encabezado del modal -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="labelCambiarContrasena">
+              Cambiar contraseña
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Contenido del modal -->
+          <div class="modal-body">
+            <!-- Formulario -->
+            <form id="formCambiarContrasena">
+              <!-- Input de la contraseña actual -->
+              <div class="form-group">
+                <label for="contrasenaActual">Contraseña actual:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="contrasenaActual"
+                  placeholder="Ingrese su contraseña actual"
+                  required
+                />
+              </div>
+              <!-- Input de la nueva contraseña -->
+              <div class="form-group">
+                <label for="nuevaContrasena">Nueva contraseña:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="nuevaContrasena"
+                  placeholder="Ingrese su nueva contraseña"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <!-- Pie del modal -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              form="formCambiarContrasena"
+              onclick="cambiarContrasena()"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -640,5 +672,8 @@
     <script src="../js/bajaEquipos/bajaEquipos.js"></script>
     <script src="../js/bajaEquipos/registrarBajaActivos.js"></script>
     <script src="../js/sesiones/cerrarSesion.js"></script>
+    <script src="../js/usuarios/cambiarContrasena.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </body>
 </html>

@@ -26,6 +26,20 @@ if (token) {
       // Guardar los datos de la respuesta en variables
       const username = data.username;
       const userRol = data.userRolInformatica;
+      const userArea = data.userArea;
+
+      if (userArea == 3) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No tienes permisos para acceder a esta página",
+          showCancelButton: false, // Add a cancel button
+          confirmButtonText: "OK", // Change the confirm button text
+        }).then((result) => {
+            window.location.href = "http://localhost/DAEM/berichmanager/index.html";
+            return;
+        });
+      }
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
@@ -37,6 +51,7 @@ if (token) {
     })
     .catch((error) => {
       console.error("Error:", error.message);
+      window.location.href = "http://localhost/DAEM/login.html";
     });
 } else {
   console.error("No se encontró ningún token almacenado.");
@@ -52,9 +67,9 @@ $(document).ready(function () {
     },
     order: [[0, "desc"]],
     paging: true, // Habilitar paginación
-    pageLength: 5, // Establecer el número de registros por página en 10
+    pageLength: 8, // Establecer el número de registros por página en 10
     lengthChange: true, // Deshabilitar la opción de cambiar la cantidad de registros por página
-    dom: '<"top"f>rt<"bottom"i>p', //Se define la estructura de la tabla
+    //dom: '<"top"f>rt<"bottom"i>p', //Se define la estructura de la tabla
   });
 });
 
@@ -92,24 +107,25 @@ async function cargarBitacoras() {
       //Se formatea la fecha obtenida de la respuesta para mostrarla de una mejor manera
       var fechaOriginal = bitacora.bi_fechasalida;
       var fechaFormateada = new Date(fechaOriginal).toISOString().split("T")[0];
-
+      
+      let botonEliminar = `<a href="#" onClick="eliminarBitacora(${bitacora.bi_id})" title="Eliminar viaje" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>`;
+      let botonParadas = `<a href="#" onClick="agregarParadas(${bitacora.bi_id})" title="Agregar parada" class="btn btn-primary btn-circle mr-2"><i class="fas fa-plus"></i></a>`;
+      let botonEditar = ""
       let botonCompletar = "";
 
       if (bitacora.bi_estado === "Completado") {
+
+        botonEditar = `<a href="#" onClick="editarBitacora(${bitacora.bi_id})" title="Editar viaje" class="btn btn-warning btn-circle mr-2"><i class="fas fa-pen"></i></a>`;
         botonCompletar =
           '<a href="#" title="Viaje completado" class="btn btn-success btn-circle mr-2 btn-secondary" disabled><i class="fas fa-check"></i></a>';
       } else {
+        botonEditar = `<a href="#" id="mensajeEditar" title="Editar viaje" class="btn btn-warning btn-circle mr-2"><i class="fas fa-pen"></i></a>`;
         botonCompletar =
           '<a href="#" onClick="completarViaje(' +
           bitacora.bi_id +
           ')" title="Completar viaje" class="btn btn-success btn-circle mr-2"><i class="fas fa-clock"></i></a>';
       }
 
-      let botonEliminar = `<a href="#" onClick="eliminarBitacora(${bitacora.bi_id})" title="Eliminar viaje" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>`;
-
-      let botonEditar = `<a href="#" onClick="editarBitacora(${bitacora.bi_id})" title="Editar viaje" class="btn btn-warning btn-circle mr-2"><i class="fas fa-pen"></i></a>`;
-
-      let botonParadas = `<a href="#" onClick="agregarParadas(${bitacora.bi_id})" title="Agregar parada" class="btn btn-primary btn-circle mr-2"><i class="fas fa-plus"></i></a>`;
 
       $("#tablaBitacoras")
         .DataTable()
@@ -156,6 +172,21 @@ function obtenerConductores() {
       $("#conductorParadas").empty();
       data.forEach(function (conductor) {
         $("#conductorParadas").append(
+          `<option value="${conductor.usr_id}">${conductor.usr_nombre}</option>`
+        );
+      });
+      $("#conductorParadasEditar").empty();
+      data.forEach(function (conductor) {
+        $("#conductorParadasEditar").append(
+          `<option value="${conductor.usr_id}">${conductor.usr_nombre}</option>`
+        );
+      });
+      $("#dropdownConductorDescargarBitacora").empty();
+      $("#dropdownConductorDescargarBitacora").append(
+        `<option value="0">Todos</option>`
+      );
+      data.forEach(function (conductor) {
+        $("#dropdownConductorDescargarBitacora").append(
           `<option value="${conductor.usr_id}">${conductor.usr_nombre}</option>`
         );
       });
@@ -214,6 +245,18 @@ function obtenerVehiculo() {
           }</option>`
         );
       });
+      $("#vehiculoParadasEditar").empty();
+      data.forEach(function (vehiculo) {
+        $("#vehiculoParadasEditar").append(
+          `<option value="${vehiculo.ve_patente}">${
+            vehiculo.ve_patente +
+            "  -  " +
+            vehiculo.ve_marca +
+            " " +
+            vehiculo.ve_modelo
+          }</option>`
+        );
+      });
     })
     .catch((error) => {
       console.error("Error:", error.message);
@@ -248,6 +291,12 @@ function obtenerDestino() {
       $("#destinoParadas").empty();
       data.forEach(function (destino) {
         $("#destinoParadas").append(
+          `<option value="${destino.de_id}">${destino.de_nombre}</option>`
+        );
+      });
+      $("#destinoParadasEditar").empty();
+      data.forEach(function (destino) {
+        $("#destinoParadasEditar").append(
           `<option value="${destino.de_id}">${destino.de_nombre}</option>`
         );
       });
@@ -319,7 +368,6 @@ async function completarViaje(id) {
 }
 
 //----------------------------------------------------Funcion editar bitacora--------------------------------------
-//Modificar los datos, esta funcion NO ESTA TERMINADA
 async function editarBitacora(id) {
   obtenerVehiculo();
   obtenerConductores();
@@ -474,4 +522,66 @@ async function eliminarBitacora(id) {
   } catch (error) {
     console.error("Error:", error.message);
   }
+}
+
+// Agregar evento de clic al botón de editar
+$(document).on("click", "#mensajeEditar", function () {
+  alert("Primero debe completar el viaje para poder editarlo.");
+});
+
+//----------------------------------------------------Funcion descargar plantilla--------------------------------------
+function descargarPlantilla() {
+  const link = document.createElement("a");
+  link.href = "http://localhost/DAEM/resources/plantillaBitacoras.xlsx";
+  link.download = "plantillaBitacoras.xlsx";
+  link.target = "_blank";
+  link.click();
+}
+
+function imprimirPlantilla() {
+  window.open("http://localhost/DAEM/resources/plantillaBitacoras.pdf");
+}
+
+//--------------------------------------------------Función descargar bitacoras--------------------------------------
+function descargarBitacoras() {
+  obtenerConductores();
+
+  $("#btnDescargarBitacora").off().click(async function () {
+    console.log("Descargando bitacoras...");
+    const conductor = document.getElementById("dropdownConductorDescargarBitacora").value;
+    const fechaInicio = document.getElementById("fechaInicialDescargarBitacora").value;
+    const fechaFinal = document.getElementById("fechaFinalDescargarBitacora").value;
+
+    try {
+      const response = await fetch(`${urlBack}api/descargarBitacoras`, {
+        method: "POST",
+        headers: {
+          Accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          conductor: conductor,
+          fechaInicio: fechaInicio,
+          fechaFinal: fechaFinal,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error en la descarga de las bitácoras');
+      }
+
+      const data = await response.blob();
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `bitacoras(${fechaInicio}/${fechaFinal}).xlsx`;
+      document.body.appendChild(link); // Necesario para Firefox
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Error:", error.message);
+      alert("No se encuentran los datos solicitados, intente nuevamente.");
+    }
+  });
 }

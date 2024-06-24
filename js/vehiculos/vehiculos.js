@@ -33,6 +33,9 @@ if (token) {
       }
 
       cargarVehiculos();
+    })
+    .catch((error) => {
+      window.location.href = "http://localhost/DAEM/login.html";
     });
 } else {
   window.location.href = "http://localhost/DAEM/login.html";

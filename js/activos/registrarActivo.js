@@ -37,3 +37,26 @@ async function registrarActivos() {
     window.location.href = "http://localhost/DAEM/login.html";
   }
 }
+
+//------------------------------------------------Validacion de campos--------------------------------------------------------------
+$("#nombreActivo").on("input", function () {
+  var regex = /^[a-zA-Z\sáéíóúÁÉÍÓÚ]*$/;
+  var inputValue = $(this).val();
+  if (!regex.test(inputValue)) {
+    $(this).val(inputValue.replace(/[^a-zA-Z\sáéíóúÁÉÍÓÚ]/g, ""));
+  }
+  if (inputValue.length > 50) {
+    $(this).val(inputValue.slice(0, 50));
+  }
+});
+
+$("#nombreActivoEditar").on("input", function () {
+  var regex = /^[a-zA-Z\sáéíóúÁÉÍÓÚ]*$/;
+  var inputValue = $(this).val();
+  if (!regex.test(inputValue)) {
+    $(this).val(inputValue.replace(/[^a-zA-Z\sáéíóúÁÉÍÓÚ]/g, ""));
+  }
+  if (inputValue.length > 50) {
+    $(this).val(inputValue.slice(0, 50));
+  }
+});

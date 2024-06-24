@@ -29,10 +29,41 @@ function generarMenu() {
       if (rolInformatica === "admin" && rolBitacoras === "admin") {
         let opciones = document.getElementById("accordionSidebar");
         opciones.innerHTML +=
+          "<!-- Nav Item - Dashboard -->" +
+          '<li class="nav-item" id="dashboardMenu">' +
+          '<a class="nav-link" href="index.html">' +
+          '<i class="fas fa-fw fa-tachometer-alt"></i>' +
+          "<span>Dashboard</span></a>" +
+          "</li>" +
           "<!-- Divider -->" +
           '<hr class="sidebar-divider" />' +
           "<!-- Heading -->" +
-          '<div id="opcionesAdministrador" class="sidebar-heading">Administrador</div>' +
+          '<div class="sidebar-heading">Usuarios</div>' +
+          "<!-- Nav Item - Pages Collapse Menu -->" +
+          '<li class="nav-item">' +
+          '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">' +
+          '<i class="fas fa-fw fa-cog"></i>' +
+          "<span>Informes</span>" +
+          "</a>" +
+          '<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">' +
+          '<div class="bg-white py-2 collapse-inner rounded">' +
+          '<a class="collapse-item" href="ordenesTrabajo.html">Orden de trabajo</a>' +
+          '<a class="collapse-item" href="bajaEquipos.html">Baja de activos</a>' +
+          '<a class="collapse-item" href="solicitudes.html">Solicitud de compra</a>' +
+          "</div>" +
+          "</div>" +
+          "</li>" +
+          '<li class="nav-item" id="bitacorasMenu">' +
+          '<a class="nav-link" href="bitacoras.html">' +
+          '<i class="fas fa-clipboard-list"></i>' +
+          "<span> Bitácoras</span>" +
+          "</a>" +
+          "</li>" +
+          // Divider and existing content
+          "<!-- Divider -->" +
+          '<hr class="sidebar-divider" />' +
+          "<!-- Heading -->" +
+          '<div id="opcionesAdministrador" class="sidebar-heading">Informática</div>' +
           "<!-- Nav Item - Tables -->" +
           '<li class="nav-item" id="usuariosMenu">' +
           '<a class="nav-link" href="usuarios.html">' +
@@ -71,6 +102,18 @@ function generarMenu() {
           "<span> Marcas</span>" +
           "</a>" +
           "</li>" +
+          '<li class="nav-item" id="tipoRecomendacionesMenu">' +
+          '<a class="nav-link" href="tipoRecomendaciones.html">' +
+          '<i class="fas fa-tag"></i>' +
+          "<span> Tipo recomendaciones</span>" +
+          "</a>" +
+          "</li>" +
+          '<li class="nav-item" id="lectorMenu">' +
+          '<a class="nav-link" href="lector.html">' +
+          '<i class="fas fa-clipboard"></i>' +
+          "<span> Lector</span>" +
+          "</a>" +
+          "</li>" +
           //Opciones bitacoras
           "<!-- Divider -->" +
           '<hr class="sidebar-divider" />' +
@@ -101,6 +144,7 @@ function generarMenu() {
           '<div class="text-center d-none d-md-inline">' +
           '<button class="rounded-circle border-0" id="sidebarToggle"></button>' +
           "</div>";
+
         let sidebarToggle = document.getElementById("sidebarToggle");
         if (sidebarToggle) {
           sidebarToggle.addEventListener("click", function () {
@@ -115,6 +159,37 @@ function generarMenu() {
       else if (rolInformatica === "admin" && rolBitacoras === "usuario") {
         let opciones = document.getElementById("accordionSidebar");
         opciones.innerHTML +=
+        "<!-- Nav Item - Dashboard -->" +
+          '<li class="nav-item" id="dashboardMenu">' +
+          '<a class="nav-link" href="index.html">' +
+          '<i class="fas fa-fw fa-tachometer-alt"></i>' +
+          "<span>Dashboard</span></a>" +
+          "</li>" +
+          "<!-- Divider -->" +
+          '<hr class="sidebar-divider" />' +
+          "<!-- Heading -->" +
+          '<div class="sidebar-heading">Usuarios</div>' +
+          "<!-- Nav Item - Pages Collapse Menu -->" +
+          '<li class="nav-item">' +
+          '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">' +
+          '<i class="fas fa-fw fa-cog"></i>' +
+          "<span>Informes</span>" +
+          "</a>" +
+          '<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">' +
+          '<div class="bg-white py-2 collapse-inner rounded">' +
+          '<a class="collapse-item" href="ordenesTrabajo.html">Orden de trabajo</a>' +
+          '<a class="collapse-item" href="bajaEquipos.html">Baja de activos</a>' +
+          '<a class="collapse-item" href="solicitudes.html">Solicitud de compra</a>' +
+          "</div>" +
+          "</div>" +
+          "</li>" +
+          '<li class="nav-item" id="bitacorasMenu">' +
+          '<a class="nav-link" href="bitacoras.html">' +
+          '<i class="fas fa-clipboard-list"></i>' +
+          "<span> Bitácoras</span>" +
+          "</a>" +
+          "</li>" +
+          // Opciones de administrador
           "<!-- Divider -->" +
           '<hr class="sidebar-divider" />' +
           "<!-- Heading -->" +
@@ -157,6 +232,17 @@ function generarMenu() {
           "<span> Marcas</span>" +
           "</a>" +
           "</li>" +
+          '<li class="nav-item" id="tipoRecomendacionesMenu">' +
+          '<a class="nav-link" href="tipoRecomendaciones.html">' +
+          '<i class="fas fa-tag"></i>' +
+          "<span> Tipo recomendaciones</span>" +
+          "</a>" +
+          '<li class="nav-item" id="lectorMenu">' +
+          '<a class="nav-link" href="lector.html">' +
+          '<i class="fas fa-clipboard"></i>' +
+          "<span> Lector</span>" +
+          "</a>" +
+          "</li>" +
           //Boton cerrar menu
           "<!-- Divider -->" +
           '<hr class="sidebar-divider d-none d-md-block" />' +
@@ -178,6 +264,36 @@ function generarMenu() {
       else if (rolInformatica === "usuario" && rolBitacoras === "admin") {
         let opciones = document.getElementById("accordionSidebar");
         opciones.innerHTML +=
+        "<!-- Nav Item - Dashboard -->" +
+          '<li class="nav-item" id="dashboardMenu">' +
+          '<a class="nav-link" href="index.html">' +
+          '<i class="fas fa-fw fa-tachometer-alt"></i>' +
+          "<span>Dashboard</span></a>" +
+          "</li>" +
+          "<!-- Divider -->" +
+          '<hr class="sidebar-divider" />' +
+          "<!-- Heading -->" +
+          '<div class="sidebar-heading">Usuarios</div>' +
+          "<!-- Nav Item - Pages Collapse Menu -->" +
+          '<li class="nav-item">' +
+          '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">' +
+          '<i class="fas fa-fw fa-cog"></i>' +
+          "<span>Informes</span>" +
+          "</a>" +
+          '<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">' +
+          '<div class="bg-white py-2 collapse-inner rounded">' +
+          '<a class="collapse-item" href="ordenesTrabajo.html">Orden de trabajo</a>' +
+          '<a class="collapse-item" href="bajaEquipos.html">Baja de activos</a>' +
+          '<a class="collapse-item" href="solicitudes.html">Solicitud de compra</a>' +
+          "</div>" +
+          "</div>" +
+          "</li>" +
+          '<li class="nav-item" id="bitacorasMenu">' +
+          '<a class="nav-link" href="bitacoras.html">' +
+          '<i class="fas fa-clipboard-list"></i>' +
+          "<span> Bitácoras</span>" +
+          "</a>" +
+          "</li>" +
           //Opciones bitacoras
           "<!-- Divider -->" +
           '<hr class="sidebar-divider" />' +
@@ -222,6 +338,36 @@ function generarMenu() {
       else if (rolInformatica === "usuario" && rolBitacoras === "usuario") {
         let opciones = document.getElementById("accordionSidebar");
         opciones.innerHTML +=
+        "<!-- Nav Item - Dashboard -->" +
+          '<li class="nav-item" id="dashboardMenu">' +
+          '<a class="nav-link" href="index.html">' +
+          '<i class="fas fa-fw fa-tachometer-alt"></i>' +
+          "<span>Dashboard</span></a>" +
+          "</li>" +
+          "<!-- Divider -->" +
+          '<hr class="sidebar-divider" />' +
+          "<!-- Heading -->" +
+          '<div class="sidebar-heading">Usuarios</div>' +
+          "<!-- Nav Item - Pages Collapse Menu -->" +
+          '<li class="nav-item">' +
+          '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">' +
+          '<i class="fas fa-fw fa-cog"></i>' +
+          "<span>Informes</span>" +
+          "</a>" +
+          '<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">' +
+          '<div class="bg-white py-2 collapse-inner rounded">' +
+          '<a class="collapse-item" href="ordenesTrabajo.html">Orden de trabajo</a>' +
+          '<a class="collapse-item" href="bajaEquipos.html">Baja de activos</a>' +
+          '<a class="collapse-item" href="solicitudes.html">Solicitud de compra</a>' +
+          "</div>" +
+          "</div>" +
+          "</li>" +
+          '<li class="nav-item" id="bitacorasMenu">' +
+          '<a class="nav-link" href="bitacoras.html">' +
+          '<i class="fas fa-clipboard-list"></i>' +
+          "<span> Bitácoras</span>" +
+          "</a>" +
+          "</li>" +
           //Boton cerrar menu
           "<!-- Divider -->" +
           '<hr class="sidebar-divider d-none d-md-block" />' +
@@ -264,6 +410,9 @@ function asignarItemActivo() {
     "destinos.html": "destinosMenu",
     "vehiculos.html": "vehiculosMenu",
     "conductores.html": "conductoresMenu",
+    "lector.html": "lectorMenu",
+    "bitacoras.html": "bitacorasMenu",
+    "tipoRecomendaciones.html": "tipoRecomendacionesMenu",
   };
 
   // Obtiene el identificador único del elemento de menú correspondiente a la página actual

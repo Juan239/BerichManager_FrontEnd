@@ -44,7 +44,6 @@ if (token) {
     });
 } else {
   window.location.href = "http://localhost/DAEM/login.html";
-  alert("Su sesión ha expirado");
 }
 
 //----------------------------------------------------------Configuracion Datatable-------------------------------------------
@@ -116,8 +115,8 @@ async function cargarConductores() {
         .DataTable()
         .row.add([
           conductor.usr_id,
-          conductor.usr_nombre,
-          conductor.usr_apellido,
+          conductor.usr_rut,
+          conductor.usr_nombre +" "+ conductor.usr_apellido,
           conductor.usr_username,
           botonEditar + botonEliminar,
         ])
@@ -171,15 +170,17 @@ async function editarConductor(id) {
 
       document.getElementById("nombreEditar").value = conductor.nombre;
       document.getElementById("apellidoEditar").value = conductor.apellido;
+      document.getElementById("rutConductorEditar").value = conductor.rut;
       document.getElementById("nombreUsuarioEditar").value = conductor.username;
 
       $("#btnEditarConductor").off().click(async function () {
           const nuevoNombre = document.getElementById("nombreEditar").value.trim();
           const nuevoApellido = document.getElementById("apellidoEditar").value.trim();
+          const nuevoRut = document.getElementById("rutConductorEditar").value.trim();
           const nuevoNombreUsuario = document.getElementById("nombreUsuarioEditar").value.trim();
           const nuevoContrasena = document.getElementById("contrasenaEditar").value.trim();
 
-          if (!nuevoNombre || !nuevoApellido || !nuevoNombreUsuario) {
+          if (!nuevoNombre || !nuevoApellido || !nuevoNombreUsuario || !nuevoRut) {
               alert("Por favor complete todos los campos.");
               return;
           }
@@ -195,6 +196,7 @@ async function editarConductor(id) {
               body: JSON.stringify({
                 nombre: nuevoNombre,
                 apellido: nuevoApellido,
+                rut: nuevoRut,
                 username: nuevoNombreUsuario,
                 password: nuevoContrasena,
               }),

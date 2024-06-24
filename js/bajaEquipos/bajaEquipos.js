@@ -4,6 +4,8 @@ var urlBack = "http://localhost:3000/";
 //Obtener el token almacenado en el local storage
 const token = localStorage.getItem("token");
 
+let userArea = "";
+
 //-------------------------------------------------------------------Obtener datos usuario de la sesion----------------------------------------------------------------------
 // Verificar si el token existe
 if (token) {
@@ -30,6 +32,7 @@ if (token) {
       const userId = data.userId;
       const username = data.username;
       const userRol = data.userRolInformatica;
+      userArea = data.userArea;
 
       if (username !== null) {
         // Actualizar el contenido del span con el nombre de usuario
@@ -40,6 +43,7 @@ if (token) {
     })
     .catch((error) => {
       console.error("Error:", error.message);
+      window.location.href = "http://localhost/DAEM/login.html";
     });
 } else {
   window.location.href = "http://localhost/DAEM/login.html";
@@ -136,16 +140,24 @@ function obtenerEstablecimientos() {
 
 //----------------------------------------------------Modal agregar informe--------------------------------------
 //Abrir el modal
-$(document).ready(function () {
-  // Cuando se hace clic en el botón muestra el modal
-  $("#btnAgregarBajaActivo").click(function () {
+function agregarInforme() {
+  if(userArea != 3){
+    // Cuando se hace clic en el botón muestra el modal
     $("#modalAgregarBajaActivo").modal("show");
     obtenerEstablecimientos();
     obtenerMarcas();
     obtenerTipoActivo();
     obtenerFechaActual();
-  });
-});
+
+  }else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "No tienes permisos para agregar informes",
+    });
+  }
+    
+}
 
 //---------------------------------------------------------Funcion obtener fecha---------------------------------------------
 function obtenerFechaActual() {

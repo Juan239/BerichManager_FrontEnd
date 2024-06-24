@@ -38,3 +38,26 @@ async function registrarMarcas() {
     window.location.href = "http://localhost/DAEM/login.html";
   }
 }
+
+//------------------------------------------------Validacion de campos--------------------------------------------------------------
+$("#nombreMarca").on("input", function () {
+  var regex = /^[a-zA-Z\sáéíóúÁÉÍÓÚ]*$/;
+  var inputValue = $(this).val();
+  if (!regex.test(inputValue)) {
+    $(this).val(inputValue.replace(/[^a-zA-Z\sáéíóúÁÉÍÓÚ]/g, ""));
+  }
+  if (inputValue.length > 50) {
+    $(this).val(inputValue.slice(0, 50));
+  }
+});
+
+$("#nombreMarcaEditar").on("input", function () {
+  var regex = /^[a-zA-Z\sáéíóúÁÉÍÓÚ]*$/;
+  var inputValue = $(this).val();
+  if (!regex.test(inputValue)) {
+    $(this).val(inputValue.replace(/[^a-zA-Z\sáéíóúÁÉÍÓÚ]/g, ""));
+  }
+  if (inputValue.length > 50) {
+    $(this).val(inputValue.slice(0, 50));
+  }
+});

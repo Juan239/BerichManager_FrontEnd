@@ -106,6 +106,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                     ticks: {
                       maxTicksLimit: 12,
+                      fontColor: "#6b6d7d",
+                      fontSize: 13,
                     },
                     maxBarThickness: 25,
                   },
@@ -117,6 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
                       max: 50,
                       maxTicksLimit: 20,
                       padding: 10,
+                      fontColor: "#6b6d7d",
+                      fontSize: 13,
                     },
                     gridLines: {
                       color: "rgb(234, 236, 244)",
@@ -125,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       borderDash: [2],
                       zeroLineBorderDash: [2],
                     },
+
                   },
                 ],
               },

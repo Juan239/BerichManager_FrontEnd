@@ -9,6 +9,8 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="shortcut icon" href="../img/logoBM.png" />
+    <link rel="icon" type="image/x-icon" href="../img/logoBM.png">
 
     <title>Ordenes de trabajo</title>
 
@@ -52,61 +54,10 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0" />
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a
-          >
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
-
-        <!-- Heading -->
-        <div class="sidebar-heading">Usuarios</div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseTwo"
-            aria-expanded="true"
-            aria-controls="collapseTwo"
-          >
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Informes</span>
-          </a>
-          <div
-            id="collapseTwo"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="ordenesTrabajo.html"
-                >Orden de trabajo</a
-              >
-              <a class="collapse-item" href="bajaEquipos.html"
-                >Baja de activos</a
-              >
-            </div>
-          </div>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="bitacoras.html">
-            <i class="fas fa-clipboard-list"></i>
-            <span> Bitácoras</span>
-          </a>
-        </li>
+        
 
         <!--Agregar los item del menu administrador que corresponda-->
         <script src="../js/menu.js"></script>
-
-
       </ul>
       <!-- End of Sidebar -->
 
@@ -161,6 +112,15 @@
                     class="dropdown-item"
                     href="#"
                     data-toggle="modal"
+                    data-target="#modalCambiarContrasena"
+                  >
+                    <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Cambiar contraseña
+                  </a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
                     data-target="#logoutModal"
                   >
                     <i
@@ -184,6 +144,7 @@
             <a
               href="#"
               id="btnAgregarOrden"
+              onclick="agregarOrden()"
               class="btn btn-success btn-icon-split my-2"
             >
               <span class="icon text-white-50">
@@ -360,6 +321,38 @@
                           style="resize: none"
                         ></textarea>
                       </div>
+
+                      <!-- Botón para mostrar nuevo input -->
+                      <button
+                        type="button"
+                        id="btnAgregarColaborador"
+                        class="btn btn-link"
+                        onclick="agregarColaborador()"
+                      >
+                        <i class="fas fa-plus"></i> Agregar colaborador
+                      </button>
+
+                      <!--Dropdown de colaborador-->
+                      <div id="nuevoColaborador" style="display: none">
+                        <div class="form-group">
+                          <label for="colaborador"
+                            >Seleccione al colaborador</label
+                          >
+                          <select
+                            class="form-control"
+                            id="colaborador"
+                            name="colaborador"
+                            required
+                          >
+                            <option value="">Seleccione al colaborador</option>
+                            <!-- Aquí se cargarán las opciones de colaborador desde la base de datos con JavaScript -->
+                          </select>
+                          <br>
+                            <button type="button" onclick="quitarColaborador()" class="btn btn-link"><i class="fas fa-minus"></i> Quitar al colaborador</button>
+
+                        </div>
+                      </div>
+
                       <br />
                     </form>
                   </div>
@@ -564,6 +557,38 @@
                           style="resize: none"
                         ></textarea>
                       </div>
+
+                      <!-- Botón para mostrar nuevo input -->
+                      <button
+                        type="button"
+                        id="btnAgregarColaboradorEditar"
+                        class="btn btn-link"
+                        onclick="editarColaborador()"
+                      >
+                        <i class="fas fa-plus"></i> Agregar colaborador
+                      </button>
+
+                      <!--Dropdown de colaborador-->
+                        <div id="nuevoColaboradorEditar" style="display: none">
+                        <div class="form-group">
+                          <label for="colaboradorEditar"
+                            >Seleccione al colaborador</label
+                          >
+                          <select
+                            class="form-control"
+                            id="colaboradorEditar"
+                            name="colaborador"
+                            required
+                          >
+                            <option value="">Seleccione al colaborador</option>
+                            <!-- Aquí se cargarán las opciones de colaborador desde la base de datos con JavaScript -->
+                          </select>
+                            <br>
+                            <button type="button" onclick="quitarColaboradorEditar()" class="btn btn-link"><i class="fas fa-minus"></i> Quitar al colaborador</button>
+
+                        </div>
+                      </div>
+
                       <br />
                     </form>
                   </div>
@@ -635,6 +660,54 @@
       <i class="fas fa-angle-up"></i>
     </a>
 
+    <!------------------------------------------------------------Modal agregar recomendacion------------------------------------------------->
+      <!-- Modal agregar recomendacion -->
+      <div class="modal fade" id="modalAgregarRecomendacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <!-- Encabezado del modal -->
+            <div class="modal-header">
+              <h5 class="modal-title" id="labelAgregarRecomendacion">Agregar recomendación</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!-- Contenido del modal -->
+            <div class="modal-body">
+              <!-- Formulario -->
+              <form id="formAgregarRecomendacion">
+                <!-- Input del título -->
+                 <div class="form-group">
+                  <label for="tipoRecomendacion"
+                    >Seleccione el tipo de recomendación</label
+                  >
+                  <select
+                    class="form-control"
+                    id="tipoRecomendacion"
+                    name="tipoRecomendacion"
+                    required
+                  >
+                    <option value="">
+                      Seleccione el tipo de recomendación
+                    </option>
+                  </select>
+                </div>
+                <!-- Input de la descripción -->
+                <div class="form-group">
+                  <label for="descripcionRecomendacion">Descripción:</label>
+                  <textarea class="form-control" id="descripcionRecomendacion" placeholder="Ingrese la descripción" rows="8" style="resize: none;" ></textarea>
+                </div>
+              </form>
+            </div>
+            <!-- Pie del modal -->
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+              <button class="btn btn-primary" type="button" onclick="guardarRecomendacion(id)">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <!-- Logout Modal-->
     <div
       class="modal fade"
@@ -678,6 +751,42 @@
       </div>
     </div>
 
+    <!-- Modal cambiar contraseña -->
+    <div class="modal fade" id="modalCambiarContrasena" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- Encabezado del modal -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="labelCambiarContrasena">Cambiar contraseña</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Contenido del modal -->
+          <div class="modal-body">
+            <!-- Formulario -->
+            <form id="formCambiarContrasena">
+              <!-- Input de la contraseña actual -->
+              <div class="form-group">
+                <label for="contrasenaActual">Contraseña actual:</label>
+                <input type="password" class="form-control" id="contrasenaActual" placeholder="Ingrese su contraseña actual" required>
+              </div>
+              <!-- Input de la nueva contraseña -->
+              <div class="form-group">
+                <label for="nuevaContrasena">Nueva contraseña:</label>
+                <input type="password" class="form-control" id="nuevaContrasena" placeholder="Ingrese su nueva contraseña" required>
+              </div>
+            </form>
+          </div>
+          <!-- Pie del modal -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" form="formCambiarContrasena" onclick="cambiarContrasena()">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -697,6 +806,11 @@
     <script src="../js/ordenesTrabajo/ordenesTrabajo.js"></script>
     <script src="../js/ordenesTrabajo/registroOrdenesTrabajo.js"></script>
 
+    <script src="../js/recomendaciones/recomendaciones.js"></script>
+
     <script src="../js/sesiones/cerrarSesion.js"></script>
+    <script src="../js/usuarios/cambiarContrasena.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </body>
 </html>

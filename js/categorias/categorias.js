@@ -45,6 +45,7 @@ if (token) {
     })
     .catch((error) => {
       console.error("Error:", error.message);
+      window.location.href = "http://localhost/DAEM/login.html";
     });
 } else {
   console.error("No se encontró ningún token almacenado.");
@@ -74,7 +75,7 @@ $(document).ready(function () {
   });
 });
 
-//---------------------------------------------------------------------Funcion cargar establecimiento---------------------------------------------------------
+//---------------------------------------------------------------------Funcion cargar categorias---------------------------------------------------------
 async function cargarCategorias() {
   try {
     const response = await fetch(`${urlBack}api/categorias`, {
